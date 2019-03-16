@@ -127,6 +127,7 @@ public class JDBCOperation
 //        return i;
 //    }
 
+    private Student student;
 
     public static Connection getConn()
     {
@@ -135,7 +136,6 @@ public class JDBCOperation
         String name = "root";
         String password = "357422";
         Connection conn = null;
-
         try
         {
             Class.forName(driver);
@@ -172,12 +172,9 @@ public class JDBCOperation
             conn.close();
             statement.close();
         } catch (SQLException e)
-
         {
             e.printStackTrace();
-
         }
-
     }
 
 
@@ -191,17 +188,12 @@ public class JDBCOperation
         {
             statement = (PreparedStatement) conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
-
             rs.next();
             if (password.trim().equals(rs.getString(5))) return true;
-
-
         } catch (SQLException e)
         {
             e.printStackTrace();
-
         }
-
         return false;
     }
 
@@ -238,10 +230,8 @@ public class JDBCOperation
     // 接下来实现提取信息的方法，先写一个提取所有信息的方法，
     public StringBuilder getAll()
     {
-
-
         Connection conn = getConn();
-        String sql = "select* from students";
+        String sql = "select* from students;";
         PreparedStatement statement;
         StringBuilder builder = new StringBuilder();
         try
@@ -257,17 +247,40 @@ public class JDBCOperation
                 builder.append(rs.getString(4)).append("\n");
                 builder.append(rs.getString(5)).append("\n");
                 builder.append(rs.getInt(6)).append("\n");
-
+                System.out.println(builder);
             }
 
         } catch (SQLException e)
         {
             e.printStackTrace();
         }
-
-
-        // 再写一个根据Id提取信息的方法
-
         return builder;
     }
+
+    //     再写一个根据Id提取信息的方法
+    public Student getInformation(Long Id)
+    {
+        Connection conn = getConn();
+        String sql = "select *from students where Id =" + Id + ";";
+
+        PreparedStatement statement;
+        StringBuilder builder = new StringBuilder();
+        try
+        {
+            statement = (PreparedStatement) conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            student.setId(rs.getLong(1));
+            student.setName(rs.getString(2));
+            student.setNickname(rs.getString(3));
+            student.setSex(rs.getString(4));
+            student.setPassword(rs.getString(5));
+            student.setAdministrator(rs.getInt(6));
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return student;
+    }
+
 }

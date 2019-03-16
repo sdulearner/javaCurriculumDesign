@@ -9,6 +9,7 @@ import static java.lang.System.*;
 
 public class Client
 {
+
     static final int PORT = 8888; //连接端口
     static final String HOST = "10.27.211.8"; //连接地址
     Socket socket;
@@ -32,7 +33,7 @@ public class Client
         {
             //客户端输出流，向服务器发消息
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-//客户端输入流，接收服务器消息
+            //客户端输入流，接收服务器消息
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter pw = new PrintWriter(bw, true); //装饰输出流，及时刷新
             Scanner in = new Scanner(System.in); //接受用户信息

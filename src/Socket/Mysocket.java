@@ -79,8 +79,9 @@ public class Mysocket
                             }else{
                                 printWriter.println("false1");
                             }
-
                         }
+
+                        case '3':
 
 
                     }
