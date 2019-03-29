@@ -1,7 +1,7 @@
 package Socket;
 
 import Database.JDBCOperation;
-import Users.Student;
+import Entity.Student;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -20,7 +20,7 @@ public class Mysocket
     private String Password;
     private int Administrator;
     ServerSocket server;
-    private int port = 8080;
+    private int port = 8888;
 
     public Mysocket() throws IOException
     {
@@ -36,9 +36,10 @@ public class Mysocket
         {
             try
             {
-                System.out.println("address:" + socket.getInetAddress() + ":" + socket.getPort());
+                socket = server.accept();
+//                System.out.println("address:" + socket.getInetAddress() + ":" + socket.getPort());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
                 PrintWriter printWriter = new PrintWriter(writer, true);
                 String input = null;
                 while ((input = reader.readLine()) != null)
@@ -66,26 +67,34 @@ public class Mysocket
                             Administrator = Integer.parseInt(input);
 
                             student = new Student(Id, Name, Nickname, Sex, Password, Administrator);
-                            jdbc.insert(student);
+                            if (jdbc.insert(student))
+                            {
+                                System.out.println("OK");
+                                writer.println("OK");
+                            } else
+                            {
+                                System.out.println("NO");
+                                writer.println("NO");
+                            }
+//                            writer.flush();
                         }
+                        break;
                         case '2'://登录
                         {
-                            input=reader.readLine();
-                            Id=Long.parseLong(input);
-                            if (jdbc.judgeId(Id)){
-                                input=reader.readLine();
-                                Password=input.trim();
-                                printWriter.println(jdbc.judgePassword(Id,Password)?"true":"false2");
-                            }else{
-                                printWriter.println("false1");
+                            input = reader.readLine();
+                            Id = Long.parseLong(input);
+                            if (jdbc.judgeId(Id))
+                            {
+                                input = reader.readLine();
+                                Password = input.trim();
+                                printWriter.println(jdbc.judgePassword(Id, Password) ? "true" : "false2");//false2密码错误
+                            } else
+                            {
+                                printWriter.println("false1");//false1是Id不存在
                             }
                         }
-
                         case '3':
-
-
                     }
-
                     if (input.equals("quit"))
                     { //如果用户输入“quit”就退出
                         break;
@@ -109,9 +118,5 @@ public class Mysocket
                 }
             }
         }
-
-
     }
-
-
 }

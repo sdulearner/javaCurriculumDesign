@@ -1,6 +1,6 @@
-package Users;
+package Entity;
 
-public  class Student
+public class Student
 {
     private long Id;
     private String Name;
@@ -9,13 +9,17 @@ public  class Student
     private String Password;
     private int Administrator;
 
+    public Student()
+    {
+    }
+
     public Student(long id, String password)
     {
         Id = id;
         Password = password;
     }
 
-    public Student(long  id, String name, String nickname, String sex, String password, int administrator)
+    public Student(long id, String name, String nickname, String sex, String password, int administrator)
     {
         Id = id;
         Name = name;
@@ -83,5 +87,18 @@ public  class Student
     public int getAdministrator()
     {
         return Administrator;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Student{" +
+                "Id=" + Id +
+                ", Name='" + Name + '\'' +
+                ", Nickname='" + Nickname + '\'' +
+                ", Sex='" + Sex + '\'' +
+                ", Password='" + Password + '\'' +
+                ", Administrator=" + Administrator +
+                '}';
     }
 }

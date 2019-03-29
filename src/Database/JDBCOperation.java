@@ -1,8 +1,8 @@
 package Database;
 
 
-import Users.Student;
-import com.mysql.cj.xdevapi.SqlDataResult;
+import Entity.Student;
+//import com.mysql.cj.xdevapi.SqlDataResult;
 
 import java.sql.*;
 
@@ -127,7 +127,7 @@ public class JDBCOperation
 //        return i;
 //    }
 
-    private Student student;
+    private Student student = new Student();
 
     public static Connection getConn()
     {
@@ -140,10 +140,7 @@ public class JDBCOperation
         {
             Class.forName(driver);
             conn = (Connection) DriverManager.getConnection(URL, name, password);
-        } catch (ClassNotFoundException e)
-        {
-            e.printStackTrace();
-        } catch (SQLException e)
+        } catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();
         }
@@ -153,10 +150,13 @@ public class JDBCOperation
     // 以及一个检索用户Id与密码是否匹配的方法，也就是judgePassword方法。
 
     // 先写第一个insert方法。
-    public void insert(Student student)
+    public boolean insert(Student student)
     {
         Connection conn = getConn();
-        int i = 0;
+        if (judgeId(student.getId()))
+        {
+            return false;
+        }
         String sql = "insert into students values(?,?,?,?,?,?);";
         PreparedStatement statement;
         try
@@ -175,6 +175,7 @@ public class JDBCOperation
         {
             e.printStackTrace();
         }
+        return true;
     }
 
 
@@ -190,6 +191,9 @@ public class JDBCOperation
             ResultSet rs = statement.executeQuery();
             rs.next();
             if (password.trim().equals(rs.getString(5))) return true;
+            conn.close();
+            statement.close();
+            rs.close();
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -199,7 +203,7 @@ public class JDBCOperation
 
 
     //现在我想了一想，，再加一个用来判断某一个账号Id是否存在的方法会更好，我叫它judgeId方法。
-    public boolean judgeId(long Id)
+    public static boolean judgeId(long Id)
     {
         boolean b = true;
         Connection conn = getConn();
@@ -215,7 +219,9 @@ public class JDBCOperation
                 count = rs.getLong(1);
             }
             if (count == 0) b = false;
-
+            conn.close();
+            statement.close();
+            rs.close();
 
         } catch (SQLException e)
         {
@@ -231,14 +237,14 @@ public class JDBCOperation
     public StringBuilder getAll()
     {
         Connection conn = getConn();
-        String sql = "select* from students;";
+        String sql = "select*from students;";
         PreparedStatement statement;
         StringBuilder builder = new StringBuilder();
         try
         {
             statement = (PreparedStatement) conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
-            int column = rs.getMetaData().getColumnCount();
+//            int column = rs.getMetaData().getColumnCount();
             while (rs.next())
             {
                 builder.append(rs.getLong(1)).append("\n");
@@ -247,9 +253,11 @@ public class JDBCOperation
                 builder.append(rs.getString(4)).append("\n");
                 builder.append(rs.getString(5)).append("\n");
                 builder.append(rs.getInt(6)).append("\n");
-                System.out.println(builder);
+//                System.out.println(builder);
             }
-
+            conn.close();
+            statement.close();
+            rs.close();
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -258,24 +266,29 @@ public class JDBCOperation
     }
 
     //     再写一个根据Id提取信息的方法
-    public Student getInformation(Long Id)
+    public Student getInformation(long id)
     {
         Connection conn = getConn();
-        String sql = "select *from students where Id =" + Id + ";";
-
+        String sql = "select*from students where Id = " + id + ";";
         PreparedStatement statement;
-        StringBuilder builder = new StringBuilder();
+
         try
         {
             statement = (PreparedStatement) conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
-            student.setId(rs.getLong(1));
-            student.setName(rs.getString(2));
-            student.setNickname(rs.getString(3));
-            student.setSex(rs.getString(4));
-            student.setPassword(rs.getString(5));
-            student.setAdministrator(rs.getInt(6));
-
+//            int column = rs.getMetaData().getColumnCount();
+            while (rs.next())
+            {
+                student.setId(rs.getLong(1));
+                student.setName(rs.getString(2));
+                student.setNickname(rs.getString(3));
+                student.setSex(rs.getString(4));
+                student.setPassword(rs.getString(5));
+                student.setAdministrator(rs.getInt(6));
+            }
+            conn.close();
+            statement.close();
+            rs.close();
         } catch (SQLException e)
         {
             e.printStackTrace();
