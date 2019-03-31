@@ -1,0 +1,167 @@
+package Socket;
+
+import Database.JDBC_Students;
+import Entity.Student;
+
+import java.io.*;
+
+import java.net.Socket;
+
+public class ChatSocket extends Thread
+{
+
+    private JDBC_Students jdbc = new JDBC_Students();
+    private Student student;
+
+
+    private long Id;
+    private String Name;
+    private String Nickname;
+    private String Sex;
+    private String Password;
+    private int Administrator;
+    Socket socket;
+    private int port = 8888;
+
+    public ChatSocket(Socket socket)
+    {
+        this.socket = socket;
+
+    }
+
+    public void run()
+    {
+        try
+        {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+
+            String input;
+            while ((input = reader.readLine()) != null)
+            {
+                switch (input.charAt(0))
+                {
+                    case '1'://注册
+                    {
+                        input = reader.readLine();
+                        Id = Long.parseLong(input);
+
+                        input = reader.readLine();
+                        Name = input.trim();
+
+                        input = reader.readLine();
+                        Nickname = input.trim();
+
+                        input = reader.readLine();
+                        Sex = input.trim();
+
+                        input = reader.readLine();
+                        Password = input.trim();
+
+                        input = reader.readLine();
+                        Administrator = Integer.parseInt(input);
+
+                        student = new Student(Id, Name, Nickname, Sex, Password, Administrator);
+                        if (jdbc.insert(student))
+                        {
+                            System.out.println("OK");
+                            writer.println("OK");
+                        } else
+                        {
+                            System.out.println("NO");
+                            writer.println("NO");
+                        }
+//                            writer.flush();
+                    }
+                    break;
+                    case '2'://登录
+                    {
+                        System.out.println("正在登陆");
+                        input = reader.readLine();
+                        Id = Long.parseLong(input);
+                        if (jdbc.judgeId(Id))
+                        {
+                            input = reader.readLine();
+                            Password = input.trim();
+                            if (jdbc.judgePassword(Id, Password))
+                            {
+                                System.out.println("OK");
+                                writer.println("OK");//false2密码错误
+                            } else
+                            {
+                                System.out.println("NO2");
+                                writer.println("NO2");
+                            }
+                        } else
+                        {
+                            System.out.println("NO1");
+                            writer.println("NO1");//false1是Id不存在
+                        }
+                    }
+                    break;
+                    case '3':
+                }
+                if (input.equals("quit"))
+                { //如果用户输入“quit”就退出
+                    break;
+                }
+            }
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        } finally
+        {
+            if (socket != null)
+            {
+                try
+                {
+                    socket.close();
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+//    Socket socket;
+//
+//    public ChatSocket(Socket socket)
+//    {
+//        this.socket = socket;
+//    }
+//
+//    public void out(String out)
+//        {
+//            try
+//        {
+//            PrintWriter pw=new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
+//            pw.print(out);
+//            pw.flush();
+//        } catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public void run()
+//    {
+//        try
+//        {
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+//            String str;
+//            while ((str = reader.readLine()) != null)
+//            {
+//                System.out.println("收到！");
+//                System.out.println(str);
+//                ChatManager.getChatManager().publish(this, str);
+//
+//            }
+//            reader.close();
+//        } catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
+//    }
+}
