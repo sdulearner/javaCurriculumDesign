@@ -1,6 +1,6 @@
 package Socket;
 
-import Database.JDBCOperation;
+import Database.JDBC_Students;
 import Entity.Student;
 
 import java.io.*;
@@ -9,7 +9,7 @@ import java.net.Socket;
 
 public class Mysocket
 {
-    private JDBCOperation jdbc = new JDBCOperation();
+    private JDBC_Students jdbc = new JDBC_Students();
     private Student student;
 
 
@@ -40,8 +40,8 @@ public class Mysocket
 //                System.out.println("address:" + socket.getInetAddress() + ":" + socket.getPort());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-                PrintWriter printWriter = new PrintWriter(writer, true);
-                String input = null;
+
+                String input ;
                 while ((input = reader.readLine()) != null)
                 {
                     switch (input.charAt(0))
@@ -76,7 +76,8 @@ public class Mysocket
                                 System.out.println("NO");
                                 writer.println("NO");
                             }
-//                            writer.flush();
+                            writer.flush();
+
                         }
                         break;
                         case '2'://登录
@@ -87,10 +88,10 @@ public class Mysocket
                             {
                                 input = reader.readLine();
                                 Password = input.trim();
-                                printWriter.println(jdbc.judgePassword(Id, Password) ? "true" : "false2");//false2密码错误
+                                writer.println(jdbc.judgePassword(Id, Password) ? "true" : "false2");//false2密码错误
                             } else
                             {
-                                printWriter.println("false1");//false1是Id不存在
+                                writer.println("false1");//false1是Id不存在
                             }
                         }
                         case '3':
