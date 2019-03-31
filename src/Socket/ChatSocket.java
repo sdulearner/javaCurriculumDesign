@@ -1,27 +1,33 @@
 package Socket;
 
+import Database.JDBC_Announcement;
 import Database.JDBC_Students;
+import Entity.Announcement;
 import Entity.Student;
 
 import java.io.*;
 
 import java.net.Socket;
+import java.sql.Timestamp;
 
 public class ChatSocket extends Thread
 {
 
-    private JDBC_Students jdbc = new JDBC_Students();
+    private JDBC_Students jdbc_students = new JDBC_Students();
+    private JDBC_Announcement jdbc_announcement = new JDBC_Announcement();
     private Student student;
-
-
+    private Announcement announcement;
+    private int NO;
     private long Id;
     private String Name;
     private String Nickname;
     private String Sex;
     private String Password;
     private int Administrator;
+    private String Title;
+    private String Text;
+    private Timestamp Time;
     Socket socket;
-    private int port = 8888;
 
     public ChatSocket(Socket socket)
     {
@@ -62,7 +68,7 @@ public class ChatSocket extends Thread
                         Administrator = Integer.parseInt(input);
 
                         student = new Student(Id, Name, Nickname, Sex, Password, Administrator);
-                        if (jdbc.insert(student))
+                        if (jdbc_students.insert(student))
                         {
                             System.out.println("OK");
                             writer.println("OK");
@@ -71,7 +77,6 @@ public class ChatSocket extends Thread
                             System.out.println("NO");
                             writer.println("NO");
                         }
-//                            writer.flush();
                     }
                     break;
                     case '2'://登录
@@ -79,11 +84,11 @@ public class ChatSocket extends Thread
                         System.out.println("正在登陆");
                         input = reader.readLine();
                         Id = Long.parseLong(input);
-                        if (jdbc.judgeId(Id))
+                        if (jdbc_students.judgeId(Id))
                         {
                             input = reader.readLine();
                             Password = input.trim();
-                            if (jdbc.judgePassword(Id, Password))
+                            if (jdbc_students.judgePassword(Id, Password))
                             {
                                 System.out.println("OK");
                                 writer.println("OK");//false2密码错误
@@ -99,13 +104,54 @@ public class ChatSocket extends Thread
                         }
                     }
                     break;
-                    case '3':
-                }
-                if (input.equals("quit"))
-                { //如果用户输入“quit”就退出
+                    case '3'://发公告
+                    {
+                        System.out.println("正在发公告");
+                        input = reader.readLine();
+                        NO = Integer.parseInt(input);
+                        input = reader.readLine();
+                        Name = input.trim();
+                        input = reader.readLine();
+                        Text = input.trim();
+                        input = reader.readLine();
+                        Title = input.trim();
+
+                        announcement = new Announcement(NO, Name, Title, Text, new Timestamp(System.currentTimeMillis()));
+                        if (jdbc_announcement.insert(announcement))
+                        {
+                            System.out.println("OK");
+                            writer.println("OK");
+                        } else
+                        {
+                            System.out.println("NO");
+                            writer.println("NO");
+                        }
+                    }
+                    break;
+                    case '4'://查公告
+                    {
+                        StringBuilder builder =new StringBuilder();
+                        System.out.println("正在查公告");
+                        input=reader.readLine();
+                        int no=Integer.parseInt(input);
+                        announcement=jdbc_announcement.query(no);
+                        builder.append(announcement.getNO()+"\t");
+                        builder.append(announcement.getName()+"\t");
+                        builder.append(announcement.getTitle()+"\t");
+                        builder.append(announcement.getText()+"\t");
+                        builder.append(announcement.getTime());
+                        writer.println(builder);
+                        System.out.println("OK");
+                    }
                     break;
                 }
+//                if (input.equals("quit"))
+//                { //如果用户输入“quit”就退出
+//                    break;
+//                }
             }
+            reader.close();
+
         } catch (IOException e)
         {
             e.printStackTrace();
