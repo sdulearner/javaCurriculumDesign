@@ -27,21 +27,20 @@ public class JDBC_Announcement
         return conn;
     }
 
-    public boolean insert(Announcement a)
+    public boolean judgeNo(int no)
     {
         boolean b = true;
         Connection conn = getConn();
-        String sql1 = "select *from announcement where NO =" + a.getNO() + ";";
-        String sql2 = "insert into announcement values(?,?,?,?,now());";
+        String sql = "select *from announcement where NO =" + no + ";";
         PreparedStatement statement;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql1);
+            statement = (PreparedStatement) conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             long count = 0;
             while (rs.next())
             {
-                count = rs.getInt(1);
+                count = rs.getLong(1);
             }
             if (count == 0) b = false;
             conn.close();
@@ -52,11 +51,21 @@ public class JDBC_Announcement
         {
             e.printStackTrace();
         }
-        if (b) return false;
-        conn = getConn();
+        return b;
+
+
+    }
+
+    public boolean insert(Announcement a)
+    {
+
+        Connection conn = getConn();
+        String sql = "insert into announcement values(?,?,?,?,now());";
+        PreparedStatement statement;
+        if (!judgeNo(a.getNO())) return false;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql2);
+            statement = (PreparedStatement) conn.prepareStatement(sql);
             statement.setLong(1, a.getNO());
             statement.setString(2, a.getName());
             statement.setString(3, a.getTitle());
@@ -92,8 +101,6 @@ public class JDBC_Announcement
             conn.close();
             statement.close();
             rs.close();
-
-
         } catch (SQLException e)
         {
             e.printStackTrace();

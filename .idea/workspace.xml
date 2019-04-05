@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0b1a50d6-4077-403e-8c46-f2cf97dcf20e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Database/Dalao_De_Daima.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Database/Database_Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Announcement.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Students.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Vote.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Entity/Announcement.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Entity/Result.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Entity/Student.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Entity/Voting.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/META-INF/curriculum dedign.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/ChatManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/ChatSocket.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/MyServerSocket.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Mysocket.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/ServerListener.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Test/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Test/Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Database/JDBC_Vote.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Result.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Voting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/Database_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/Database_Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/JDBC_Announcement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/JDBC_Announcement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Announcement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Announcement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Socket/ChatSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/ChatSocket.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
+  <component name="ExecutionTargetDialog">
+    <checked>
+      <node key="7ebf4dac-8dfb-4dec-826b-10959964e422" />
+    </checked>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="curriculum dedign" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Entity/Announcement.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="5" column="58" selection-start-line="5" selection-start-column="58" selection-end-line="5" selection-end-column="58" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Entity/Result.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="5" column="52" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Entity/Student.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="2" column="52" selection-start-line="2" selection-start-column="52" selection-end-line="2" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Entity/Voting.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+              <folding>
+                <element signature="e#497#498#0" expanded="true" />
+                <element signature="e#529#530#0" expanded="true" />
+                <element signature="e#570#571#0" expanded="true" />
+                <element signature="e#602#603#0" expanded="true" />
+                <element signature="e#647#648#0" expanded="true" />
+                <element signature="e#681#682#0" expanded="true" />
+                <element signature="e#731#732#0" expanded="true" />
+                <element signature="e#764#765#0" expanded="true" />
+                <element signature="e#796#797#0" expanded="true" />
+                <element signature="e#823#824#0" expanded="true" />
+                <element signature="e#855#856#0" expanded="true" />
+                <element signature="e#882#883#0" expanded="true" />
+                <element signature="e#917#918#0" expanded="true" />
+                <element signature="e#945#946#0" expanded="true" />
+                <element signature="e#983#984#0" expanded="true" />
+                <element signature="e#1013#1014#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Socket/ChatSocket.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2862">
+              <caret line="167" column="17" lean-forward="true" selection-start-line="167" selection-start-column="17" selection-end-line="167" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/Socket/ChatSocket.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/Demo.java" />
+        <option value="$PROJECT_DIR$/src/Button.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/ThreadTest.java" />
+        <option value="$PROJECT_DIR$/src/GUIWithMultiThread.java" />
+        <option value="$PROJECT_DIR$/src/ThreadPriorityTest.java" />
+        <option value="$PROJECT_DIR$/src/VLookup.java" />
+        <option value="$PROJECT_DIR$/src/Student.java" />
+        <option value="$PROJECT_DIR$/.idea/index" />
+        <option value="$PROJECT_DIR$/src/Socket/Main.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/Learning" />
+        <option value="$PROJECT_DIR$/src/Test/JDBCFacade.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/62825b60-96ce-479a-818b-ece5485b26c2/console.sql" />
+        <option value="$PROJECT_DIR$/src/Socket/Test.java" />
+        <option value="$PROJECT_DIR$/src/dao/Studentdao.java" />
+        <option value="$PROJECT_DIR$/src/JDBCOperation.java" />
+        <option value="$PROJECT_DIR$/src/dao/JDBCOperation.java" />
+        <option value="$PROJECT_DIR$/src/dao/Main.java" />
+        <option value="$PROJECT_DIR$/src/dao/Student.java" />
+        <option value="$PROJECT_DIR$/src/Users/User.java" />
+        <option value="$PROJECT_DIR$/src/Users/Administrator.java" />
+        <option value="$PROJECT_DIR$/src/Socket/Socket_Test.java" />
+        <option value="$PROJECT_DIR$/src/Servlet/LoginServlet.java" />
+        <option value="$PROJECT_DIR$/src/Servlet/Servlet.java" />
+        <option value="$PROJECT_DIR$/src/MyServlet/Servlet.java" />
+        <option value="$PROJECT_DIR$/src/MyServlet/MyFirstServlet.java" />
+        <option value="$PROJECT_DIR$/src/Socket/Server.java" />
+        <option value="$PROJECT_DIR$/src/Socket/Client.java" />
+        <option value="$PROJECT_DIR$/src/HaiShengClasses/MainInterface.java" />
+        <option value="$PROJECT_DIR$/src/HaiShengClasses/registerListener.java" />
+        <option value="$PROJECT_DIR$/src/HaiShengClasses/Login.java" />
+        <option value="$PROJECT_DIR$/src/HaiShengClasses/LoginListener.java" />
+        <option value="$PROJECT_DIR$/src/Users/Student.java" />
+        <option value="$PROJECT_DIR$/src/Test/Main.java" />
+        <option value="$PROJECT_DIR$/src/Socket/MultithreadSocket.java" />
+        <option value="$PROJECT_DIR$/src/Socket/ClientSocket.java" />
+        <option value="$PROJECT_DIR$/src/Socket/ChatManager.java" />
+        <option value="$PROJECT_DIR$/src/Socket/Mysocket.java" />
+        <option value="$PROJECT_DIR$/src/Database/JDBCOperation.java" />
+        <option value="$PROJECT_DIR$/src/Database/Dalao_De_Daima.java" />
+        <option value="$PROJECT_DIR$/src/Database/JDBC_Students.java" />
+        <option value="$PROJECT_DIR$/src/Test/Test.java" />
+        <option value="$PROJECT_DIR$/src/Socket/ChatSocket.java" />
+        <option value="$PROJECT_DIR$/src/Database/JDBC_Announcement.java" />
+        <option value="$PROJECT_DIR$/src/Entity/Vote.java" />
+        <option value="$PROJECT_DIR$/src/Database/JDBC_Vote.java" />
+        <option value="$PROJECT_DIR$/src/Database/Database_Test.java" />
+        <option value="$PROJECT_DIR$/src/Entity/Voting.java" />
+        <option value="$PROJECT_DIR$/src/Entity/Student.java" />
+        <option value="$PROJECT_DIR$/src/Entity/Result.java" />
+        <option value="$PROJECT_DIR$/src/Entity/Announcement.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="width" value="1270" />
+    <option name="height" value="1090" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="curriculum dedign" type="b2602c69:ProjectViewProjectNode" />
+              <item name="curriculum dedign" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="curriculum dedign" type="b2602c69:ProjectViewProjectNode" />
+              <item name="curriculum dedign" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="curriculum dedign" type="b2602c69:ProjectViewProjectNode" />
+              <item name="curriculum dedign" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="curriculum dedign" type="b2602c69:ProjectViewProjectNode" />
+              <item name="curriculum dedign" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="curriculum dedign" type="b2602c69:ProjectViewProjectNode" />
+              <item name="curriculum dedign" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="curriculum dedign" type="b2602c69:ProjectViewProjectNode" />
+              <item name="curriculum dedign" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Socket" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="curriculum dedign" type="b2602c69:ProjectViewProjectNode" />
+              <item name="curriculum dedign" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Test" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554301598315" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JQL" />
+    <property name="last_opened_file_path" value="$APPLICATION_HOME_DIR$/jre64/lib/mysql-connector-java-8.0.15.jar!/" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.JDBC_Vote">
+    <configuration name="Database_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Database.Database_Test" />
+      <module name="curriculum dedign" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Database.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JDBC_Vote" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Database.JDBC_Vote" />
+      <module name="curriculum dedign" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Database.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Test.Main" />
+      <module name="curriculum dedign" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyServerSocket" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Socket.MyServerSocket" />
+      <module name="curriculum dedign" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Socket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Test.Test" />
+      <module name="curriculum dedign" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Database_Test" />
+        <item itemvalue="Application.JDBC_Vote" />
+        <item itemvalue="Application.MyServerSocket" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0b1a50d6-4077-403e-8c46-f2cf97dcf20e" name="Default Changelist" comment="" />
+      <created>1551446843644</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1551446843644</updated>
+      <workItem from="1552113046133" duration="273000" />
+      <workItem from="1552113348567" duration="305000" />
+      <workItem from="1552113675386" duration="662000" />
+      <workItem from="1552129955979" duration="8378000" />
+      <workItem from="1552176239547" duration="8415000" />
+      <workItem from="1552202592968" duration="8088000" />
+      <workItem from="1552264151752" duration="2029000" />
+      <workItem from="1552270562605" duration="2147000" />
+      <workItem from="1552472553492" duration="5801000" />
+      <workItem from="1552548714391" duration="4631000" />
+      <workItem from="1552555879113" duration="153000" />
+      <workItem from="1552556081237" duration="594000" />
+      <workItem from="1552644165731" duration="5861000" />
+      <workItem from="1552650264976" duration="6193000" />
+      <workItem from="1552661152760" duration="696000" />
+      <workItem from="1552696832488" duration="1894000" />
+      <workItem from="1552698758092" duration="2938000" />
+      <workItem from="1552703440121" duration="2352000" />
+      <workItem from="1552707963690" duration="3023000" />
+      <workItem from="1553249199949" duration="638000" />
+      <workItem from="1553477349282" duration="684000" />
+      <workItem from="1553936618347" duration="16000" />
+      <workItem from="1554033137921" duration="78000" />
+      <workItem from="1554033285273" duration="7221000" />
+      <workItem from="1554343839960" duration="109000" />
+      <workItem from="1554344145547" duration="100000" />
+    </task>
+    <task id="LOCAL-00001" summary="java课设">
+      <created>1552651621872</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1552651621872</updated>
+    </task>
+    <task id="LOCAL-00002" summary="java课设">
+      <created>1552696965035</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1552696965035</updated>
+    </task>
+    <task id="LOCAL-00003" summary="java课设">
+      <created>1553866202357</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1553866202357</updated>
+    </task>
+    <task id="LOCAL-00004" summary="java课设">
+      <created>1554033171772</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1554033171772</updated>
+    </task>
+    <task id="LOCAL-00005" summary="java课设">
+      <created>1554033627820</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1554033627820</updated>
+    </task>
+    <task id="LOCAL-00006" summary="java课设">
+      <created>1554038495246</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1554038495246</updated>
+    </task>
+    <task id="LOCAL-00007" summary="java课设">
+      <created>1554042753166</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1554042753166</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="73279000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49799198" visible="true" weight="0.1575067" />
+      <window_info id="Structure" order="1" sideWeight="0.502008" side_tool="true" weight="0.17456359" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" sideWeight="0.50066936" side_tool="true" weight="0.28428927" />
+      <window_info id="Learn" order="7" side_tool="true" weight="0.3344504" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49731904" weight="0.2680965" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3994638" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.31769437" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4966488" weight="0.26203966" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50268096" side_tool="true" weight="0.28820375" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3286119" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32707775" />
+      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" weight="0.32931727" />
+      <window_info anchor="bottom" id="Duplicate detector" order="13" weight="0.42302543" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" weight="0.3297587" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Database" order="8" weight="0.13941018" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49799198" visible="true" weight="0.17493297" />
+      <window_info id="Structure" order="1" sideWeight="0.502008" side_tool="true" weight="0.17493297" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" sideWeight="0.50066936" side_tool="true" weight="0.2855228" />
+      <window_info id="Learn" order="7" side_tool="true" weight="0.3344504" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49798927" visible="true" weight="0.27175367" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.31989598" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32931727" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5020107" side_tool="true" weight="0.44846052" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Messages" order="10" />
+      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" weight="0.32931727" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" weight="0.3297587" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Database" order="8" weight="0.13941018" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="java课设" />
+    <option name="LAST_COMMIT_MESSAGE" value="java课设" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Database/JDBC_Vote.java</url>
+          <line>143</line>
+          <properties />
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/e05172ba-7617-4355-ac31-a5008161eb58/console.sql" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/7ebf4dac-8dfb-4dec-826b-10959964e422/console.sql" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/3ed7c419-79c4-418c-a4c0-76bf4b4ad79f/console.sql" />
+    <entry file="file://$PROJECT_DIR$/src/JDBCOperation.java" />
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.sql/java/sql/PreparedStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="61" column="17" selection-start-line="61" selection-start-column="17" selection-end-line="61" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/Main.java" />
+    <entry file="file://$PROJECT_DIR$/curriculum dedign.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/Student.java" />
+    <entry file="file://$PROJECT_DIR$/src/Users/User.java" />
+    <entry file="file://$PROJECT_DIR$/src/Users/Administrator.java" />
+    <entry file="file://$PROJECT_DIR$/src/Servlet/LoginServlet.java" />
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/io/PrintWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-313">
+          <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/jre64/lib/mysql-connector-java-8.0.15.jar!/com/mysql/cj/protocol/Resultset.class" />
+    <entry file="jar://D:/我的/软件/apache-tomcat-9.0.16-windows-x64/apache-tomcat-9.0.16/lib/servlet-api.jar!/javax/servlet/ServletRequest.class" />
+    <entry file="jar://D:/我的/软件/apache-tomcat-9.0.16-windows-x64/apache-tomcat-9.0.16/lib/servlet-api.jar!/javax/servlet/Servlet.class" />
+    <entry file="jar://D:/我的/软件/apache-tomcat-9.0.16-windows-x64/apache-tomcat-9.0.16/lib/servlet-api.jar!/javax/servlet/GenericServlet.class" />
+    <entry file="jar://D:/我的/软件/apache-tomcat-9.0.16-windows-x64/apache-tomcat-9.0.16/lib/servlet-api.jar!/javax/servlet/http/HttpServlet.class" />
+    <entry file="file://$PROJECT_DIR$/src/MyServlet/MyFirstServlet.java" />
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/net/Socket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="55" column="6" selection-start-line="55" selection-start-column="6" selection-end-line="55" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Socket/Socket_Test.java" />
+    <entry file="file://$PROJECT_DIR$/src/Socket/Socket_Main.java" />
+    <entry file="file://$PROJECT_DIR$/src/HaiShengClasses/MainInterface.java" />
+    <entry file="file://C:/个人消息/1744863182/FileRecv/Login.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2105">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/jre64/lib/mysql-connector-java-8.0.15.jar!/com/mysql/cj/jdbc/exceptions/SQLError.class" />
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.sql/java/sql/Connection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="138" column="22" selection-start-line="138" selection-start-column="22" selection-end-line="138" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HaiShengClasses/registerListener.java" />
+    <entry file="file://$PROJECT_DIR$/src/HaiShengClasses/Login.java" />
+    <entry file="file://$PROJECT_DIR$/src/HaiShengClasses/LoginListener.java" />
+    <entry file="file://$PROJECT_DIR$/src/Test/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Socket/Demo.java" />
+    <entry file="file://$PROJECT_DIR$/src/Socket/MultithreadSocket.java" />
+    <entry file="file://$PROJECT_DIR$/src/Socket/Client.java" />
+    <entry file="file://$PROJECT_DIR$/src/Socket/ClientSocket.java" />
+    <entry file="file://$PROJECT_DIR$/src/Socket/Server.java" />
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/net/ServerSocket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="133" column="11" selection-start-line="133" selection-start-column="11" selection-end-line="133" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Socket/ChatManager.java" />
+    <entry file="file://$PROJECT_DIR$/src/Socket/ServerListener.java" />
+    <entry file="file://$PROJECT_DIR$/src/Database/Dalao_De_Daima.java" />
+    <entry file="file://$PROJECT_DIR$/README.md" />
+    <entry file="file://$PROJECT_DIR$/src/Socket/Mysocket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="38" column="34" lean-forward="true" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Announcement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="43" column="13" lean-forward="true" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Students.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1254">
+          <caret line="136" column="17" selection-start-line="136" selection-start-column="17" selection-end-line="136" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/Database_Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="34" column="39" lean-forward="true" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Vote.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2612">
+          <caret line="200" column="37" selection-start-line="200" selection-start-column="37" selection-end-line="200" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3087#3088#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Socket/MyServerSocket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Test/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Announcement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="5" column="58" selection-start-line="5" selection-start-column="58" selection-end-line="5" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Result.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="5" column="52" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Student.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="52" selection-start-line="2" selection-start-column="52" selection-end-line="2" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Voting.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+          <folding>
+            <element signature="e#497#498#0" expanded="true" />
+            <element signature="e#529#530#0" expanded="true" />
+            <element signature="e#570#571#0" expanded="true" />
+            <element signature="e#602#603#0" expanded="true" />
+            <element signature="e#647#648#0" expanded="true" />
+            <element signature="e#681#682#0" expanded="true" />
+            <element signature="e#731#732#0" expanded="true" />
+            <element signature="e#764#765#0" expanded="true" />
+            <element signature="e#796#797#0" expanded="true" />
+            <element signature="e#823#824#0" expanded="true" />
+            <element signature="e#855#856#0" expanded="true" />
+            <element signature="e#882#883#0" expanded="true" />
+            <element signature="e#917#918#0" expanded="true" />
+            <element signature="e#945#946#0" expanded="true" />
+            <element signature="e#983#984#0" expanded="true" />
+            <element signature="e#1013#1014#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Socket/ChatSocket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2862">
+          <caret line="167" column="17" lean-forward="true" selection-start-line="167" selection-start-column="17" selection-end-line="167" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>apache-tomcat-9.0</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>11</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>curriculum dedign</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>11</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>mysql-connector-java-8.0.15</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

@@ -3,7 +3,7 @@ package Entity;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class Announcement
+public class Announcement implements  java.io.Serializable
 {
 
     private int NO;

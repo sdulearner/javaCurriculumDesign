@@ -1,7 +1,7 @@
 package Entity;
 
-public class Student
-{
+public class Student implements  java.io.Serializable
+ {
     private long Id;
     private String Name;
     private String Nickname;

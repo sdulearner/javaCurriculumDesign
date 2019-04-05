@@ -143,6 +143,8 @@ public class ChatSocket extends Thread
                         writer.println(builder);
                         System.out.println("OK");
                     }
+
+
                     break;
                 }
 //                if (input.equals("quit"))
