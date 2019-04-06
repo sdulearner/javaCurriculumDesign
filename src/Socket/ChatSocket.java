@@ -17,7 +17,6 @@ public class ChatSocket extends Thread
     private JDBC_Announcement jdbc_announcement = new JDBC_Announcement();
     private Student student;
     private Announcement announcement;
-    private int NO;
     private long Id;
     private String Name;
     private String Nickname;
@@ -26,13 +25,58 @@ public class ChatSocket extends Thread
     private int Administrator;
     private String Title;
     private String Text;
+
+    @Override
+    public long getId()
+    {
+        return Id;
+    }
+
     private Timestamp Time;
     Socket socket;
+
+
+    public String get_Name()
+    {
+        return Name;
+    }
+
+    public String getTitle()
+    {
+        return Title;
+    }
+
+    public String getText()
+    {
+        return Text;
+    }
+
+    public Timestamp getTime()
+    {
+        return Time;
+    }
 
     public ChatSocket(Socket socket)
     {
         this.socket = socket;
 
+    }
+
+    public void outAnnouncemt(String Name, String Title, String Text, Timestamp Time)
+    {
+        try
+        {
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            writer.println(Name);
+            writer.println(Title);
+            writer.println(Text);
+            writer.println(Time);
+            writer.flush();
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void run()
@@ -45,6 +89,11 @@ public class ChatSocket extends Thread
             String input;
             while ((input = reader.readLine()) != null)
             {
+                if (input.equals("quit"))
+                {
+                    ServerListener.announcementManager.subtract(this);
+                    break;
+                }
                 switch (input.charAt(0))
                 {
                     case '1'://注册
@@ -91,11 +140,13 @@ public class ChatSocket extends Thread
                             if (jdbc_students.judgePassword(Id, Password))
                             {
                                 System.out.println("OK");
-                                writer.println("OK");//false2密码错误
+                                writer.println("OK");
+
+                                //这里要加载信息
                             } else
                             {
                                 System.out.println("NO2");
-                                writer.println("NO2");
+                                writer.println("NO2");//false2密码错误
                             }
                         } else
                         {
@@ -107,20 +158,22 @@ public class ChatSocket extends Thread
                     case '3'://发公告
                     {
                         System.out.println("正在发公告");
-                        input = reader.readLine();
-                        NO = Integer.parseInt(input);
+//                        input = reader.readLine();
+//                        NO = Integer.parseInt(input);
                         input = reader.readLine();
                         Name = input.trim();
                         input = reader.readLine();
                         Text = input.trim();
                         input = reader.readLine();
                         Title = input.trim();
-
-                        announcement = new Announcement(NO, Name, Title, Text, new Timestamp(System.currentTimeMillis()));
+                        Time = new Timestamp(System.currentTimeMillis());
+                        announcement = new Announcement(Name, Title, Text, Time);
                         if (jdbc_announcement.insert(announcement))
                         {
                             System.out.println("OK");
                             writer.println("OK");
+                            new Thread(ServerListener.announcementManager).start();
+
                         } else
                         {
                             System.out.println("NO");
@@ -130,30 +183,23 @@ public class ChatSocket extends Thread
                     break;
                     case '4'://查公告
                     {
-                        StringBuilder builder =new StringBuilder();
+                        StringBuilder builder = new StringBuilder();
                         System.out.println("正在查公告");
-                        input=reader.readLine();
-                        int no=Integer.parseInt(input);
-                        announcement=jdbc_announcement.query(no);
-                        builder.append(announcement.getNO()+"\t");
-                        builder.append(announcement.getName()+"\t");
-                        builder.append(announcement.getTitle()+"\t");
-                        builder.append(announcement.getText()+"\t");
+                        input = reader.readLine();
+                        int no = Integer.parseInt(input);
+                        announcement = jdbc_announcement.query(no);
+//                        builder.append(announcement.getNO()+"\t");
+                        builder.append(announcement.getName() + "\t");
+                        builder.append(announcement.getTitle() + "\t");
+                        builder.append(announcement.getText() + "\t");
                         builder.append(announcement.getTime());
                         writer.println(builder);
                         System.out.println("OK");
                     }
-
-
                     break;
                 }
-//                if (input.equals("quit"))
-//                { //如果用户输入“quit”就退出
-//                    break;
-//                }
             }
             reader.close();
-
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -171,7 +217,7 @@ public class ChatSocket extends Thread
             }
         }
     }
-
+}
 
 //    Socket socket;
 //
@@ -212,4 +258,3 @@ public class ChatSocket extends Thread
 //            e.printStackTrace();
 //        }
 //    }
-}

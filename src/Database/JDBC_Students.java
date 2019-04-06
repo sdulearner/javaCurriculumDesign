@@ -33,6 +33,27 @@ public class JDBC_Students
     // 以及一个检索用户Id与密码是否匹配的方法，也就是judgePassword方法。
 
     // 先写第一个insert方法。
+
+    public static int count(){
+        Connection conn=getConn();
+        String sql="select*from students;";
+        int count=0;
+        PreparedStatement statement;
+        try{
+            statement=conn.prepareStatement(sql);
+            ResultSet rs=statement.executeQuery();
+
+            while (rs.next()){
+                count++;
+            }
+
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return count;
+    }
     public boolean insert(Student student)
     {
         Connection conn = getConn();
@@ -86,7 +107,7 @@ public class JDBC_Students
 
 
     //现在我想了一想，，再加一个用来判断某一个账号Id是否存在的方法会更好，我叫它judgeId方法。
-    public static boolean judgeId(long Id)
+    public boolean judgeId(long Id)
     {
         boolean b = true;
         Connection conn = getConn();

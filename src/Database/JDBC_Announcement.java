@@ -52,28 +52,24 @@ public class JDBC_Announcement
             e.printStackTrace();
         }
         return b;
-
-
     }
 
     public boolean insert(Announcement a)
     {
-
         Connection conn = getConn();
-        String sql = "insert into announcement values(?,?,?,?,now());";
+        String sql = "insert into announcement (Name ,Title ,Text,Time )values(?,?,?,now());";
         PreparedStatement statement;
-        if (!judgeNo(a.getNO())) return false;
+        if (judgeNo(a.getNO())) return false;
         try
         {
             statement = (PreparedStatement) conn.prepareStatement(sql);
-            statement.setLong(1, a.getNO());
-            statement.setString(2, a.getName());
-            statement.setString(3, a.getTitle());
-            statement.setString(4, a.getText());
+            statement.setString(1, a.getName());
+            statement.setString(2, a.getTitle());
+            statement.setString(3, a.getText());
 
             statement.executeUpdate();
-            conn.close();
             statement.close();
+            conn.close();
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -106,6 +102,33 @@ public class JDBC_Announcement
             e.printStackTrace();
         }
         return announcement;
+    }
+
+    public void delete(int no)
+    {
+        Connection conn = getConn();
+        String sql1 = "delete from  announcement where NO=" + no + ";";
+        String sql2 = " alter table `announcement` drop `NO`;";
+        String sql3 = " alter table `announcement` add `NO` int not null first;";
+        String sql4 = " alter table `announcement`modify column `NO` int not null auto_increment,add primary key(NO);";
+        PreparedStatement statement;
+
+        try
+        {
+            statement = conn.prepareStatement(sql1);
+            statement.execute();
+            statement = conn.prepareStatement(sql2);
+            statement.execute();
+            statement = conn.prepareStatement(sql3);
+            statement.execute();
+            statement = conn.prepareStatement(sql4);
+            statement.execute();
+            statement.close();
+            conn.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 

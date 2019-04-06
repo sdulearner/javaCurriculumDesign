@@ -10,6 +10,7 @@ public class JDBC_Vote
 {
     private static Result result = new Result();
 
+
     public static Connection getConn()
     {
         String driver = "com.mysql.cj.jdbc.Driver";
@@ -28,11 +29,11 @@ public class JDBC_Vote
         return conn;
     }
 
-    public boolean judgeNo(int no)
+    public boolean judgeTitle(String title)
     {
         boolean b = true;
         Connection conn = getConn();
-        String sql = "select *from vote where NO =" + no + ";";
+        String sql = "select*from vote where Title='" + title + "';";
         PreparedStatement statement;
         try
         {
@@ -41,7 +42,7 @@ public class JDBC_Vote
             long count = 0;
             while (rs.next())
             {
-                count = rs.getLong(1);
+                count = rs.getInt(1);
             }
             if (count == 0) b = false;
             conn.close();
@@ -55,28 +56,28 @@ public class JDBC_Vote
         return b;
     }
 
-    public boolean start(int no, String name, String title, String[] options)
+    public boolean start(String name, String title, String[] options)
     {
         int a = options.length;
+        StringBuilder builder = new StringBuilder();
 
         Connection conn = getConn();
 
-        String sql1 = "insert into vote values(?,?,?);";
-        StringBuilder builder = new StringBuilder();
+        if (judgeTitle(title)) return false;
+        String sql1 = "insert into vote (Name,Title) values(?,?);";
         for (int i = 0; i < a; i++)
         {
             builder.append("`" + options[i] + "`" + " tinyint(1),");
         }
-        String sql2 = "create table options" + no + "(NO tinyint primary key auto_increment not null," + builder + "Time timestamp,opinion tinytext );";
+        String sql2 = "create table `options_" + title + "`(NO tinyint primary key auto_increment not null," + builder + "Time timestamp,opinion tinytext );";
 //        String sql3 = "insert into options" + no + "values(1,?)";
         PreparedStatement statement;
-        if (judgeNo(no)) return false;
         try
         {
             statement = (PreparedStatement) conn.prepareStatement(sql1);
-            statement.setInt(1, no);
-            statement.setString(2, name);
-            statement.setString(3, title);
+//            statement.setInt(1, no);
+            statement.setString(1, name);
+            statement.setString(2, title);
             statement.executeUpdate();
 
             statement = (PreparedStatement) conn.prepareStatement(sql2);
@@ -90,7 +91,6 @@ public class JDBC_Vote
 //            }
 //            statement.
 
-            voting(new Voting(no, 1, new int[options.length], null));
 
             statement.close();
             conn.close();
@@ -100,6 +100,7 @@ public class JDBC_Vote
         {
             e.printStackTrace();
         }
+        voting(new Voting(1, new int[options.length], null));
         return true;
     }
 
@@ -110,25 +111,55 @@ public class JDBC_Vote
 
     public void voting(Voting voting)
     {
+        String title = "";
         int length = voting.getVotes().length;
-        StringBuilder builder = new StringBuilder();
+        String[] options = new String[length];
+        StringBuilder builder1 = new StringBuilder();
+
+        StringBuilder builder2 = new StringBuilder();
         for (int i = 0; i < length; i++)
         {
-            builder.append("?,");
+            builder2.append("?,");
         }
         Connection conn = getConn();
-        String sql = "insert into options" + voting.getNO_1() + " values (?," + builder + "now(),?);";
-//        System.out.println(sql);
+        String sql1 = "select*from vote where NO=" + voting.getNO() + ";";
+        System.out.println(sql1);
         PreparedStatement statement;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql);
-            statement.setInt(1, voting.getNO_2());
+            statement = conn.prepareStatement(sql1);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            title = rs.getString(3);
+            rs.close();
+
+            String sql = "desc `options_" + title + "`;";
+            statement = conn.prepareStatement(sql);
+            rs = statement.executeQuery();
+            rs.next();
+            int counter = 0;
+            while (rs.next() && counter < length)
+            {
+                options[counter] = rs.getString(1);
+                counter++;
+            }
+            rs.close();
+            statement.close();
             for (int i = 0; i < length; i++)
             {
-                statement.setInt(i + 2, voting.getVotes()[i]);
+                builder1.append("`"+options[i]+"`,");
             }
-            statement.setString(length + 2, voting.getOpinion());
+
+
+            String sql2 = "insert into `options_" + title + "` (" + builder1 + "Time,opinion)values (" + builder2 + "now(),?);";
+            statement = conn.prepareStatement(sql2);
+
+
+            for (int i = 0; i < length; i++)
+            {
+                statement.setInt(i + 1, voting.getVotes()[i]);
+            }
+            statement.setString(length + 1, voting.getOpinion());
             statement.executeUpdate();
         } catch (SQLException e)
         {
@@ -138,12 +169,10 @@ public class JDBC_Vote
 
     public static Result calculate(int no)
     {
-        int rows = 0;
+//        int rows = 0;
         int[] votes;
         Connection conn = getConn();
         String sql1 = "select*from vote where NO=" + no + ";";
-        String sql2 = "select*from options" + no + ";";
-        String sql3 = "desc options" + no + ";";
 //        String sql3 = "select count(*) from options" + no + ";";
         PreparedStatement statement;
         try
@@ -157,6 +186,8 @@ public class JDBC_Vote
                 result.setName(rs.getString(2));
                 result.setTitle(rs.getString(3));
             }
+            String sql2 = "select*from `options_" + result.getTitle() + "`;";
+            String sql3 ="desc `options_" + result.getTitle() + "`;";
 
 //            statement = (PreparedStatement) conn.prepareStatement(sql3);
 //            rs = statement.executeQuery();

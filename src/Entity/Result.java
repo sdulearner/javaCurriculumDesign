@@ -1,17 +1,19 @@
 package Entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Arrays;
 
-public class Result implements  java.io.Serializable
+public class Result implements Serializable
 {
+    private static final long serialVersionUID = 4L;
     private int no;//vote表的NO
     private String name;
     private String title;
-    private  String []options;
-    private int []votes;
-    private String [] opinions;
-    private Timestamp [] time ;
+    private String[] options;
+    private int[] votes;
+    private String[] opinions;
+    private Timestamp[] time;
 
     @Override
     public String toString()

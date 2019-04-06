@@ -1,10 +1,12 @@
 package Entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 
-public class Announcement implements  java.io.Serializable
+
+public class Announcement implements Serializable
 {
+    private static final long serialVersionUID = 2L;
 
     private int NO;
     private String Name;
@@ -17,9 +19,8 @@ public class Announcement implements  java.io.Serializable
 
     }
 
-    public Announcement(int NO, String name, String title, String text, Timestamp time)
+    public Announcement( String name, String title, String text, Timestamp time)
     {
-        this.NO = NO;
         Name = name;
         Title = title;
         Text = text;

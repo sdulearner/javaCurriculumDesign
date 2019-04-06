@@ -1,4 +1,4 @@
-package Socket;
+package Test;
 
 import Database.JDBC_Students;
 import Entity.Student;

@@ -1,11 +1,12 @@
 package Entity;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
 
-public class Voting  implements  java.io.Serializable
- {
-    private int NO_1;//NO_1与vote表里的NO对应
-    private int NO_2;//NO_2与options表里的NO对应
+public class Voting implements Serializable
+{
+    private static final long serialVersionUID = 3L;
+
+    private int NO;//总表的序号
     private int[] votes;
     private String Opinion;
 
@@ -13,22 +14,17 @@ public class Voting  implements  java.io.Serializable
     {
     }
 
-    public Voting(int NO_1, int NO_2, int[] votes, String opinion)
+    public Voting(int NO, int[] votes, String opinion)
     {
-        this.NO_1 = NO_1;
-        this.NO_2 = NO_2;
+        this.NO = NO;
+
         this.votes = votes;
         Opinion = opinion;
     }
 
-    public void setNO_1(int NO_1)
+    public void setNO(int NO)
     {
-        this.NO_1 = NO_1;
-    }
-
-    public void setNO_2(int NO_2)
-    {
-        this.NO_2 = NO_2;
+        this.NO = NO;
     }
 
     public void setVotes(int[] votes)
@@ -41,15 +37,11 @@ public class Voting  implements  java.io.Serializable
         Opinion = opinion;
     }
 
-    public int getNO_1()
+    public int getNO()
     {
-        return NO_1;
+        return NO;
     }
 
-    public int getNO_2()
-    {
-        return NO_2;
-    }
 
     public int[] getVotes()
     {
