@@ -23,7 +23,7 @@ public class ChatManager //implements  Runnable
         socketList.add(socket);
     }
 
-    public void subtract(ChatManager socket)
+    public void subtract(ChatSocket socket)
     {
         socketList.remove(socket);
     }

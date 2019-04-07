@@ -15,10 +15,7 @@ public class AnnouncementManager implements Runnable
     {
     }
 
-    public  ArrayList<ChatSocket> getSocketList()
-    {
-        return socketList;
-    }
+
 
     public void add(ChatSocket socket)
     {

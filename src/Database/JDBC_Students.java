@@ -33,20 +33,52 @@ public class JDBC_Students
     // 以及一个检索用户Id与密码是否匹配的方法，也就是judgePassword方法。
 
     // 先写第一个insert方法。
-
-    public static int count(){
-        Connection conn=getConn();
-        String sql="select*from students;";
-        int count=0;
+    public static long[] getId()
+    {
+        Connection conn = getConn();
+        long[] array = new long[count()];
+        String sql = "select*from students";
         PreparedStatement statement;
-        try{
-            statement=conn.prepareStatement(sql);
-            ResultSet rs=statement.executeQuery();
-
-            while (rs.next()){
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            int count = 0;
+            while (rs.next())
+            {
+                array[count] = rs.getLong(1);
                 count++;
             }
+            rs.close();
+            statement.close();
+            conn.close();
 
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return array;
+
+    }
+
+    public static int count()
+    {
+        Connection conn = getConn();
+        String sql = "select*from students;";
+        int count = 0;
+        PreparedStatement statement;
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next())
+            {
+                count++;
+            }
+            rs.close();
+            statement.close();
+            conn.close();
 
         } catch (SQLException e)
         {
@@ -54,6 +86,7 @@ public class JDBC_Students
         }
         return count;
     }
+
     public boolean insert(Student student)
     {
         Connection conn = getConn();
@@ -202,7 +235,7 @@ public class JDBC_Students
 
     public int update(Student student)
     {
-        int i=0;
+        int i = 0;
         Connection conn = getConn();
         String sql = "update students set Name='" + student.getName() + "',Nickname ='" + student.getNickname() + "',Sex='"
                 + student.getSex() + "',Administrator=" + student.getAdministrator() + " where Id=" + student.getId() + ";";
@@ -210,7 +243,7 @@ public class JDBC_Students
         try
         {
             statement = (PreparedStatement) conn.prepareStatement(sql);
-             i = statement.executeUpdate();
+            i = statement.executeUpdate();
 //            System.out.println(i);
             statement.close();
             conn.close();

@@ -27,11 +27,37 @@ public class JDBC_Announcement
         return conn;
     }
 
-    public boolean judgeNo(int no)
+    public static int count()
+    {
+        Connection conn = getConn();
+        String sql = "select*from announcement;";
+        int count = 0;
+        PreparedStatement statement;
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next())
+            {
+                count++;
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public boolean judgeTitle(String title)
     {
         boolean b = true;
         Connection conn = getConn();
-        String sql = "select *from announcement where NO =" + no + ";";
+        String sql = "select *from announcement where Title =`" + title + "`;";
         PreparedStatement statement;
         try
         {
@@ -59,7 +85,7 @@ public class JDBC_Announcement
         Connection conn = getConn();
         String sql = "insert into announcement (Name ,Title ,Text,Time )values(?,?,?,now());";
         PreparedStatement statement;
-        if (judgeNo(a.getNO())) return false;
+        if (judgeTitle(a.getTitle())) return false;
         try
         {
             statement = (PreparedStatement) conn.prepareStatement(sql);

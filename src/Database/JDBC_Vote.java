@@ -94,8 +94,6 @@ public class JDBC_Vote
 
             statement.close();
             conn.close();
-
-
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -123,7 +121,7 @@ public class JDBC_Vote
         }
         Connection conn = getConn();
         String sql1 = "select*from vote where NO=" + voting.getNO() + ";";
-        System.out.println(sql1);
+//        System.out.println(sql1);
         PreparedStatement statement;
         try
         {

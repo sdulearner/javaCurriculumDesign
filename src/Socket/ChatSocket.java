@@ -2,6 +2,7 @@ package Socket;
 
 import Database.JDBC_Announcement;
 import Database.JDBC_Students;
+import Database.JDBC_Vote;
 import Entity.Announcement;
 import Entity.Student;
 
@@ -15,16 +16,29 @@ public class ChatSocket extends Thread
 
     private JDBC_Students jdbc_students = new JDBC_Students();
     private JDBC_Announcement jdbc_announcement = new JDBC_Announcement();
-    private Student student;
+    private JDBC_Vote jdbc_vote = new JDBC_Vote();
     private Announcement announcement;
-    private long Id;
+    private Student student;
     private String Name;
     private String Nickname;
     private String Sex;
     private String Password;
-    private int Administrator;
     private String Title;
     private String Text;
+    private String[] options;
+    private int Administrator;
+    private long Id;
+    private boolean flag = false;
+
+    public String getNickname()
+    {
+        return Nickname;
+    }
+
+    public Socket getSocket()
+    {
+        return socket;
+    }
 
     @Override
     public long getId()
@@ -62,6 +76,20 @@ public class ChatSocket extends Thread
 
     }
 
+    public void outOnline(long id,String name,String nickname){
+        try{
+            PrintWriter writer=new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            writer.println(id);
+            writer.println(name);
+            writer.println(nickname);
+            writer.flush();
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public void outAnnouncemt(String Name, String Title, String Text, Timestamp Time)
     {
         try
@@ -92,29 +120,26 @@ public class ChatSocket extends Thread
                 if (input.equals("quit"))
                 {
                     ServerListener.announcementManager.subtract(this);
+                    ServerListener.votingManager.subtract(this);
+                    ServerListener.chatManager.subtract(this);
+                    ServerListener.idList.remove(this);
                     break;
                 }
                 switch (input.charAt(0))
                 {
                     case '1'://注册
                     {
-                        input = reader.readLine();
-                        Id = Long.parseLong(input);
+                        Id = Long.parseLong(reader.readLine());
 
-                        input = reader.readLine();
-                        Name = input.trim();
+                        Name = reader.readLine().trim();
 
-                        input = reader.readLine();
-                        Nickname = input.trim();
+                        Nickname = reader.readLine().trim();
 
-                        input = reader.readLine();
-                        Sex = input.trim();
+                        Sex = reader.readLine().trim();
 
-                        input = reader.readLine();
-                        Password = input.trim();
+                        Password = reader.readLine().trim();
 
-                        input = reader.readLine();
-                        Administrator = Integer.parseInt(input);
+                        Administrator = Integer.parseInt(reader.readLine());
 
                         student = new Student(Id, Name, Nickname, Sex, Password, Administrator);
                         if (jdbc_students.insert(student))
@@ -135,12 +160,45 @@ public class ChatSocket extends Thread
                         Id = Long.parseLong(input);
                         if (jdbc_students.judgeId(Id))
                         {
-                            input = reader.readLine();
-                            Password = input.trim();
+                            Password = reader.readLine().trim();
                             if (jdbc_students.judgePassword(Id, Password))
                             {
+                                Name=jdbc_students.getInformation(Id).getName();
+                                Nickname=jdbc_students.getInformation(Id).getNickname();
                                 System.out.println("OK");
                                 writer.println("OK");
+                                ServerListener.idList.add(Id);
+                                new Thread(new OnlineManager(this,ChatManager.socketList)).start();
+
+                                int n = ServerListener.idList.size();
+                                int num = JDBC_Students.count();
+                                long[] array = JDBC_Students.getId();
+                                writer.println(n);
+                                for (int i = 0; i < n; i++)
+                                {
+                                    writer.println(ServerListener.idList.get(i));
+                                    writer.println(jdbc_students.getInformation(ServerListener.idList.get(i)).getName());
+                                    writer.println(jdbc_students.getInformation(ServerListener.idList.get(i)).getNickname());
+                                }
+                                writer.println(num - n);
+                                for (int i = 0; i < num; i++)
+                                {
+                                    if (!ServerListener.idList.contains(array[i]))
+                                    {
+                                        writer.println(array[i]);
+                                        writer.println(jdbc_students.getInformation(array[i]).getName());
+                                        writer.println(jdbc_students.getInformation(array[i]).getNickname());
+                                    }
+                                }
+                                for (int i = 0; i < JDBC_Announcement.count(); i++)
+                                {
+                                    writer.println(jdbc_announcement.query(i).getName());
+                                    writer.println(jdbc_announcement.query(i).getTitle());
+                                    writer.println(jdbc_announcement.query(i).getTime());
+                                }
+
+
+
 
                                 //这里要加载信息
                             } else
@@ -160,20 +218,21 @@ public class ChatSocket extends Thread
                         System.out.println("正在发公告");
 //                        input = reader.readLine();
 //                        NO = Integer.parseInt(input);
-                        input = reader.readLine();
-                        Name = input.trim();
-                        input = reader.readLine();
-                        Text = input.trim();
-                        input = reader.readLine();
-                        Title = input.trim();
+                        Name = reader.readLine().trim();
+
+                        Text = reader.readLine().trim();
+
+                        Title = reader.readLine().trim();
+
                         Time = new Timestamp(System.currentTimeMillis());
+
                         announcement = new Announcement(Name, Title, Text, Time);
+
                         if (jdbc_announcement.insert(announcement))
                         {
                             System.out.println("OK");
                             writer.println("OK");
                             new Thread(ServerListener.announcementManager).start();
-
                         } else
                         {
                             System.out.println("NO");
@@ -196,6 +255,35 @@ public class ChatSocket extends Thread
                         writer.println(builder);
                         System.out.println("OK");
                     }
+
+                    case '5'://发起投票
+                    {
+                        System.out.println("正在发起投票");
+                        Title = reader.readLine().trim();
+                        int num = reader.readLine().charAt(0);
+                        options = new String[num];
+                        for (int i = 0; i < num; i++)
+                        {
+                            options[i] = reader.readLine();
+                        }
+                        if (jdbc_vote.start(Name, Title, options))
+                        {
+                            System.out.println("OK");
+                            writer.println("OK");
+                            new Thread(ServerListener.votingManager).start();
+
+                        } else
+                        {
+                            System.out.println("标题重复");
+                            writer.println("NO");
+                        }
+                    }
+
+                    case '6'://用户完成投票
+                    {
+
+                    }
+
                     break;
                 }
             }
