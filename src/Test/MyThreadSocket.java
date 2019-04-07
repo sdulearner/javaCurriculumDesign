@@ -6,6 +6,7 @@ import java.net.Socket;
 public class MyThreadSocket extends Thread
 {
     Socket socket;
+    EchoThread echoThread;
 
     public Socket getSocket()
     {
@@ -30,12 +31,18 @@ public class MyThreadSocket extends Thread
                 if (input.equals("1"))
                 {
                     System.out.println("输入了1");
-                    new EchoThread(socket);
+                    echoThread=new EchoThread(socket);
+                    echoThread.setPriority(MAX_PRIORITY);
+                    echoThread.start();
+                    echoThread.join();
                 }
             }
 
 
         } catch (IOException e)
+        {
+            e.printStackTrace();
+        } catch (InterruptedException e)
         {
             e.printStackTrace();
         }

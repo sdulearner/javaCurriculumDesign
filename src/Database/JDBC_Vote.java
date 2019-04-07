@@ -102,9 +102,30 @@ public class JDBC_Vote
         return true;
     }
 
-    public static void main(String[] args)
+    public static int count()
     {
-        calculate(1);
+        Connection conn = getConn();
+        String sql = "select*from students;";
+        int count = 0;
+        PreparedStatement statement;
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next())
+            {
+                count++;
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return count;
     }
 
     public void voting(Voting voting)
@@ -165,7 +186,7 @@ public class JDBC_Vote
         }
     }
 
-    public static Result calculate(int no)
+    public  Result calculate(int no)
     {
 //        int rows = 0;
         int[] votes;

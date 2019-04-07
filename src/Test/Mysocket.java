@@ -19,6 +19,7 @@ public class Mysocket  extends Thread
             MyThreadSocket myThreadSocket=new MyThreadSocket(socket);
             a=myThreadSocket;
             b=myThreadSocket;
+            a.start();
 
         } catch (IOException e)
         {

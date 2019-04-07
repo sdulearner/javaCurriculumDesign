@@ -29,6 +29,12 @@ public class ChatSocket extends Thread
     private int Administrator;
     private long Id;
     private boolean flag = false;
+    private VotingThread votingThread;
+
+    public VotingThread getVotingThread()
+    {
+        return votingThread;
+    }
 
     public String getNickname()
     {
@@ -46,9 +52,7 @@ public class ChatSocket extends Thread
         return Id;
     }
 
-    private Timestamp Time;
     Socket socket;
-
 
     public String get_Name()
     {
@@ -76,9 +80,11 @@ public class ChatSocket extends Thread
 
     }
 
-    public void outOnline(long id,String name,String nickname){
-        try{
-            PrintWriter writer=new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+    public void outOnline(long id, String name, String nickname)
+    {
+        try
+        {
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
             writer.println(id);
             writer.println(name);
             writer.println(nickname);
@@ -89,6 +95,21 @@ public class ChatSocket extends Thread
             e.printStackTrace();
         }
     }
+
+    public void outVoting()
+    {
+        try
+        {
+            votingThread = new VotingThread(this.socket,JDBC_Vote.count());
+            votingThread.join();
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    private Timestamp Time;
 
     public void outAnnouncemt(String Name, String Title, String Text, Timestamp Time)
     {
@@ -163,12 +184,12 @@ public class ChatSocket extends Thread
                             Password = reader.readLine().trim();
                             if (jdbc_students.judgePassword(Id, Password))
                             {
-                                Name=jdbc_students.getInformation(Id).getName();
-                                Nickname=jdbc_students.getInformation(Id).getNickname();
+                                Name = jdbc_students.getInformation(Id).getName();
+                                Nickname = jdbc_students.getInformation(Id).getNickname();
                                 System.out.println("OK");
                                 writer.println("OK");
                                 ServerListener.idList.add(Id);
-                                new Thread(new OnlineManager(this,ChatManager.socketList)).start();
+                                new Thread(new OnlineManager(this, ChatManager.socketList)).start();
 
                                 int n = ServerListener.idList.size();
                                 int num = JDBC_Students.count();
@@ -196,8 +217,6 @@ public class ChatSocket extends Thread
                                     writer.println(jdbc_announcement.query(i).getTitle());
                                     writer.println(jdbc_announcement.query(i).getTime());
                                 }
-
-
 
 
                                 //这里要加载信息

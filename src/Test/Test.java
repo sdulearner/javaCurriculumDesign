@@ -10,6 +10,6 @@ public class Test
 {
   static  ArrayList<Integer >list=new ArrayList<>();
   public static void main(String[]args){
-      System.out.println(list);
+     new MyClient().start();
   }
 }

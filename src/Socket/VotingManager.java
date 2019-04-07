@@ -13,7 +13,7 @@ public class VotingManager implements Runnable
     private ArrayList<Long> idlist = new ArrayList<>();
     private ChatSocket cs;
     private long[] array;
-private VotingThread votingThread;
+    private VotingThread votingThread;
     public VotingManager()
     {
     }
@@ -35,7 +35,6 @@ private VotingThread votingThread;
     {
         try
         {
-
             while (idlist.size() < JDBC_Students.count())
             {
                 array = JDBC_Students.getId();
@@ -45,7 +44,8 @@ private VotingThread votingThread;
 
                     if (!idlist.contains(array[i]))
                     {
-                        votingThread=new VotingThread(socketList.get(i).getSocket());
+                        socketList.get(i).outVoting();
+                        votingThread=socketList.get(i).getVotingThread();
                         votingThread.join();
                     }
                 }
