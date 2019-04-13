@@ -14,7 +14,7 @@ import java.net.Socket;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 
-public class ChatSocket extends Thread
+public class Socket_Util extends Thread
 {
     private static DecimalFormat fmt = new DecimalFormat("#.0");
     private JDBC_Students jdbc_students = new JDBC_Students();
@@ -24,6 +24,7 @@ public class ChatSocket extends Thread
     private Student student;
     private String Name;
     private String Nickname;
+    private String fileName;
     private String Sex;
     private String Password;
     private String Title;
@@ -34,6 +35,17 @@ public class ChatSocket extends Thread
     private boolean flag = false;
     private VotingThread votingThread;
     private Result result = new Result();
+    private int fileNo;
+
+    public int getFileNo()
+    {
+        return fileNo;
+    }
+
+    public String getFileName()
+    {
+        return fileName;
+    }
 
     public VotingThread getVotingThread()
     {
@@ -78,7 +90,7 @@ public class ChatSocket extends Thread
         return Time;
     }
 
-    public ChatSocket(Socket socket)
+    public Socket_Util(Socket socket)
     {
         this.socket = socket;
 
@@ -132,11 +144,50 @@ public class ChatSocket extends Thread
             e.printStackTrace();
         }
     }
-    public void outDelete(){
 
-
+    public void outUpload(String name)
+    {
+        try
+        {
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            writer.println(name);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 
     }
+
+    public void outDelete(int no)
+    {
+        try
+        {
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            writer.println(no);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public boolean outConnection()
+    {
+        boolean flag = false;
+        try
+        {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            writer.println("connection");
+            reader.readLine().equals("OK");
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return flag;
+
+    }
+
 
 //    public boolean outChat()
 //    {
@@ -156,9 +207,7 @@ public class ChatSocket extends Thread
                 if (input.equals("quit"))
                 {
                     Listener_Server.managerAnnouncement.subtract(this);
-                    Listener_Server.managerVoting.subtract(this);
-                    Listener_Server.managerChat.subtract(this);
-                    Listener_Server.idList.remove(this);
+                    Listener_Server.idList.remove(this.Id);
                     break;
                 }
                 switch (input.charAt(0))
@@ -182,7 +231,7 @@ public class ChatSocket extends Thread
                         {
                             System.out.println("OK");
                             writer.println("OK");
-                            new Thread(new Manager_Online(this, Manager_Chat.socketList)).start();
+                            new Thread(new Manager_Online(this, Listener_Server.managerAnnouncement.getSocketList())).start();
 
                         } else
                         {
@@ -205,12 +254,13 @@ public class ChatSocket extends Thread
                                 Nickname = jdbc_students.getInformation(Id).getNickname();
                                 System.out.println("OK");
                                 writer.println("OK");
-                                writer.println(jdbc_students.getInformation(Id).getAdministrator());
+                                writer.println(jdbc_students.getInformation(Id).getAdministrator());//告诉你是不是管理员
                                 Listener_Server.idList.add(Id);
-                                new Thread(new Manager_Online(this, Manager_Chat.socketList)).start();
-
-                                int n = Listener_Server.idList.size();
-                                int num = JDBC_Students.count();
+                                //告诉其他人我上线了
+                                new Thread(new Manager_Online(this, Listener_Server.managerAnnouncement.getSocketList())).start();
+                                //载入信息
+                                int n = Listener_Server.idList.size();//在线人数
+                                int num = JDBC_Students.count();//总人数
                                 long[] array = JDBC_Students.getId();
                                 writer.println(n);
                                 for (int i = 0; i < n; i++)
@@ -229,15 +279,20 @@ public class ChatSocket extends Thread
                                         writer.println(jdbc_students.getInformation(array[i]).getNickname());
                                     }
                                 }
+                                //公告信息
+                                writer.println(JDBC_Announcement.count());
                                 for (int i = 0; i < JDBC_Announcement.count(); i++)
                                 {
                                     writer.println(jdbc_announcement.query(i).getName());
                                     writer.println(jdbc_announcement.query(i).getTitle());
-                                    writer.println(jdbc_announcement.query(i).getTime());
+                                    writer.println(jdbc_announcement.query(i).getTime().getTime());
                                 }
-
-
-                                //这里要加载信息
+                                //文件信息
+                                writer.println(JDBC_Documents.count());
+                                for (int i = 0; i < JDBC_Documents.count(); i++)
+                                {
+                                    writer.println(JDBC_Documents.query(i));
+                                }
                             } else
                             {
                                 System.out.println("NO2");
@@ -269,7 +324,7 @@ public class ChatSocket extends Thread
                         {
                             System.out.println("OK");
                             writer.println("OK");
-                            new Thread(Listener_Server.managerAnnouncement).start();
+                            new Thread(Listener_Server.managerAnnouncement).start();//告诉其他人我发公告了
                         } else
                         {
                             System.out.println("NO");
@@ -288,7 +343,7 @@ public class ChatSocket extends Thread
                         builder.append(announcement.getName() + "\t");
                         builder.append(announcement.getTitle() + "\t");
                         builder.append(announcement.getText() + "\t");
-                        builder.append(announcement.getTime());
+                        builder.append(announcement.getTime().getTime());
                         writer.println(builder);
                         System.out.println("OK");
                     }
@@ -308,7 +363,8 @@ public class ChatSocket extends Thread
                         {
                             System.out.println("OK");
                             writer.println("OK");
-                            new Thread(Listener_Server.managerVoting).start();
+                            //开启投票线程
+                            new Thread(new Manager_Voting(Listener_Server.managerAnnouncement.getSocketList())).start();
 
                         } else
                         {
@@ -325,19 +381,24 @@ public class ChatSocket extends Thread
 
                         writer.println(result.getName());
                         writer.println(result.getTitle());
-                        writer.println(result.getTime()[0]);
-
+                        writer.println(result.getTime()[0].getTime());
+                        writer.println(result.getOptions().length);
                         for (int i = 0; i < result.getOptions().length; i++)
                         {
                             writer.println(result.getOptions()[i]);
                             writer.println(result.getVotes()[i]);
                         }
+                        int counter = 0;
                         for (String temp : result.getOpinions())
                         {
-                            writer.println(temp);
+                            if (temp != null) counter++;
+                        }
+                        writer.println(counter);
+                        for (String temp : result.getOpinions())
+                        {
+                            if (temp != null) writer.println(temp);
                         }
                         System.out.println("OK");
-
                     }
                     break;
 //                    case '7'://下载文件
@@ -346,40 +407,59 @@ public class ChatSocket extends Thread
 //
 //                    }
 //                    break;
-//                    case '8'://上传文件
-//                    {
-//                        String fileName =reader.readLine();
-//                    }
-//                    break;
-                    case '7'://删除某文件
+                    case '7'://上传文件
                     {
-                        int temp = Integer.parseInt(reader.readLine());
-                        File file = new File("D:/课设专用/" + JDBC_Documents.query(temp).getName());
+                        System.out.println("正在判断文件名是否重复");
+                        fileName = reader.readLine();
+                        if (JDBC_Documents.insert(fileName))
+                        {
+                            System.out.println("OK");
+                            writer.println("OK");
+                            //告诉其他人我传了文件
+                            new Thread(new Manager_File(this, Listener_Server.managerAnnouncement.getSocketList(), 1)).start();
+                        } else
+                        {
+                            System.out.println("NO");
+                            writer.println("NO");
+                        }
+                    }
+                    break;
+                    case '8'://删除某文件
+                    {
+                        fileNo = Integer.parseInt(reader.readLine());
+                        File file = new File("D:/课设专用/" + JDBC_Documents.query(fileNo).getName());
                         file.delete();
-                        JDBC_Documents.delete(temp);
+                        JDBC_Documents.delete(fileNo);
+                        //告诉其他人我删了文件
+                        new Thread(new Manager_File(this, Listener_Server.managerAnnouncement.getSocketList(), 2)).start();
                         writer.println("OK");
                     }
                     break;
-//                    case '9'://请求与某人建立即时通讯
-//                    {
-//                        long temp = Long.parseLong(reader.readLine());
-//                        for (int i = 0; i < Listener_Server.idList.size(); i++)
-//                        {
-//                            if (Manager_Chat.socketList.get(i).Id == temp)
-//                            {
-//                                if (outChat())
-//                                {
-//
-//                                } else
-//                                {
-//                                    System.out.println("拒绝");
-//                                    writer.println("NO");
-//                                }
-//                            }
-//                            break;
-//                        }
-//
-//                    }
+                    case '9'://请求与某人建立即时通讯
+                    {
+                        long temp = Long.parseLong(reader.readLine());
+                        Socket_Util temp_socket = null;
+                        for (int i = 0; i < Listener_Server.idList.size(); i++)
+                        {
+                            temp_socket = Listener_Server.managerAnnouncement.getSocketList().get(i);
+                            if (temp_socket.getId() == temp)
+                            {
+                                if (temp_socket.outConnection())
+                                {
+                                    System.out.println("同意");
+                                    writer.println("OK");
+                                    new Thread(new Manager_Chat()).start();
+
+                                } else
+                                {
+                                    System.out.println("拒绝");
+                                    writer.println("NO");
+                                }
+                            }
+                            break;
+                        }
+
+                    }
                 }
             }
             reader.close();
@@ -404,7 +484,7 @@ public class ChatSocket extends Thread
 
 //    Socket socket;
 //
-//    public ChatSocket(Socket socket)
+//    public Socket_Util(Socket socket)
 //    {
 //        this.socket = socket;
 //    }

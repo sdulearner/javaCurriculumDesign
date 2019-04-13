@@ -1,7 +1,6 @@
 package Socket;
 
 import Database.JDBC_Students;
-import Entity.Voting;
 
 import java.util.ArrayList;
 
@@ -9,22 +8,27 @@ public class Manager_Voting implements Runnable
 {
 
 
-    private ArrayList<ChatSocket> socketList = new ArrayList<>();
-    private ArrayList<Long> idlist = new ArrayList<>();
-    private ChatSocket cs;
+    private ArrayList<Socket_Util> socketList = new ArrayList<>();
+    private ArrayList<Long> idlist = new ArrayList<>();//已经投票的用户
+    private Socket_Util cs;
     private long[] array;
     private VotingThread votingThread;
     public Manager_Voting()
     {
     }
 
+    public Manager_Voting(ArrayList<Socket_Util> managerAnnouncement)
+    {
+        socketList=managerAnnouncement;
+    }
 
-    public void add(ChatSocket socket)
+
+    public void add(Socket_Util socket)
     {
         socketList.add(socket);
     }
 
-    public void subtract(ChatSocket socket)
+    public void subtract(Socket_Util socket)
     {
         socketList.remove(socket);
     }

@@ -1,20 +1,18 @@
 package Socket;
 
 import Database.JDBC_Documents;
-import Entity.Document;
 
 import java.io.*;
-import java.net.InetSocketAddress;
 import java.net.Socket;
 
-public class FileSocket extends Thread
+public class Socket_File extends Thread
 {
-    Socket socket;
+    private Socket socket;
     private int flag;
     private String fileName;
     private int no;
 
-    public FileSocket(Socket socket)
+    public Socket_File(Socket socket)
     {
         this.socket = socket;
     }
@@ -40,53 +38,46 @@ public class FileSocket extends Thread
             {
                 case '1'://上传文件
                 {
-                    if (JDBC_Documents.insert(fileName))
+                    byte[] inputByte;
+                    int length;
+                    DataInputStream dis = null;
+                    FileOutputStream fos = null;
+                    String filePath = "D:/课设专用/" + fileName;
+                    try
                     {
-                        byte[] inputByte;
-                        int length;
-                        DataInputStream dis = null;
-                        FileOutputStream fos = null;
-                        String filePath = "D:/课设专用/" + fileName;
                         try
                         {
-                            try
+                            dis = new DataInputStream(socket.getInputStream());
+                            File f = new File("D:/课设专用");
+                            if (!f.exists())
                             {
-                                dis = new DataInputStream(socket.getInputStream());
-                                File f = new File("D:/课设专用");
-                                if (!f.exists())
-                                {
-                                    f.mkdir();
-                                }
-                                /*
-                                 * 文件存储位置
-                                 */
-                                fos = new FileOutputStream(new File(filePath));
-                                inputByte = new byte[1024];
-                                System.out.println("开始接收数据...");
-                                while ((length = dis.read(inputByte, 0, inputByte.length)) > 0)
-                                {
-                                    fos.write(inputByte, 0, length);
-                                    fos.flush();
-                                }
-                                writer.println("OK");
-                                System.out.println("完成接收：" + filePath);
-                            } finally
-                            {
-                                if (fos != null)
-                                    fos.close();
-                                if (dis != null)
-                                    dis.close();
-                                if (socket != null)
-                                    socket.close();
+                                f.mkdir();
                             }
-                        } catch (Exception e)
+                            /*
+                             * 文件存储位置
+                             */
+                            fos = new FileOutputStream(new File(filePath));
+                            inputByte = new byte[1024];
+                            System.out.println("开始接收数据...");
+                            while ((length = dis.read(inputByte, 0, inputByte.length)) > 0)
+                            {
+                                fos.write(inputByte, 0, length);
+                                fos.flush();
+                            }
+                            writer.println("OK");
+                            System.out.println("完成接收：" + filePath);
+                        } finally
                         {
-                            e.printStackTrace();
+                            if (fos != null)
+                                fos.close();
+                            if (dis != null)
+                                dis.close();
+                            if (socket != null)
+                                socket.close();
                         }
-                    } else
+                    } catch (Exception e)
                     {
-                        System.out.println("重名");
-                        writer.println("NO");
+                        e.printStackTrace();
                     }
                 }
                 break;

@@ -106,8 +106,8 @@ public class JDBC_Students
             statement.setString(5, student.getPassword());
             statement.setInt(6, student.getAdministrator());
             statement.executeUpdate();
-            conn.close();
             statement.close();
+            conn.close();
         } catch (SQLException e)
         {
             e.printStackTrace();

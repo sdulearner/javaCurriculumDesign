@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Manager_Online implements Runnable
 {
-    private ArrayList<ChatSocket> socketList;
-    private ChatSocket cs;
+    private ArrayList<Socket_Util> socketList;
+    private Socket_Util cs;
 
-    public Manager_Online(ChatSocket socket, ArrayList<ChatSocket> sockets)
+    public Manager_Online(Socket_Util socket, ArrayList<Socket_Util> sockets)
     {
         this.cs = socket;
         this.socketList = sockets;

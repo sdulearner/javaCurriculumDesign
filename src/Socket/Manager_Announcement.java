@@ -7,9 +7,14 @@ import java.util.ArrayList;
 public class Manager_Announcement implements Runnable
 {
 
-    private ArrayList<ChatSocket> socketList = new ArrayList<>();
+    private ArrayList<Socket_Util> socketList = new ArrayList<>();
     private ArrayList<Long> idlist = new ArrayList<>();
-    private ChatSocket cs;
+    private Socket_Util cs;
+
+    public ArrayList<Socket_Util> getSocketList()
+    {
+        return socketList;
+    }
 
     public Manager_Announcement()
     {
@@ -17,12 +22,12 @@ public class Manager_Announcement implements Runnable
 
 
 
-    public void add(ChatSocket socket)
+    public void add(Socket_Util socket)
     {
         socketList.add(socket);
     }
 
-    public void subtract(ChatSocket socket)
+    public void subtract(Socket_Util socket)
     {
         socketList.remove(socket);
     }

@@ -3,7 +3,6 @@ package Socket;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class Listener_File extends Thread
 {
@@ -16,7 +15,7 @@ public class Listener_File extends Thread
             {
                 Socket socket = serverSocket.accept();
                 System.out.println("succeed!" + socket.getPort());
-                new FileSocket(socket).start();
+                new Socket_File(socket).start();
 
             }
         } catch (IOException e)
