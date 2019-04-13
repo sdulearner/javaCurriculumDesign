@@ -1,17 +1,16 @@
 package Socket;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ChatManager //implements  Runnable
+public class Manager_Chat //implements  Runnable
 {
-    ChatManager()
+    Manager_Chat()
     {
     }
 
-    private static final ChatManager cm = new ChatManager();
+    private static final Manager_Chat cm = new Manager_Chat();
 
-    public static ChatManager getChatManager()
+    public static Manager_Chat getChatManager()
     {
         return cm;
     }

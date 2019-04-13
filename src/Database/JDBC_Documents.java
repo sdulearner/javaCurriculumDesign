@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class JDBC_Documents
 {
-    private Document document = new Document();
+    private static Document document = new Document();
 
     public static Connection getConn()
     {
@@ -53,9 +53,13 @@ public class JDBC_Documents
     }
 
 
-    public void insert(String name)
+    public static boolean insert(String name)
     {
         Connection conn = getConn();
+
+        if (judge(name)){
+            return  false;
+        }
         PreparedStatement statement;
         String sql = "insert into documents (Name)values (?);";
         try
@@ -69,9 +73,37 @@ public class JDBC_Documents
         {
             e.printStackTrace();
         }
+        return true;
     }
 
-    public Document query(int no)
+    private static boolean judge(String name)
+    {
+        boolean b = true;
+        Connection conn = getConn();
+        String sql = "select *from students where Name =" + name + ";";
+        PreparedStatement statement;
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            long count = 0;
+            while (rs.next())
+            {
+                count = rs.getLong(1);
+            }
+            if (count == 0) b = false;
+            conn.close();
+            statement.close();
+            rs.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return b;
+    }
+
+    public static Document query(int no)
     {
         Connection conn = getConn();
         String sql = "select*from documents where NO=" + no + ";";
@@ -93,7 +125,7 @@ public class JDBC_Documents
         return document;
     }
 
-    public void delete(int no)
+    public static void delete(int no)
     {
 
         Connection conn = getConn();

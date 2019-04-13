@@ -5,7 +5,7 @@ import Entity.Voting;
 
 import java.util.ArrayList;
 
-public class VotingManager implements Runnable
+public class Manager_Voting implements Runnable
 {
 
 
@@ -14,7 +14,7 @@ public class VotingManager implements Runnable
     private ChatSocket cs;
     private long[] array;
     private VotingThread votingThread;
-    public VotingManager()
+    public Manager_Voting()
     {
     }
 

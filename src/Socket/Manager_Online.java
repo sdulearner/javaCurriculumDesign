@@ -2,12 +2,12 @@ package Socket;
 
 import java.util.ArrayList;
 
-public class OnlineManager implements Runnable
+public class Manager_Online implements Runnable
 {
     private ArrayList<ChatSocket> socketList;
     private ChatSocket cs;
 
-    public OnlineManager(ChatSocket socket, ArrayList<ChatSocket> sockets)
+    public Manager_Online(ChatSocket socket, ArrayList<ChatSocket> sockets)
     {
         this.cs = socket;
         this.socketList = sockets;

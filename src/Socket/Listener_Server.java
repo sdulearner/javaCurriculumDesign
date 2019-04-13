@@ -5,13 +5,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ServerListener extends Thread
+public class Listener_Server extends Thread
 {
 
     //    static ArrayList<ChatSocket> list = new ArrayList<ChatSocket>();
-    static AnnouncementManager announcementManager = new AnnouncementManager();
-    static VotingManager votingManager = new VotingManager();
-    static ChatManager chatManager=new ChatManager();
+    static Manager_Announcement managerAnnouncement = new Manager_Announcement();
+    static Manager_Voting managerVoting = new Manager_Voting();
+    static Manager_Chat managerChat =new Manager_Chat();
     static ArrayList<Long> idList = new ArrayList<>();
 
     public void run()
@@ -27,10 +27,10 @@ public class ServerListener extends Thread
                 ChatSocket cs = new ChatSocket(socket);
 
                 cs.start();
-                announcementManager.add(cs);
-                votingManager.add(cs);
+                managerAnnouncement.add(cs);
+                managerVoting.add(cs);
 
-                chatManager.add(cs);
+                managerChat.add(cs);
                 System.out.println("建立成功");
             }
         } catch (IOException e)

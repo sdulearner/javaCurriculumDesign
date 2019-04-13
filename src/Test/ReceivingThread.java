@@ -1,4 +1,4 @@
-package Socket;
+package Test;
 
 import java.io.DataInputStream;
 import java.io.File;

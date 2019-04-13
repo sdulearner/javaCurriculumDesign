@@ -4,14 +4,14 @@ import Database.JDBC_Students;
 
 import java.util.ArrayList;
 
-public class AnnouncementManager implements Runnable
+public class Manager_Announcement implements Runnable
 {
 
     private ArrayList<ChatSocket> socketList = new ArrayList<>();
     private ArrayList<Long> idlist = new ArrayList<>();
     private ChatSocket cs;
 
-    public AnnouncementManager()
+    public Manager_Announcement()
     {
     }
 
