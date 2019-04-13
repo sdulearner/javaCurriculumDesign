@@ -69,7 +69,7 @@ public class JDBC_Vote
         {
             builder.append("`" + options[i] + "`" + " tinyint(1),");
         }
-        String sql2 = "create table `options_" + title + "`(NO tinyint primary key auto_increment not null," + builder + "Time timestamp,opinion tinytext );";
+        String sql2 = "create table `options_" + title + "`(NO tinyint pimary key auto_increment not null," + builder + "Time timestamp,opinion tinytext );";
 //        String sql3 = "insert into options" + no + "values(1,?)";
         PreparedStatement statement;
         try

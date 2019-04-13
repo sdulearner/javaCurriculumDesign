@@ -8,12 +8,14 @@ import Entity.Student;
 
 import java.io.*;
 
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 
 public class ChatSocket extends Thread
 {
-
+    private static DecimalFormat fmt = new DecimalFormat("#.0");
     private JDBC_Students jdbc_students = new JDBC_Students();
     private JDBC_Announcement jdbc_announcement = new JDBC_Announcement();
     private JDBC_Vote jdbc_vote = new JDBC_Vote();
@@ -100,7 +102,7 @@ public class ChatSocket extends Thread
     {
         try
         {
-            votingThread = new VotingThread(this.socket,JDBC_Vote.count());
+            votingThread = new VotingThread(this.socket, JDBC_Vote.count());
             votingThread.join();
         } catch (InterruptedException e)
         {
@@ -108,6 +110,7 @@ public class ChatSocket extends Thread
         }
 
     }
+
 
     private Timestamp Time;
 
@@ -126,6 +129,11 @@ public class ChatSocket extends Thread
         {
             e.printStackTrace();
         }
+    }
+
+    public boolean outChat()
+    {
+
     }
 
     public void run()
@@ -167,6 +175,8 @@ public class ChatSocket extends Thread
                         {
                             System.out.println("OK");
                             writer.println("OK");
+                            new Thread(new OnlineManager(this, ChatManager.socketList)).start();
+
                         } else
                         {
                             System.out.println("NO");
@@ -274,6 +284,7 @@ public class ChatSocket extends Thread
                         writer.println(builder);
                         System.out.println("OK");
                     }
+                    break;
 
                     case '5'://发起投票
                     {
@@ -297,13 +308,123 @@ public class ChatSocket extends Thread
                             writer.println("NO");
                         }
                     }
-
-                    case '6'://用户完成投票
+                    break;
+                    case '6'://查询投票结果
                     {
 
                     }
-
                     break;
+                    case '7'://接收文件
+                    {
+                        byte[] inputByte = null;
+                        int length = 0;
+                        String fileName = null;
+                        DataInputStream dis = null;
+                        FileOutputStream fos = null;
+                        try
+                        {
+                            try
+                            {
+                                fileName = reader.readLine();
+                                dis = new DataInputStream(socket.getInputStream());
+                                String filePath = "D:/课设专用/" + fileName;
+                                File f = new File("D:/课设专用");
+//                                if (!f.exists())
+//                                {
+//                                    f.mkdir();
+//                                }
+
+                                fos = new FileOutputStream(new File(filePath));
+                                inputByte = new byte[1024];
+                                System.out.println("开始接收数据...");
+                                while ((length = dis.read(inputByte, 0, inputByte.length)) > 0)
+                                {
+                                    fos.write(inputByte, 0, length);
+                                    fos.flush();
+                                }
+                                System.out.println("完成接收：" + filePath);
+                                writer.println("OK");
+                            } finally
+                            {
+                                if (fos != null)
+                                    fos.close();
+                                if (dis != null)
+                                    dis.close();
+                                if (socket != null)
+                                    socket.close();
+                            }
+                        } catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+                    case '8'://发送文件
+                    {
+                        int length;
+                        double sumL = 0;
+                        byte[] sendBytes;
+                        String fileName = null;
+                        DataOutputStream dos = null;
+                        FileInputStream fis = null;
+                        boolean bool = false;
+                        try
+                        {
+                            File file = new File("D:/课设专用/" + fileName); //要传输的文件路径
+                            long l = file.length();
+
+                            dos = new DataOutputStream(socket.getOutputStream());
+                            fis = new FileInputStream(file);
+                            sendBytes = new byte[1024];
+                            while ((length = fis.read(sendBytes, 0, sendBytes.length)) > 0)
+                            {
+                                sumL += length;
+                                System.out.println("已传输：" + fmt.format(((sumL / l) * 100)) + "%");
+
+                                dos.write(sendBytes, 0, length);
+                                dos.flush();
+                            }
+                            if (sumL == l)
+                            {
+                                bool = true;
+                            }
+                        } catch (Exception e)
+                        {
+                            System.out.println("客户端文件传输异常");
+                            writer.println("NO");
+                            bool = false;
+                            e.printStackTrace();
+                        } finally
+                        {
+                            if (dos != null)
+                                dos.close();
+                            if (fis != null)
+                                fis.close();
+                            if (socket != null)
+                                socket.close();
+                        }
+                        System.out.println(bool ? "成功" : "失败");
+                    }
+                    case '9'://请求与某人建立即时通讯
+                    {
+                        long temp = Long.parseLong(reader.readLine());
+                        for (int i = 0; i < ServerListener.idList.size(); i++)
+                        {
+                            if (ChatManager.socketList.get(i).Id == temp)
+                            {
+                                if (outChat())
+                                {
+
+                                } else
+                                {
+                                    System.out.println("拒绝");
+                                    writer.println("NO");
+                                }
+                            }
+                            break;
+                        }
+
+                    }
                 }
             }
             reader.close();

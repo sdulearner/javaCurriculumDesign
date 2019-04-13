@@ -32,18 +32,18 @@ public class ChatManager //implements  Runnable
     {
     }
 
-//    public void publishAnnouncement(ChatSocket cs)
-//    {
-//        for (int i = 0; i < socketList.size(); i++)
-//        {
-//            ChatSocket csTemp = socketList.get(i);
-//            if (!cs.equals(csTemp))
-//            {
-//                csTemp.outAnnouncemt(cs.get_Name(),cs.getTitle(),cs.getText(),cs.getTime());//不用发送给自己。
-//            }
-//        }
-//
-//    }
+    public void publishAnnouncement(ChatSocket cs)
+    {
+        for (int i = 0; i < socketList.size(); i++)
+        {
+            ChatSocket csTemp = socketList.get(i);
+            if (!cs.equals(csTemp))
+            {
+                csTemp.outAnnouncemt(cs.get_Name(),cs.getTitle(),cs.getText(),cs.getTime());//不用发送给自己。
+            }
+        }
+
+    }
 
 //    @Override
 //    public void run()
