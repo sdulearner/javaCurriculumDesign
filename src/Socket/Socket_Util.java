@@ -171,20 +171,17 @@ public class Socket_Util extends Thread
 
     }
 
-    public boolean outConnection()
+    public void outSending(String a)
     {
-        boolean flag = false;
         try
         {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            writer.println("connection");
-            reader.readLine().equals("OK");
+            writer.println(a);
+
         } catch (IOException e)
         {
             e.printStackTrace();
         }
-        return flag;
 
     }
 
@@ -401,12 +398,6 @@ public class Socket_Util extends Thread
                         System.out.println("OK");
                     }
                     break;
-//                    case '7'://下载文件
-//                    {
-//
-//
-//                    }
-//                    break;
                     case '7'://上传文件
                     {
                         System.out.println("正在判断文件名是否重复");
@@ -435,28 +426,25 @@ public class Socket_Util extends Thread
                         writer.println("OK");
                     }
                     break;
-                    case '9'://请求与某人建立即时通讯
+                    case '9'://给某人单独发消息
                     {
+                        boolean flag = false;
                         long temp = Long.parseLong(reader.readLine());
-                        Socket_Util temp_socket = null;
+                        String message = reader.readLine();
+                        Socket_Util temp_socket;
                         for (int i = 0; i < Listener_Server.idList.size(); i++)
                         {
                             temp_socket = Listener_Server.managerAnnouncement.getSocketList().get(i);
-                            if (temp_socket.getId() == temp)
+                            if (temp_socket.getId()==temp)
                             {
-                                if (temp_socket.outConnection())
-                                {
-                                    System.out.println("同意");
-                                    writer.println("OK");
-                                    new Thread(new Manager_Chat()).start();
-
-                                } else
-                                {
-                                    System.out.println("拒绝");
-                                    writer.println("NO");
-                                }
+                                temp_socket.outSending(message);
+                                flag = true;
+                                break;
                             }
-                            break;
+                        }
+                        if (!flag)
+                        {
+
                         }
 
                     }

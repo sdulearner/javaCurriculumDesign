@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class JDBC_Groups
+public class JDBC_Messages
 {
     public static Connection getConn()
     {
@@ -23,10 +23,6 @@ public class JDBC_Groups
         }
         return conn;
     }
-
-
-
-
 
 
 

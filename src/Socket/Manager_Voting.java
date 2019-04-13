@@ -45,7 +45,6 @@ public class Manager_Voting implements Runnable
                 Thread.sleep(500);
                 for (int i = 0; i < JDBC_Students.count(); i++)
                 {
-
                     if (!idlist.contains(array[i]))
                     {
                         socketList.get(i).outVoting();
