@@ -21,7 +21,7 @@ public class JDBC_Vote
         try
         {
             Class.forName(driver);
-            conn = (Connection) DriverManager.getConnection(URL, name, password);
+            conn = DriverManager.getConnection(URL, name, password);
         } catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();
@@ -37,7 +37,7 @@ public class JDBC_Vote
         PreparedStatement statement;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql);
+            statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             long count = 0;
             while (rs.next())
@@ -45,9 +45,9 @@ public class JDBC_Vote
                 count = rs.getInt(1);
             }
             if (count == 0) b = false;
-            conn.close();
-            statement.close();
             rs.close();
+            statement.close();
+            conn.close();
 
         } catch (SQLException e)
         {
@@ -70,27 +70,19 @@ public class JDBC_Vote
             builder.append("`" + options[i] + "`" + " tinyint(1),");
         }
         String sql2 = "create table `options_" + title + "`(NO tinyint pimary key auto_increment not null," + builder + "Time timestamp,opinion tinytext );";
-//        String sql3 = "insert into options" + no + "values(1,?)";
+
         PreparedStatement statement;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql1);
+            statement = conn.prepareStatement(sql1);
 //            statement.setInt(1, no);
             statement.setString(1, name);
             statement.setString(2, title);
             statement.executeUpdate();
+            statement.close();
 
-            statement = (PreparedStatement) conn.prepareStatement(sql2);
+            statement = conn.prepareStatement(sql2);
             statement.execute();
-
-//            statement = (PreparedStatement) conn.prepareStatement(sql3);
-//            statement.setInt(1, 1);
-//            for (int i = 0; i < a; i++)
-//            {
-//                statement.setInt(i + 2, 0);
-//            }
-//            statement.
-
 
             statement.close();
             conn.close();
@@ -151,6 +143,7 @@ public class JDBC_Vote
             rs.next();
             title = rs.getString(3);
             rs.close();
+            statement.close();
 
             String sql = "desc `options_" + title + "`;";
             statement = conn.prepareStatement(sql);
@@ -166,7 +159,7 @@ public class JDBC_Vote
             statement.close();
             for (int i = 0; i < length; i++)
             {
-                builder1.append("`"+options[i]+"`,");
+                builder1.append("`" + options[i] + "`,");
             }
 
 
@@ -180,23 +173,25 @@ public class JDBC_Vote
             }
             statement.setString(length + 1, voting.getOpinion());
             statement.executeUpdate();
+            statement.close();
+            conn.close();
         } catch (SQLException e)
         {
             e.printStackTrace();
         }
     }
 
-    public  Result calculate(int no)
+    public Result calculate(int no)
     {
 //        int rows = 0;
         int[] votes;
         Connection conn = getConn();
         String sql1 = "select*from vote where NO=" + no + ";";
-//        String sql3 = "select count(*) from options" + no + ";";
+
         PreparedStatement statement;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql1);
+            statement = conn.prepareStatement(sql1);
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
@@ -205,13 +200,13 @@ public class JDBC_Vote
                 result.setName(rs.getString(2));
                 result.setTitle(rs.getString(3));
             }
-            String sql2 = "select*from `options_" + result.getTitle() + "`;";
-            String sql3 ="desc `options_" + result.getTitle() + "`;";
+            rs.close();
+            statement.close();
 
-//            statement = (PreparedStatement) conn.prepareStatement(sql3);
-//            rs = statement.executeQuery();
-//            while (rs.next()) rows = rs.getInt(1);
-            statement = (PreparedStatement) conn.prepareStatement(sql2);
+            String sql2 = "select*from `options_" + result.getTitle() + "`;";
+            String sql3 = "desc `options_" + result.getTitle() + "`;";
+
+            statement = conn.prepareStatement(sql2);
             rs = statement.executeQuery();
             int columns = rs.getMetaData().getColumnCount() - 3;
             votes = new int[columns];
@@ -225,7 +220,7 @@ public class JDBC_Vote
             result.setVotes(votes);
 
 
-            statement = (PreparedStatement) conn.prepareStatement(sql2);
+            statement = conn.prepareStatement(sql2);
             rs = statement.executeQuery();
             ArrayList<Timestamp> time = new ArrayList<>();
             ArrayList<String> opinion = new ArrayList<>();

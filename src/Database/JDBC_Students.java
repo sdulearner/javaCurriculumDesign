@@ -22,7 +22,7 @@ public class JDBC_Students
         try
         {
             Class.forName(driver);
-            conn = (Connection) DriverManager.getConnection(URL, name, password);
+            conn = DriverManager.getConnection(URL, name, password);
         } catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();
@@ -98,7 +98,7 @@ public class JDBC_Students
         PreparedStatement statement;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql);
+            statement = conn.prepareStatement(sql);
             statement.setLong(1, student.getId());
             statement.setString(2, student.getName());
             statement.setString(3, student.getNickname());
@@ -124,13 +124,13 @@ public class JDBC_Students
         PreparedStatement statement;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql);
+            statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             rs.next();
             if (password.trim().equals(rs.getString(5))) return true;
-            conn.close();
-            statement.close();
             rs.close();
+            statement.close();
+            conn.close();
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -148,7 +148,7 @@ public class JDBC_Students
         PreparedStatement statement;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql);
+            statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             long count = 0;
             while (rs.next())
@@ -156,9 +156,9 @@ public class JDBC_Students
                 count = rs.getLong(1);
             }
             if (count == 0) b = false;
-            conn.close();
-            statement.close();
             rs.close();
+            statement.close();
+            conn.close();
 
         } catch (SQLException e)
         {
@@ -179,7 +179,7 @@ public class JDBC_Students
         StringBuilder builder = new StringBuilder();
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql);
+            statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
 //            int column = rs.getMetaData().getColumnCount();
             while (rs.next())
@@ -192,9 +192,9 @@ public class JDBC_Students
                 builder.append(rs.getInt(6)).append("\n");
 //                System.out.println(builder);
             }
-            conn.close();
-            statement.close();
             rs.close();
+            statement.close();
+            conn.close();
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -211,7 +211,7 @@ public class JDBC_Students
 
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql);
+            statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
 //            int column = rs.getMetaData().getColumnCount();
             while (rs.next())
@@ -223,9 +223,9 @@ public class JDBC_Students
                 student.setPassword(rs.getString(5));
                 student.setAdministrator(rs.getInt(6));
             }
-            conn.close();
-            statement.close();
             rs.close();
+            statement.close();
+            conn.close();
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -242,9 +242,8 @@ public class JDBC_Students
         PreparedStatement statement;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql);
+            statement = conn.prepareStatement(sql);
             i = statement.executeUpdate();
-//            System.out.println(i);
             statement.close();
             conn.close();
 

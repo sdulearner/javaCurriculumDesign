@@ -92,9 +92,9 @@ public class JDBC_Documents
                 count = rs.getLong(1);
             }
             if (count == 0) b = false;
-            conn.close();
-            statement.close();
             rs.close();
+            statement.close();
+            conn.close();
 
         } catch (SQLException e)
         {
@@ -130,19 +130,25 @@ public class JDBC_Documents
 
         Connection conn = getConn();
         String sql1 = "delete from  documents where NO=" + no + ";";
-        String sql2 = " alter table `announcement` drop `NO`;";
-        String sql3 = " alter table `announcement` add `NO` int not null first;";
-        String sql4 = " alter table `announcement`modify column `NO` int not null auto_increment,add primary key(NO);";
+        String sql2 = " alter table `documents` drop `NO`;";
+        String sql3 = " alter table `documents` add `NO` int not null first;";
+        String sql4 = " alter table `documents`modify column `NO` int not null auto_increment,add primary key(NO);";
         PreparedStatement statement;
 
         try
         {
             statement = conn.prepareStatement(sql1);
             statement.execute();
+            statement.close();
+
             statement = conn.prepareStatement(sql2);
             statement.execute();
+            statement.close();
+
             statement = conn.prepareStatement(sql3);
             statement.execute();
+            statement.close();
+
             statement = conn.prepareStatement(sql4);
             statement.execute();
             statement.close();

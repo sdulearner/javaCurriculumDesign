@@ -69,9 +69,9 @@ public class JDBC_Announcement
                 count = rs.getLong(1);
             }
             if (count == 0) b = false;
-            conn.close();
-            statement.close();
             rs.close();
+            statement.close();
+            conn.close();
 
         } catch (SQLException e)
         {
@@ -120,9 +120,9 @@ public class JDBC_Announcement
                 announcement.setText(rs.getString(4));
                 announcement.setTime(rs.getTimestamp(5));
             }
-            conn.close();
-            statement.close();
             rs.close();
+            statement.close();
+            conn.close();
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -143,10 +143,16 @@ public class JDBC_Announcement
         {
             statement = conn.prepareStatement(sql1);
             statement.execute();
+            statement.close();
+
             statement = conn.prepareStatement(sql2);
             statement.execute();
+            statement.close();
+
             statement = conn.prepareStatement(sql3);
             statement.execute();
+            statement.close();
+
             statement = conn.prepareStatement(sql4);
             statement.execute();
             statement.close();
