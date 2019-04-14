@@ -1,9 +1,6 @@
 package Socket;
 
-import Database.JDBC_Announcement;
-import Database.JDBC_Documents;
-import Database.JDBC_Students;
-import Database.JDBC_Vote;
+import Database.*;
 import Entity.Announcement;
 import Entity.Result;
 import Entity.Student;
@@ -13,190 +10,21 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Socket_Util extends Thread
 {
-    private static DecimalFormat fmt = new DecimalFormat("#.0");
-    private JDBC_Students jdbc_students = new JDBC_Students();
-    private JDBC_Announcement jdbc_announcement = new JDBC_Announcement();
-    private JDBC_Vote jdbc_vote = new JDBC_Vote();
-    private Announcement announcement;
-    private Student student;
-    private String Name;
-    private String Nickname;
-    private String fileName;
-    private String Sex;
-    private String Password;
-    private String Title;
-    private String Text;
-    private String[] options;
-    private int Administrator;
-    private long Id;
-    private boolean flag = false;
-    private VotingThread votingThread;
-    private Result result = new Result();
-    private int fileNo;
-
-    public int getFileNo()
-    {
-        return fileNo;
-    }
-
-    public String getFileName()
-    {
-        return fileName;
-    }
-
-    public VotingThread getVotingThread()
-    {
-        return votingThread;
-    }
-
-    public String getNickname()
-    {
-        return Nickname;
-    }
-
-    public Socket getSocket()
-    {
-        return socket;
-    }
-
-    @Override
-    public long getId()
-    {
-        return Id;
-    }
-
-    Socket socket;
-
-    public String get_Name()
-    {
-        return Name;
-    }
-
-    public String getTitle()
-    {
-        return Title;
-    }
-
-    public String getText()
-    {
-        return Text;
-    }
-
-    public Timestamp getTime()
-    {
-        return Time;
-    }
-
-    public Socket_Util(Socket socket)
-    {
-        this.socket = socket;
-
-    }
-
-    public void outOnline(long id, String name, String nickname)
-    {
-        try
-        {
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            writer.println(id);
-            writer.println(name);
-            writer.println(nickname);
-            writer.flush();
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    public void outVoting()
-    {
-        try
-        {
-            votingThread = new VotingThread(this.socket, JDBC_Vote.count());
-            votingThread.join();
-        } catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    private Timestamp Time;
-
-    public void outAnnouncemt(String Name, String Title, String Text, Timestamp Time)
-    {
-        try
-        {
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            writer.println(Name);
-            writer.println(Title);
-            writer.println(Text);
-            writer.println(Time);
-            writer.flush();
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    public void outUpload(String name)
-    {
-        try
-        {
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            writer.println(name);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void outDelete(int no)
-    {
-        try
-        {
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            writer.println(no);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void outSending(String a)
-    {
-        try
-        {
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            writer.println(a);
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-    }
-
-
-//    public boolean outChat()
-//    {
-//
-//    }
-
     public void run()
     {
         try
         {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+
 
             String input;
             while ((input = reader.readLine()) != null)
@@ -345,8 +173,17 @@ public class Socket_Util extends Thread
                         System.out.println("OK");
                     }
                     break;
+                    case '5'://删公告
+                    {
+                        System.out.println("Deleting the announcement");
+                        int temp = Integer.parseInt(reader.readLine());//公告序号
+                        jdbc_announcement.delete(temp);
+                        System.out.println("OK");
+                        writer.println("OK");
+                    }
+                    break;
 
-                    case '5'://发起投票
+                    case '6'://发起投票
                     {
                         System.out.println("正在发起投票");
                         Title = reader.readLine().trim();
@@ -370,7 +207,7 @@ public class Socket_Util extends Thread
                         }
                     }
                     break;
-                    case '6'://查询投票结果
+                    case '7'://查询投票结果
                     {
                         System.out.println("正在查询投票结果");
                         int a = Integer.parseInt(reader.readLine());
@@ -398,7 +235,7 @@ public class Socket_Util extends Thread
                         System.out.println("OK");
                     }
                     break;
-                    case '7'://上传文件
+                    case '8'://上传文件
                     {
                         System.out.println("正在判断文件名是否重复");
                         fileName = reader.readLine();
@@ -415,7 +252,7 @@ public class Socket_Util extends Thread
                         }
                     }
                     break;
-                    case '8'://删除某文件
+                    case '9'://删除某文件
                     {
                         fileNo = Integer.parseInt(reader.readLine());
                         File file = new File("D:/课设专用/" + JDBC_Documents.query(fileNo).getName());
@@ -426,28 +263,60 @@ public class Socket_Util extends Thread
                         writer.println("OK");
                     }
                     break;
-                    case '9'://给某人单独发消息
+                    case '0'://给某人单独发消息
                     {
                         boolean flag = false;
-                        long temp = Long.parseLong(reader.readLine());
+                        long temp = Long.parseLong(reader.readLine());//接收者的Id
+                        String message = reader.readLine();//接收者的信息
+                        Socket_Util temp_socket;
+                        for (int i = 0; i < Listener_Server.idList.size(); i++)
+                        {
+                            temp_socket = Listener_Server.managerAnnouncement.getSocketList().get(i);
+                            if (temp_socket.getId() == temp)
+                            {
+                                temp_socket.outSending(this.Id, message, null);
+                                JDBC_Messages.insert(this.Id, temp_socket.getId(), message, null, true);
+                                flag = true;
+                                break;
+                            }
+                        }
+                        JDBC_Messages.insert(this.Id, temp, message, null, flag);
+                    }
+                    break;
+                    case 'a'://向某群发送消息
+                    {
+                        int temp = Integer.parseInt(reader.readLine());//发送群组的序号
+//                        String temp=reader.readLine();
+                        long[] id = JDBC_Groups.query(temp).getId();
+                        ArrayList<Long> Id = new ArrayList<>();
+                        for (long a : id)
+                        {
+                            Id.add(a);
+                        }
                         String message = reader.readLine();
                         Socket_Util temp_socket;
                         for (int i = 0; i < Listener_Server.idList.size(); i++)
                         {
                             temp_socket = Listener_Server.managerAnnouncement.getSocketList().get(i);
-                            if (temp_socket.getId()==temp)
+                            if (Id.contains(temp_socket.getId()))
                             {
-                                temp_socket.outSending(message);
-                                flag = true;
+                                temp_socket.outSending(this.Id, message, null);
+                                JDBC_Messages.insert(this.Id, temp_socket.getId(), message, JDBC_Groups.query(temp).getName(), true);//这里尚有问题
+                                Id.remove(temp_socket.getId());
                                 break;
                             }
                         }
-                        if (!flag)
+                        for (int i = 0; i < Id.size(); i++)
                         {
+                            JDBC_Messages.insert(this.Id, Id.get(i), message, JDBC_Groups.query(temp).getName(), false);//这里也有问题
 
                         }
 
                     }
+                    break;
+                    case 'b'://
+
+
                 }
             }
             reader.close();
@@ -468,44 +337,178 @@ public class Socket_Util extends Thread
             }
         }
     }
-}
 
-//    Socket socket;
-//
-//    public Socket_Util(Socket socket)
-//    {
-//        this.socket = socket;
-//    }
-//
-//    public void out(String out)
-//        {
-//            try
-//        {
-//            PrintWriter pw=new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
-//            pw.print(out);
-//            pw.flush();
-//        } catch (IOException e)
-//        {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public void run()
-//    {
-//        try
-//        {
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-//            String str;
-//            while ((str = reader.readLine()) != null)
-//            {
-//                System.out.println("收到！");
-//                System.out.println(str);
-//                Manager_Chat.getChatManager().publish(this, str);
-//
-//            }
-//            reader.close();
-//        } catch (IOException e)
-//        {
-//            e.printStackTrace();
-//        }
-//    }
+    private static DecimalFormat fmt = new DecimalFormat("#.0");
+    private JDBC_Students jdbc_students = new JDBC_Students();
+    private JDBC_Announcement jdbc_announcement = new JDBC_Announcement();
+    private JDBC_Vote jdbc_vote = new JDBC_Vote();
+    private Announcement announcement;
+    private Student student;
+    private String Name;
+    private String Nickname;
+    private String fileName;
+    private String Sex;
+    private String Password;
+    private String Title;
+    private String Text;
+    private String[] options;
+    private int Administrator;
+    private long Id;
+
+    private VotingThread votingThread;
+    private Result result = new Result();
+    private Timestamp Time;
+    private int fileNo;
+    Socket socket;
+
+
+    public int getFileNo()
+    {
+        return fileNo;
+    }
+
+    public String getFileName()
+    {
+        return fileName;
+    }
+
+    public VotingThread getVotingThread()
+    {
+        return votingThread;
+    }
+
+    public String getNickname()
+    {
+        return Nickname;
+    }
+
+    public Socket getSocket()
+    {
+        return socket;
+    }
+
+    public long getId()
+    {
+        return Id;
+    }
+
+    public String get_Name()
+    {
+        return Name;
+    }
+
+    public String getTitle()
+    {
+        return Title;
+    }
+
+    public String getText()
+    {
+        return Text;
+    }
+
+    public Timestamp getTime()
+    {
+        return Time;
+    }
+
+    public Socket_Util(Socket socket)
+    {
+        this.socket = socket;
+
+    }
+
+    public void outOnline(long id, String name, String nickname)
+    {
+        try
+        {
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            writer.println(id);
+            writer.println(name);
+            writer.println(nickname);
+            writer.flush();
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void outVoting()
+    {
+        try
+        {
+            votingThread = new VotingThread(this.socket, JDBC_Vote.count());
+            votingThread.join();
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public void outAnnouncemt(String Name, String Title, String Text, Timestamp Time)
+    {
+        try
+        {
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            writer.println(Name);
+            writer.println(Title);
+            writer.println(Text);
+            writer.println(Time);
+            writer.flush();
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void outUpload(String name)
+    {
+        try
+        {
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            writer.println(name);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void outDeleteAnnouncement()
+    {
+    }
+
+    public void outDeleteFile(int no)//删除某文件时
+    {
+        try
+        {
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            writer.println(no);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void outSending(long sender, String text, String group)//发消息用
+    {
+        try
+        {
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            writer.println(sender);
+            writer.println(text);
+            writer.println(group);
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+}

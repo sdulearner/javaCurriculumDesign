@@ -29,7 +29,7 @@ public class JDBC_Messages
         return conn;
     }
 
-    public void insert(long sender, long receiver, String text, String group, boolean flag)
+    public static void insert(long sender, long receiver, String text, String group, boolean flag)
     {
         Connection conn = getConn();
         PreparedStatement statement;

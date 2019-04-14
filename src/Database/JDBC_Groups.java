@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class JDBC_Groups
 {
-    private MyGroup myGroup = new MyGroup();
+    private static MyGroup myGroup = new MyGroup();
 
     public static Connection getConn()
     {
@@ -49,7 +49,7 @@ public class JDBC_Groups
     }
 
 
-    public MyGroup query(int no)
+    public static MyGroup query(int no)
     {
         Connection conn = getConn();
         PreparedStatement statement;

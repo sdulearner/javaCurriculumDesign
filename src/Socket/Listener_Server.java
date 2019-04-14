@@ -23,6 +23,7 @@ public class Listener_Server extends Thread
             {
 //                                managerVoting.add(cs);
 //               managerChat.add(cs);
+
                 Socket socket = serverSocket.accept();
                 System.out.println("succeed!" + socket.getPort());
 //                JOptionPane.showMessageDialog(null, "有客户端连到本机8018端口");

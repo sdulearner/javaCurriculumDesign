@@ -39,7 +39,7 @@ public class Manager_File implements  Runnable
                 {
                     if (sockets.get(i) != cs)
                     {
-                        sockets.get(i).outDelete(cs.getFileNo());
+                        sockets.get(i).outDeleteFile(cs.getFileNo());
                     }
                 }
 

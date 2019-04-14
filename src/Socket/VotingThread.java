@@ -31,7 +31,6 @@ public class VotingThread extends Thread
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
 
-
             result = jdbc_vote.calculate(no);
             writer.println(result.getTitle());
             writer.println(result.getName());
