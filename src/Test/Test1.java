@@ -3,15 +3,9 @@ package Test;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.sql.Timestamp;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
-public class Test extends Thread
+public class Test1 extends Thread
 {
     private static Socket socket;
 

@@ -131,8 +131,8 @@ public class JDBC_Documents
         Connection conn = getConn();
         String sql1 = "delete from  documents where NO=" + no + ";";
         String sql2 = " alter table `documents` drop `NO`;";
-        String sql3 = " alter table `documents` add `NO` int not null first;";
-        String sql4 = " alter table `documents`modify column `NO` int not null auto_increment,add primary key(NO);";
+        String sql3 = " alter table `documents` add `NO` tinyint not null first;";
+        String sql4 = " alter table `documents`modify column `NO` tinyint not null auto_increment,add primary key(NO);";
         PreparedStatement statement;
 
         try

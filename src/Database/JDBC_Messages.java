@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class JDBC_Messages
 {
-    private static ArrayList<Messages> messages1 = new ArrayList<>();
-    private static ArrayList<Messages> messages2 = new ArrayList<>();
+    private static ArrayList<Messages> messages = new ArrayList<>();
+
     private static Messages message = new Messages();
 
     public static Connection getConn()
@@ -51,11 +51,112 @@ public class JDBC_Messages
         }
     }
 
-    public void update(long id)
+    //查询未读消息
+    public ArrayList<Messages> queryId(long id)
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "update messages set Flag=1 where Receiver=" + id + ";";
+        String sql = "select*from messages where Receiver=" + id + " and Flag=0;";
+        ArrayList<Messages> array = new ArrayList<>();
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                message.setNO(rs.getInt(1));
+                message.setSender(rs.getLong(2));
+                message.setReceiver(rs.getLong(3));
+                message.setText(rs.getString(4));
+                message.setMyGroup(rs.getString(5));
+                message.setTime(rs.getTimestamp(6));
+                message.setFlag(false);
+                array.add(message);
+            }
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return array;
+
+    }
+
+    //查询与某人的聊天记录
+    public static ArrayList<Messages> query(long sender, long receiver)
+    {
+        Connection conn = getConn();
+        PreparedStatement statement;
+        String sql = "select*from messages where (Sender=" + sender + "&&Receiver=" + receiver +
+                "&&MyGroup<=>NULL)||(Sender=" + receiver + "&&Receiver=" + sender + "&&MyGroup<=>NULL);";
+
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                message.setNO(rs.getInt(1));
+                message.setSender(rs.getLong(2));
+                message.setReceiver(rs.getLong(3));
+                message.setText(rs.getString(4));
+                message.setMyGroup(rs.getString(5));
+                message.setTime(rs.getTimestamp(6));
+                message.setFlag(rs.getInt(7) == 1);
+                messages.add(message);
+            }
+
+            rs.close();
+            statement.close();
+            conn.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        update(sender, receiver);
+        return messages;
+    }
+
+    //查询某群组的聊天记录
+    public static ArrayList<Messages> query(String name)
+    {
+        Connection conn = getConn();
+        PreparedStatement statement;
+        String sql = "select*from messages where MyGroup=" + name + ";";
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                message.setNO(rs.getInt(1));
+                message.setSender(rs.getLong(2));
+                message.setReceiver(rs.getLong(3));
+                message.setText(rs.getString(4));
+                message.setMyGroup(rs.getString(5));
+                message.setTime(rs.getTimestamp(6));
+                message.setFlag(rs.getInt(7) == 1);
+                messages.add(message);
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return messages;
+
+    }
+
+    //更新一对一聊天为已读
+    public static void update(long sender, long receiver)
+    {
+        Connection conn = getConn();
+        PreparedStatement statement;
+        String sql = "update messages set Flag=1 where Receiver=" + receiver + " andSender=" + sender + ";";
         try
         {
             statement = conn.prepareStatement(sql);
@@ -69,44 +170,17 @@ public class JDBC_Messages
             e.printStackTrace();
         }
     }
+    //  更新某人的群聊记录为已读
 
-    public ArrayList[] query(long id)
+    public void update(long id, String name)
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql1 = "select*from messages where Sender=" + id + ";";
-        String sql2 = "select*from messages where Receiver=" + id + ";";
+        String sql = "update messages set Flag=1 where Receiver=" + id + " MyGroup=" + name + ";";
         try
         {
-            statement = conn.prepareStatement(sql1);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next())
-            {
-                message.setNO(rs.getInt(1));
-                message.setSender(rs.getLong(2));
-                message.setReceiver(rs.getLong(3));
-                message.setText(rs.getString(4));
-                message.setMyGroup(rs.getString(5));
-                message.setTime(rs.getTimestamp(6));
-                message.setFlag(rs.getInt(7) == 1);
-                messages1.add(message);
-            }
-            rs.close();
-            statement.close();
-            statement = conn.prepareStatement(sql2);
-            rs = statement.executeQuery();
-            while (rs.next())
-            {
-                message.setNO(rs.getInt(1));
-                message.setSender(rs.getLong(2));
-                message.setReceiver(rs.getLong(3));
-                message.setText(rs.getString(4));
-                message.setMyGroup(rs.getString(5));
-                message.setTime(rs.getTimestamp(6));
-                message.setFlag(rs.getInt(7) == 1);
-                messages2.add(message);
-            }
-            rs.close();
+            statement = conn.prepareStatement(sql);
+            statement.executeUpdate();
             statement.close();
             conn.close();
 
@@ -114,7 +188,7 @@ public class JDBC_Messages
         {
             e.printStackTrace();
         }
-        return new ArrayList[]{messages1, messages2};
+
     }
 
 

@@ -49,6 +49,7 @@ public class JDBC_Groups
     }
 
 
+
     public static MyGroup query(int no)
     {
         Connection conn = getConn();
@@ -89,7 +90,7 @@ public class JDBC_Groups
         Connection conn = getConn();
         String sql1 = "delete from  mygroups where NO=" + no + ";";
         String sql2 = " alter table `mygroups` drop `NO`;";
-        String sql3 = " alter table `mygroups` add `NO` int not null first;";
+        String sql3 = " alter table `mygroups` add `NO` bigint not null first;";
         String sql4 = " alter table `mygroups`modify column `NO` int not null auto_increment,add primary key(NO);";
         PreparedStatement statement;
 

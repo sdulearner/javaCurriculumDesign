@@ -18,7 +18,7 @@ public class Listener_Server extends Thread
     {
         try
         {
-            ServerSocket serverSocket = new ServerSocket(8108);
+            ServerSocket serverSocket = new ServerSocket(5555);
             while (true)
             {
 //                                managerVoting.add(cs);
@@ -26,12 +26,12 @@ public class Listener_Server extends Thread
 
                 Socket socket = serverSocket.accept();
                 System.out.println("succeed!" + socket.getPort());
-//                JOptionPane.showMessageDialog(null, "有客户端连到本机8018端口");
+//                JOptionPane.showMessageDialog(null, "有客户端连到本机8108端口");
                 Socket_Util cs = new Socket_Util(socket);
                 cs.start();
                 managerAnnouncement.add(cs);
-
                 System.out.println("建立成功");
+
             }
         } catch (IOException e)
         {

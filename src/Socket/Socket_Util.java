@@ -2,6 +2,7 @@ package Socket;
 
 import Database.*;
 import Entity.Announcement;
+import Entity.Messages;
 import Entity.Result;
 import Entity.Student;
 
@@ -118,6 +119,10 @@ public class Socket_Util extends Thread
                                 {
                                     writer.println(JDBC_Documents.query(i));
                                 }
+                                //群组信息
+
+
+                                //未读消息
                             } else
                             {
                                 System.out.println("NO2");
@@ -263,8 +268,13 @@ public class Socket_Util extends Thread
                         writer.println("OK");
                     }
                     break;
-                    case '0'://给某人单独发消息
+                    case'0'://建立群聊
+                    case'a'://群聊拉人、踢人
+
+//                    case'b'://申请加群、退群
+                    case 'b'://给某人单独发消息
                     {
+
                         boolean flag = false;
                         long temp = Long.parseLong(reader.readLine());//接收者的Id
                         String message = reader.readLine();//接收者的信息
@@ -281,10 +291,12 @@ public class Socket_Util extends Thread
                             }
                         }
                         JDBC_Messages.insert(this.Id, temp, message, null, flag);
+                        writer.println("OK");
                     }
                     break;
-                    case 'a'://向某群发送消息
+                    case 'c'://向某群发送消息
                     {
+                        System.out.println("正在发群消息");
                         int temp = Integer.parseInt(reader.readLine());//发送群组的序号
 //                        String temp=reader.readLine();
                         long[] id = JDBC_Groups.query(temp).getId();
@@ -301,22 +313,59 @@ public class Socket_Util extends Thread
                             if (Id.contains(temp_socket.getId()))
                             {
                                 temp_socket.outSending(this.Id, message, null);
-                                JDBC_Messages.insert(this.Id, temp_socket.getId(), message, JDBC_Groups.query(temp).getName(), true);//这里尚有问题
+                                JDBC_Messages.insert(this.Id, temp_socket.getId(), message, JDBC_Groups.query(temp).getName(), true);
                                 Id.remove(temp_socket.getId());
                                 break;
                             }
                         }
                         for (int i = 0; i < Id.size(); i++)
                         {
-                            JDBC_Messages.insert(this.Id, Id.get(i), message, JDBC_Groups.query(temp).getName(), false);//这里也有问题
-
+                            JDBC_Messages.insert(this.Id, Id.get(i), message, JDBC_Groups.query(temp).getName(), false);
                         }
+                        System.out.println("OK");
+                        writer.println("OK");
 
                     }
                     break;
-                    case 'b'://
+                    case 'd'://查询与某人聊天记录
+                    {
 
+                        System.out.println("正在查询聊天记录");
+                        long temp = Long.parseLong(reader.readLine());
+                        ArrayList<Messages> arrayList= JDBC_Messages.query(this.Id, temp);
 
+                        writer.println(arrayList.size());
+                        for (int i = 0; i < arrayList.size(); i++)
+                        {
+                            writer.println(arrayList.get(i).getSender());
+                            writer.println(arrayList.get(i).getReceiver());
+                            writer.println(arrayList.get(i).getText());
+                            writer.println(arrayList.get(i).getTime().getTime());
+                        }
+                        System.out.println("OK");
+                        writer.println("OK");
+                    }
+                    break;
+                    case 'e'://查询群聊记录
+                    {
+                        System.out.println("正在查询群聊记录");
+                        String temp=reader.readLine();
+                        ArrayList<Messages>arrayList= JDBC_Messages.query(temp);
+                        writer.println(arrayList.size());
+                        for (int i = 0; i < arrayList.size(); i++)
+                        {
+                            writer.println(arrayList.get(i).getSender());
+                            writer.println(arrayList.get(i).getText());
+                            writer.println(arrayList.get(i).getTime().getTime());
+                        }
+
+                        System.out.println("OK");
+                        writer.println("OK");
+
+                    }
+                    break;
+                    default:
+                        break;
                 }
             }
             reader.close();
@@ -439,7 +488,7 @@ public class Socket_Util extends Thread
         try
         {
             votingThread = new VotingThread(this.socket, JDBC_Vote.count());
-            votingThread.join();
+            votingThread.join();//这里不太好
         } catch (InterruptedException e)
         {
             e.printStackTrace();

@@ -1,24 +1,17 @@
 package Test;
 
 
-import java.io.IOException;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Arrays;
 
 public class Main
 {
-    public static void main(String[] args) throws IOException
+    private Socket socket;
+
+    public Main(Socket socket)
     {
-        int[] a = {42342, 42342, 4324};
-        String b = Arrays.toString(a);
-        System.out.println(b);
-        b = b.replace("[", "");
-        b = b.replace("]", "");
-
-        String[] c = b.split(", ");
-        for (String d : c)
-        {
-            System.out.println(Long.parseLong(d));
-        }
-
+        this.socket = socket;
     }
 }
