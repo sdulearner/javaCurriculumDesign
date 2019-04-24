@@ -48,6 +48,7 @@ public class Socket_File extends Thread
                         try
                         {
                             dis = new DataInputStream(socket.getInputStream());
+                            fos = new FileOutputStream(new File(filePath));
                             File f = new File("D:/课设专用");
                             if (!f.exists())
                             {
@@ -56,7 +57,6 @@ public class Socket_File extends Thread
                             /*
                              * 文件存储位置
                              */
-                            fos = new FileOutputStream(new File(filePath));
                             inputByte = new byte[1024];
                             System.out.println("开始接收数据...");
                             while ((length = dis.read(inputByte, 0, inputByte.length)) > 0)
@@ -86,7 +86,6 @@ public class Socket_File extends Thread
                     int length;
                     double sumL = 0;
                     byte[] sendBytes;
-//                Socket socket = null;
                     DataOutputStream dos = null;
                     FileInputStream fis = null;
                     boolean bool = false;
@@ -96,8 +95,6 @@ public class Socket_File extends Thread
                         {
                             File file = new File("D:/课设专用/" + JDBC_Documents.query(no).getName()); //要传输的文件路径
                             long l = file.length();
-//                        socket = new Socket();
-//                        socket.connect(new InetSocketAddress("127.0.0.1", 48123));
                             dos = new DataOutputStream(socket.getOutputStream());
                             fis = new FileInputStream(file);
                             sendBytes = new byte[1024];
@@ -124,12 +121,11 @@ public class Socket_File extends Thread
                         }
                     } catch (Exception e)
                     {
-                        writer.println("NO");
                         System.out.println("客户端文件传输异常");
                         bool = false;
                         e.printStackTrace();
                     }
-                    writer.println(bool ? "成功" : "失败");
+                    writer.println(bool ? "OK" : "NO");
                     System.out.println(bool ? "成功" : "失败");
 
                 }

@@ -34,25 +34,28 @@ public class VotingThread extends Thread
             result = jdbc_vote.calculate(no);
             writer.println(result.getTitle());
             writer.println(result.getName());
-
+            //选项内容
             writer.println(result.getOptions().length);
             for (int i = 0; i < result.getOptions().length; i++)
             {
                 writer.println(result.getOptions()[i]);
             }
+            //补充意见
             writer.println(result.getOpinions().length);
             for (int i = 0; i < result.getOpinions().length; i++)
             {
                 writer.println(result.getOpinions()[i]);
                 writer.println(result.getTime()[i]);
             }
-
+            //投票结果
             array = new int[result.getOptions().length];
             for (int i = 0; i < result.getOptions().length; i++)
             {
                 array[i] = Integer.parseInt(reader.readLine());
             }
+
             input = reader.readLine();
+            、、//未完待续
             voting.setNO(no);
             voting.setVotes(array);
             voting.setOpinion(input);

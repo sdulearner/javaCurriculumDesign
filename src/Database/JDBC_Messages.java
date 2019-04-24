@@ -11,7 +11,7 @@ public class JDBC_Messages
 
     private static Messages message = new Messages();
 
-    public static Connection getConn()
+    public Connection getConn()
     {
         String driver = "com.mysql.cj.jdbc.Driver";
         String URL = "jdbc:mysql://localhost:3306/test?serverTimezone=GMT&useSSL=false";
@@ -29,7 +29,7 @@ public class JDBC_Messages
         return conn;
     }
 
-    public static void insert(long sender, long receiver, String text, String group, boolean flag)
+    public void insert(long sender, long receiver, String text, int group, boolean flag)
     {
         Connection conn = getConn();
         PreparedStatement statement;
@@ -40,7 +40,7 @@ public class JDBC_Messages
             statement.setLong(1, sender);
             statement.setLong(2, receiver);
             statement.setString(3, text);
-            statement.setString(4, group);
+            statement.setInt(4, group);
             statement.setInt(5, flag ? 1 : 0);
             statement.execute();
             statement.close();
@@ -51,12 +51,13 @@ public class JDBC_Messages
         }
     }
 
-    //查询未读消息
-    public ArrayList<Messages> queryId(long id)
+    //查询私聊的未读消息，这个方法在私聊面板打开的时候使用
+
+    public ArrayList<Messages> queryId(long sender, long receiver)
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "select*from messages where Receiver=" + id + " and Flag=0;";
+        String sql = "select*from messages where Receiver=" + receiver + " and Sender=" + sender + ";";
         ArrayList<Messages> array = new ArrayList<>();
         try
         {
@@ -64,13 +65,8 @@ public class JDBC_Messages
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                message.setNO(rs.getInt(1));
-                message.setSender(rs.getLong(2));
-                message.setReceiver(rs.getLong(3));
                 message.setText(rs.getString(4));
-                message.setMyGroup(rs.getString(5));
                 message.setTime(rs.getTimestamp(6));
-                message.setFlag(false);
                 array.add(message);
             }
 
@@ -78,12 +74,70 @@ public class JDBC_Messages
         {
             e.printStackTrace();
         }
+        update(sender, receiver);
         return array;
 
     }
 
-    //查询与某人的聊天记录
-    public static ArrayList<Messages> query(long sender, long receiver)
+    //查询某人的大群未读消息，这个方法仅在打开群聊面板的时候使用
+    public ArrayList<Messages> queryGroup(long receiver)
+    {
+        Connection conn = getConn();
+        PreparedStatement statement;
+        String sql = "select*from messages where Receiver=" + receiver + "&&MyGroup=1;";
+        ArrayList<Messages> arrayList = new ArrayList<Messages>();
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                message.setSender(rs.getInt(2));
+                message.setText(rs.getString(4));
+                message.setTime(rs.getTimestamp(6));
+            }
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        delete(receiver);
+        return arrayList;
+    }
+
+
+    //查询大群的聊天记录
+    public ArrayList<Messages> query()
+    {
+        Connection conn = getConn();
+        PreparedStatement statement;
+        String sql = "select*from messages where MyGroup=1&&Receiver=1;";
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+
+                message.setSender(rs.getLong(2));
+                message.setText(rs.getString(4));
+                message.setTime(rs.getTimestamp(6));
+                messages.add(message);
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return messages;
+
+    }
+
+    //查询私聊记录
+    public ArrayList<Messages> query(long sender, long receiver)
     {
         Connection conn = getConn();
         PreparedStatement statement;
@@ -96,13 +150,11 @@ public class JDBC_Messages
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                message.setNO(rs.getInt(1));
+
                 message.setSender(rs.getLong(2));
                 message.setReceiver(rs.getLong(3));
                 message.setText(rs.getString(4));
-                message.setMyGroup(rs.getString(5));
                 message.setTime(rs.getTimestamp(6));
-                message.setFlag(rs.getInt(7) == 1);
                 messages.add(message);
             }
 
@@ -118,41 +170,8 @@ public class JDBC_Messages
         return messages;
     }
 
-    //查询某群组的聊天记录
-    public static ArrayList<Messages> query(String name)
-    {
-        Connection conn = getConn();
-        PreparedStatement statement;
-        String sql = "select*from messages where MyGroup=" + name + ";";
-        try
-        {
-            statement = conn.prepareStatement(sql);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next())
-            {
-                message.setNO(rs.getInt(1));
-                message.setSender(rs.getLong(2));
-                message.setReceiver(rs.getLong(3));
-                message.setText(rs.getString(4));
-                message.setMyGroup(rs.getString(5));
-                message.setTime(rs.getTimestamp(6));
-                message.setFlag(rs.getInt(7) == 1);
-                messages.add(message);
-            }
-            rs.close();
-            statement.close();
-            conn.close();
-
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return messages;
-
-    }
-
     //更新一对一聊天为已读
-    public static void update(long sender, long receiver)
+    public void update(long sender, long receiver)
     {
         Connection conn = getConn();
         PreparedStatement statement;
@@ -170,13 +189,13 @@ public class JDBC_Messages
             e.printStackTrace();
         }
     }
-    //  更新某人的群聊记录为已读
 
-    public void update(long id, String name)
+    //相当于更新群聊记录为已读
+    public void delete(long receiver)
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "update messages set Flag=1 where Receiver=" + id + " MyGroup=" + name + ";";
+        String sql = "delete from messages where Receiver=" + receiver + "&&MyGroup=1;";
         try
         {
             statement = conn.prepareStatement(sql);
@@ -188,8 +207,6 @@ public class JDBC_Messages
         {
             e.printStackTrace();
         }
-
     }
-
 
 }

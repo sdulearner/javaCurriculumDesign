@@ -9,7 +9,7 @@ public class JDBC_Groups
 {
     private static MyGroup myGroup = new MyGroup();
 
-    public static Connection getConn()
+    public  Connection getConn()
     {
         String driver = "com.mysql.cj.jdbc.Driver";
         String URL = "jdbc:mysql://localhost:3306/test?serverTimezone=GMT&useSSL=false";
@@ -50,7 +50,7 @@ public class JDBC_Groups
 
 
 
-    public static MyGroup query(int no)
+    public MyGroup query(int no)
     {
         Connection conn = getConn();
         PreparedStatement statement;
@@ -84,7 +84,7 @@ public class JDBC_Groups
         return myGroup;
     }
 
-    public static void delete(int no)
+    public void delete(int no)
     {
 
         Connection conn = getConn();

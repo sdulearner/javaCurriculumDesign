@@ -33,7 +33,7 @@ public class JDBC_Students
     // 以及一个检索用户Id与密码是否匹配的方法，也就是judgePassword方法。
 
     // 先写第一个insert方法。
-    public static long[] getId()
+    public long[] getId()
     {
         Connection conn = getConn();
         long[] array = new long[count()];

@@ -80,7 +80,6 @@ public class JDBC_Vote
             statement.setString(2, title);
             statement.executeUpdate();
             statement.close();
-
             statement = conn.prepareStatement(sql2);
             statement.execute();
 

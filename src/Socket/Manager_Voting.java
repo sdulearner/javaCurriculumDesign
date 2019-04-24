@@ -3,6 +3,7 @@ package Socket;
 import Database.JDBC_Students;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Manager_Voting implements Runnable
 {
@@ -13,13 +14,14 @@ public class Manager_Voting implements Runnable
     private Socket_Util cs;
     private long[] array;
     private VotingThread votingThread;
+
     public Manager_Voting()
     {
     }
 
     public Manager_Voting(ArrayList<Socket_Util> managerAnnouncement)
     {
-        socketList=managerAnnouncement;
+        socketList = managerAnnouncement;
     }
 
 
@@ -43,16 +45,15 @@ public class Manager_Voting implements Runnable
             {
                 array = JDBC_Students.getId();
                 Thread.sleep(500);
-                for (int i = 0; i < JDBC_Students.count(); i++)
-                {
-                    if (!idlist.contains(array[i]))
-                    {
-                        socketList.get(i).outVoting();
-                        votingThread=socketList.get(i).getVotingThread();
-                        votingThread.join();
-                    }
-                }
 
+                Random random = new Random();
+                int i = random.nextInt(array.length);
+                if (!idlist.contains(array[i]))
+                {
+                    socketList.get(i).outVoting();
+                    votingThread = socketList.get(i).getVotingThread();
+                    votingThread.join();
+                }
             }
         } catch (InterruptedException e)
         {

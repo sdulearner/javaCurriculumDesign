@@ -53,12 +53,13 @@ public class JDBC_Documents
     }
 
 
-    public static boolean insert(String name)
+    public boolean insert(String name)
     {
         Connection conn = getConn();
 
-        if (judge(name)){
-            return  false;
+        if (judge(name))
+        {
+            return false;
         }
         PreparedStatement statement;
         String sql = "insert into documents (Name)values (?);";
@@ -76,7 +77,7 @@ public class JDBC_Documents
         return true;
     }
 
-    private static boolean judge(String name)
+    private boolean judge(String name)
     {
         boolean b = true;
         Connection conn = getConn();
@@ -103,7 +104,7 @@ public class JDBC_Documents
         return b;
     }
 
-    public static Document query(int no)
+    public Document query(int no)
     {
         Connection conn = getConn();
         String sql = "select*from documents where NO=" + no + ";";
@@ -125,7 +126,7 @@ public class JDBC_Documents
         return document;
     }
 
-    public static void delete(int no)
+    public void delete(int no)
     {
 
         Connection conn = getConn();
