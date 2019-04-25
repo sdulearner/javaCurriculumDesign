@@ -9,7 +9,7 @@ public class JDBC_Groups
 {
     private static MyGroup myGroup = new MyGroup();
 
-    public  Connection getConn()
+    public Connection getConn()
     {
         String driver = "com.mysql.cj.jdbc.Driver";
         String URL = "jdbc:mysql://localhost:3306/test?serverTimezone=GMT&useSSL=false";
@@ -47,7 +47,6 @@ public class JDBC_Groups
             e.printStackTrace();
         }
     }
-
 
 
     public MyGroup query(int no)

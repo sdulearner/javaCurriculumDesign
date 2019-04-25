@@ -10,7 +10,7 @@ public class Listener_Server extends Thread
 
     //    static ArrayList<Socket_Util> list = new ArrayList<Socket_Util>();
     public static Manager_Announcement managerAnnouncement = new Manager_Announcement();
-//    static Manager_Voting managerVoting = new Manager_Voting();
+    //    static Manager_Voting managerVoting = new Manager_Voting();
 //    static Manager_Chat managerChat =new Manager_Chat();
     static ArrayList<Long> idList = new ArrayList<>();
 

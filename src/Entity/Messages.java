@@ -8,9 +8,31 @@ public class Messages
     private long Sender;
     private long receiver;
     private String Text;
-    private String MyGroup;
+    private boolean Photo;
+
+    private boolean MyGroup;
     private Timestamp Time;
     private boolean flag;
+
+    public void setMyGroup(boolean myGroup)
+    {
+        MyGroup = myGroup;
+    }
+
+    public boolean isPhoto()
+    {
+        return Photo;
+    }
+
+    public void setPhoto(boolean photo)
+    {
+        Photo = photo;
+    }
+
+    public boolean isMyGroup()
+    {
+        return MyGroup;
+    }
 
     public void setText(String text)
     {
@@ -42,11 +64,6 @@ public class Messages
         this.receiver = receiver;
     }
 
-    public void setMyGroup(String myGroup)
-    {
-        MyGroup = myGroup;
-    }
-
     public void setTime(Timestamp time)
     {
         Time = time;
@@ -67,11 +84,6 @@ public class Messages
         return receiver;
     }
 
-    public String getMyGroup()
-    {
-        return MyGroup;
-    }
-
     public Timestamp getTime()
     {
         return Time;
@@ -82,7 +94,4 @@ public class Messages
         return flag;
     }
 
-    public Messages()
-    {
-    }
 }

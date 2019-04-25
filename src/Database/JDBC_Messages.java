@@ -2,6 +2,7 @@ package Database;
 
 import Entity.Messages;
 
+import javax.xml.transform.sax.SAXTransformerFactory;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -29,18 +30,18 @@ public class JDBC_Messages
         return conn;
     }
 
-    public void insert(long sender, long receiver, String text, int group, boolean flag)
+    public void insert(long sender, long receiver, String text, boolean group, boolean flag)
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "insert into messages(Sender ,Receiver ,Text,MyGroup,Time ,Flag) values(?,?,?,?,now(),?);";
+        String sql = "insert into messages(Sender ,Receiver ,Text,MyGroup,Time,Flag) values(?,?,?,?,now(),?);";
         try
         {
             statement = conn.prepareStatement(sql);
             statement.setLong(1, sender);
             statement.setLong(2, receiver);
             statement.setString(3, text);
-            statement.setInt(4, group);
+            statement.setInt(4, group ? 1 : 0);
             statement.setInt(5, flag ? 1 : 0);
             statement.execute();
             statement.close();
@@ -57,7 +58,7 @@ public class JDBC_Messages
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "select*from messages where Receiver=" + receiver + " and Sender=" + sender + ";";
+        String sql = "select*from messages where Receiver=" + receiver + "&&Sender=" + sender + "&&Mygroup=0;";
         ArrayList<Messages> array = new ArrayList<>();
         try
         {
@@ -84,7 +85,7 @@ public class JDBC_Messages
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "select*from messages where Receiver=" + receiver + "&&MyGroup=1;";
+        String sql = "select*from messages where Receiver=" + receiver + "&&MyGroup=1&&;";
         ArrayList<Messages> arrayList = new ArrayList<Messages>();
         try
         {
@@ -133,7 +134,6 @@ public class JDBC_Messages
             e.printStackTrace();
         }
         return messages;
-
     }
 
     //查询私聊记录
@@ -142,7 +142,7 @@ public class JDBC_Messages
         Connection conn = getConn();
         PreparedStatement statement;
         String sql = "select*from messages where (Sender=" + sender + "&&Receiver=" + receiver +
-                "&&MyGroup<=>NULL)||(Sender=" + receiver + "&&Receiver=" + sender + "&&MyGroup<=>NULL);";
+                "&&MyGroup=0)||(Sender=" + receiver + "&&Receiver=" + sender + "&&MyGroup=0);";
 
         try
         {
@@ -175,7 +175,7 @@ public class JDBC_Messages
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "update messages set Flag=1 where Receiver=" + receiver + " andSender=" + sender + ";";
+        String sql = "update messages set Flag=1 where Receiver=" + receiver + "&&Sender=" + sender + ";";
         try
         {
             statement = conn.prepareStatement(sql);

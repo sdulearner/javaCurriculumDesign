@@ -16,6 +16,12 @@ public class Student implements Serializable
     {
     }
 
+    public static insert()
+    {
+        String sql = "";
+
+    }
+
     public Student(long id, String password)
     {
         Id = id;

@@ -32,30 +32,33 @@ public class VotingThread extends Thread
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
 
             result = jdbc_vote.calculate(no);
-            writer.println(result.getTitle());
-            writer.println(result.getName());
-            //选项内容
+            writer.println(result.getTitle());//标题
+            writer.println(result.getName());//发起人
+            //选项内容，以及现在的票数
             writer.println(result.getOptions().length);
             for (int i = 0; i < result.getOptions().length; i++)
             {
                 writer.println(result.getOptions()[i]);
+                writer.println(result.getVotes()[i]);
             }
-            //补充意见
+            //已有的补充意见
             writer.println(result.getOpinions().length);
             for (int i = 0; i < result.getOpinions().length; i++)
             {
                 writer.println(result.getOpinions()[i]);
                 writer.println(result.getTime()[i]);
             }
-            //投票结果
+
+
+            //这个人的投票结果
             array = new int[result.getOptions().length];
             for (int i = 0; i < result.getOptions().length; i++)
             {
                 array[i] = Integer.parseInt(reader.readLine());
             }
-
+            //这个人的补充意见
             input = reader.readLine();
-            、、//未完待续
+
             voting.setNO(no);
             voting.setVotes(array);
             voting.setOpinion(input);

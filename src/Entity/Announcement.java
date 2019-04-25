@@ -19,7 +19,7 @@ public class Announcement implements Serializable
 
     }
 
-    public Announcement( String name, String title, String text, Timestamp time)
+    public Announcement(String name, String title, String text, Timestamp time)
     {
         Name = name;
         Title = title;

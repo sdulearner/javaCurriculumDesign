@@ -14,10 +14,7 @@ public class Manager_Voting implements Runnable
     private Socket_Util cs;
     private long[] array;
     private VotingThread votingThread;
-
-    public Manager_Voting()
-    {
-    }
+    private JDBC_Students jdbc_students;
 
     public Manager_Voting(ArrayList<Socket_Util> managerAnnouncement)
     {
@@ -43,8 +40,9 @@ public class Manager_Voting implements Runnable
         {
             while (idlist.size() < JDBC_Students.count())
             {
-                array = JDBC_Students.getId();
-                Thread.sleep(500);
+                jdbc_students = new JDBC_Students();
+                array = jdbc_students.getId();
+                Thread.sleep(333);
 
                 Random random = new Random();
                 int i = random.nextInt(array.length);

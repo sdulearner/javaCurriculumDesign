@@ -7,8 +7,7 @@ public class MyMain
 
     public static void main(String[] args)
     {
-        Main main=new Main();
-
-
+      String a="2018003011652018003011750001";
+        System.out.println(a.substring(23));
     }
 }

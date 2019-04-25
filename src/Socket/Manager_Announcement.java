@@ -21,7 +21,6 @@ public class Manager_Announcement implements Runnable
     }
 
 
-
     public void add(Socket_Util socket)
     {
         socketList.add(socket);
@@ -31,6 +30,7 @@ public class Manager_Announcement implements Runnable
     {
         socketList.remove(socket);
     }
+
     @Override
     public void run()
     {

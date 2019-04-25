@@ -18,7 +18,7 @@ public class Dalao_De_Daima
         {
 
             Class.forName(driver);
-            conn = (Connection) DriverManager.getConnection(URL, name, password);
+            conn = DriverManager.getConnection(URL, name, password);
 
         } catch (ClassNotFoundException e)
         {
@@ -39,7 +39,7 @@ public class Dalao_De_Daima
         PreparedStatement statement;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql);
+            statement = conn.prepareStatement(sql);
             statement.setLong(1, student.getId());
             statement.setString(2, student.getName());
             statement.setString(3, student.getSex());
@@ -62,7 +62,7 @@ public class Dalao_De_Daima
         PreparedStatement pstmt;
         try
         {
-            pstmt = (PreparedStatement) conn.prepareStatement(sql);
+            pstmt = conn.prepareStatement(sql);
             i = pstmt.executeUpdate();
             System.out.println("resutl: " + i);
             pstmt.close();
@@ -81,7 +81,7 @@ public class Dalao_De_Daima
         PreparedStatement pstmt;
         try
         {
-            pstmt = (PreparedStatement) conn.prepareStatement(sql);
+            pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             int col = rs.getMetaData().getColumnCount();
             System.out.println("============================");
@@ -95,7 +95,7 @@ public class Dalao_De_Daima
                         System.out.print("\t");
                     }
                 }
-                System.out.println("");
+                System.out.println();
             }
             System.out.println("============================");
         } catch (SQLException e)
@@ -113,7 +113,7 @@ public class Dalao_De_Daima
         PreparedStatement pstmt;
         try
         {
-            pstmt = (PreparedStatement) conn.prepareStatement(sql);
+            pstmt = conn.prepareStatement(sql);
             i = pstmt.executeUpdate();
             System.out.println("resutl: " + i);
             pstmt.close();

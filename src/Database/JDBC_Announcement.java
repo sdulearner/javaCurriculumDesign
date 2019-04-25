@@ -19,7 +19,7 @@ public class JDBC_Announcement
         try
         {
             Class.forName(driver);
-            conn = (Connection) DriverManager.getConnection(URL, name, password);
+            conn = DriverManager.getConnection(URL, name, password);
         } catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();
@@ -61,7 +61,7 @@ public class JDBC_Announcement
         PreparedStatement statement;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql);
+            statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             long count = 0;
             while (rs.next())
@@ -88,7 +88,7 @@ public class JDBC_Announcement
         if (judgeTitle(a.getTitle())) return false;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql);
+            statement = conn.prepareStatement(sql);
             statement.setString(1, a.getName());
             statement.setString(2, a.getTitle());
             statement.setString(3, a.getText());
@@ -110,7 +110,7 @@ public class JDBC_Announcement
         PreparedStatement statement;
         try
         {
-            statement = (PreparedStatement) conn.prepareStatement(sql);
+            statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {

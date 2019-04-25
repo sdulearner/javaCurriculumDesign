@@ -18,7 +18,7 @@ public class JDBC_Documents
         try
         {
             Class.forName(driver);
-            conn = (Connection) DriverManager.getConnection(URL, name, password);
+            conn = DriverManager.getConnection(URL, name, password);
         } catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();

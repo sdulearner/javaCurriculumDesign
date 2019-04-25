@@ -2,7 +2,7 @@ package Socket;
 
 import java.util.ArrayList;
 
-public class Manager_File implements  Runnable
+public class Manager_File implements Runnable
 {
     private ArrayList<Socket_Util> sockets;
     private Socket_Util cs;

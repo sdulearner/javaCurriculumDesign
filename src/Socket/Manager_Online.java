@@ -20,7 +20,7 @@ public class Manager_Online implements Runnable
         {
             if (socketList.get(i) != cs)
             {
-            socketList.get(i).outOnline(cs.getId(),cs.getName(),cs.getNickname());
+                socketList.get(i).outOnline(cs.getId(), cs.getName(), cs.getNickname());
             }
         }
     }
