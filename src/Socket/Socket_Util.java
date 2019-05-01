@@ -2,7 +2,6 @@ package Socket;
 
 import Database.*;
 import Entity.Announcement;
-import Entity.Messages;
 import Entity.Result;
 import Entity.Student;
 
@@ -10,12 +9,7 @@ import java.io.*;
 
 import java.net.Socket;
 import java.sql.Timestamp;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class Socket_Util extends Thread
 {
@@ -25,7 +19,7 @@ public class Socket_Util extends Thread
     private JDBC_Announcement jdbc_announcement;
     private JDBC_Documents jdbc_documents;
     private JDBC_Groups jdbc_groups;
-    private JDBC_Messages jdbc_messages;
+    private JDBC_Texts jdbc_messages;
     private JDBC_Students jdbc_students;
     private JDBC_Vote jdbc_vote;
     private JDBC_Photos jdbc_photos;
@@ -96,11 +90,13 @@ public class Socket_Util extends Thread
 
     }
 
+    //1
     public void outOnline(long id, String name, String nickname)
     {
         try
         {
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            writer.println(1);
             writer.println(id);
             writer.println(name);
             writer.println(nickname);
@@ -112,6 +108,7 @@ public class Socket_Util extends Thread
         }
     }
 
+    //2
     public void outVoting()
     {
         try
@@ -126,12 +123,12 @@ public class Socket_Util extends Thread
 
     }
 
-
+    //3
     public void outAnnouncemt(String Name, String Title, String Text, Timestamp Time)
     {
         try
         {
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             writer.println(Name);
             writer.println(Title);
             writer.println(Text);
@@ -144,11 +141,12 @@ public class Socket_Util extends Thread
         }
     }
 
+    //4
     public void outUpload(String name)
     {
         try
         {
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             writer.println(name);
         } catch (IOException e)
         {
@@ -157,15 +155,17 @@ public class Socket_Util extends Thread
 
     }
 
+    //5
     public void outDeleteAnnouncement()
     {
     }
 
+    //6
     public void outDeleteFile(int no)//删除某文件时
     {
         try
         {
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             writer.println(no);
         } catch (IOException e)
         {
@@ -174,6 +174,7 @@ public class Socket_Util extends Thread
 
     }
 
+    //7
     public void outSending(long sender, String text, boolean group)//发消息用
     {
         try
@@ -191,6 +192,7 @@ public class Socket_Util extends Thread
 
     }
 
+    //8
     private void outPhoto(long sender, int no, boolean group)//发图片
     {
         try
@@ -263,23 +265,28 @@ public class Socket_Util extends Thread
                         input = reader.readLine();
                         Id = Long.parseLong(input);
                         jdbc_students = new JDBC_Students();
+
                         if (jdbc_students.judgeId(Id))
                         {
+                            writer.println("OK");
                             Password = reader.readLine().trim();
                             if (jdbc_students.judgePassword(Id, Password))
                             {
+                                writer.println("OK");
                                 Name = jdbc_students.getInformation(Id).getName();
                                 Nickname = jdbc_students.getInformation(Id).getNickname();
-                                System.out.println("OK");
-                                writer.println("OK");
+
                                 writer.println(jdbc_students.getInformation(Id).getAdministrator());//告诉你是不是管理员
                                 Listener_Server.idList.add(Id);
+
                                 //告诉其他人我上线了
                                 new Thread(new Manager_Online(this, Listener_Server.managerAnnouncement.getSocketList())).start();
+
                                 //载入信息
-                                int n = Listener_Server.idList.size();//在线人数
                                 int num = JDBC_Students.count();//总人数
                                 long[] array = jdbc_students.getId();
+
+                                int n = Listener_Server.idList.size();//在线人数
                                 writer.println(n);
                                 for (int i = 0; i < n; i++)
                                 {
@@ -287,6 +294,7 @@ public class Socket_Util extends Thread
                                     writer.println(jdbc_students.getInformation(Listener_Server.idList.get(i)).getName());
                                     writer.println(jdbc_students.getInformation(Listener_Server.idList.get(i)).getNickname());
                                 }
+                                //不在线的人
                                 writer.println(num - n);
                                 for (int i = 0; i < num; i++)
                                 {
@@ -313,7 +321,20 @@ public class Socket_Util extends Thread
                                 {
                                     writer.println(jdbc_documents.query(i));
                                 }
-                                //未读消息
+                                //未读消息 的数目
+                                jdbc_photos = new JDBC_Photos();
+                                jdbc_messages = new JDBC_Texts();
+
+                                Map map = jdbc_messages.register(this.Id);
+                                writer.println(map.size());
+                                long[] id = jdbc_students.getId();
+                                for (int i = 0; i < JDBC_Students.count(); i++)
+                                {
+                                    if (map.containsKey(id[i]))
+                                    {
+                                        writer.println(id[i] + ":" + map.get(id[i]));
+                                    }
+                                }
                             } else
                             {
                                 System.out.println("NO2");
@@ -373,7 +394,9 @@ public class Socket_Util extends Thread
                     {
                         System.out.println("Deleting the announcement");
                         int temp = Integer.parseInt(reader.readLine());//公告序号
-                        jdbc_announcement.delete(temp);
+                        ` ` jdbc_announcement.delete(temp);
+
+
                         System.out.println("OK");
                         writer.println("OK");
                     }
@@ -451,7 +474,9 @@ public class Socket_Util extends Thread
                     case '9'://删除某文件
                     {
                         fileNo = Integer.parseInt(reader.readLine());
-                        File file = new File("D:/课设专用/" + JDBC_Documents.query(fileNo).getName());
+                        jdbc_documents = new JDBC_Documents();
+
+                        File file = new File("D:/课设专用/" + jdbc_documents.query(fileNo).getName());
                         file.delete();
                         jdbc_documents = new JDBC_Documents();
                         jdbc_documents.delete(fileNo);
@@ -462,21 +487,27 @@ public class Socket_Util extends Thread
                     break;
                     case '0'://打开与某人的聊天面板
                     {
-
-
+                        jdbc_messages = new JDBC_Texts();
+                        long temp = Long.parseLong(reader.readLine());
+                        ArrayList<Entity.Text> arrayList = jdbc_messages.queryId(temp, this.Id);
+                        //输出未读消息的个数
+                        writer.println(arrayList.size());
+                        for (int i = 0; i < arrayList.size(); i++)
+                        {
+                            writer.println(arrayList.get(i).getText());
+                            writer.println(arrayList.get(i).getTime());
+                        }
                     }
                     break;
                     case 'a'://打开大群的聊天面板
                     {
-
-
                     }
                     break;
                     case 'f'://标记与某人的消息为已读
                     {
                         System.out.println("正在标记与某人的聊天记录为已读");
                         long temp = Long.parseLong(reader.readLine());
-                        jdbc_messages = new JDBC_Messages();
+                        jdbc_messages = new JDBC_Texts();
                         jdbc_messages.update(temp, this.Id);
                         writer.println("OK");
                     }
@@ -484,7 +515,7 @@ public class Socket_Util extends Thread
                     case 'g'://标记大群的消息为已读
                     {
                         System.out.println("正在标记某人的大群聊天记录为已读");
-                        jdbc_messages = new JDBC_Messages();
+                        jdbc_messages = new JDBC_Texts();
                         jdbc_messages.delete(this.Id);
                         writer.println("OK");
                     }
@@ -527,13 +558,11 @@ public class Socket_Util extends Thread
                             Listener_Server.managerAnnouncement.getSocketList().get(i).
                                     outPhoto(this.Id, jdbc_photos.getNO(this.Id, 100000000000L), true);
                         }
-
                     }
                     break;
                     case 'b'://给某人单独发消息
                     {
-                        jdbc_messages = new JDBC_Messages();
-
+                        jdbc_messages = new JDBC_Texts();
                         long temp = Long.parseLong(reader.readLine());//接收者的Id
                         String message = reader.readLine();//要收到的信息
                         jdbc_messages.insert(this.Id, temp, message, false, false);
@@ -553,10 +582,9 @@ public class Socket_Util extends Thread
                     break;
                     case 'c'://向大群发送消息
                     {
-                        jdbc_messages = new JDBC_Messages();
+                        jdbc_messages = new JDBC_Texts();
                         jdbc_students = new JDBC_Students();
                         System.out.println("正在发群消息");
-
                         String message = reader.readLine();
                         jdbc_messages.insert(this.Id, 100000000000L, message, true, true);
                         long[] id = jdbc_students.getId();
@@ -568,47 +596,46 @@ public class Socket_Util extends Thread
                         {
                             Listener_Server.managerAnnouncement.getSocketList().get(i).outSending(this.Id, message, true);
                         }
-
                         System.out.println("OK");
                         writer.println("OK");
                     }
                     break;
-                    case 'd'://查询与某人聊天记录
-                    {
-                        System.out.println("正在查询聊天记录");
-                        long temp = Long.parseLong(reader.readLine());
-                        ArrayList<Messages> arrayList = JDBC_Messages.query(this.Id, temp);
-
-                        writer.println(arrayList.size());
-                        for (int i = 0; i < arrayList.size(); i++)
-                        {
-                            writer.println(arrayList.get(i).getSender());
-                            writer.println(arrayList.get(i).getReceiver());
-                            writer.println(arrayList.get(i).getText());
-                            writer.println(arrayList.get(i).getTime().getTime());
-                        }
-                        System.out.println("OK");
-                        writer.println("OK");
-                    }
-                    break;
-                    case 'e'://查询大群群聊记录
-                    {
-                        System.out.println("正在查询群聊记录");
-                        String temp = reader.readLine();
-                        ArrayList<Messages> arrayList = jdbc_messages.query(temp);
-                        writer.println(arrayList.size());
-                        for (int i = 0; i < arrayList.size(); i++)
-                        {
-                            writer.println(arrayList.get(i).getSender());
-                            writer.println(arrayList.get(i).getText());
-                            writer.println(arrayList.get(i).getTime().getTime());
-                        }
-
-                        System.out.println("OK");
-                        writer.println("OK");
-
-                    }
-                    break;
+//                    case 'd'://查询与某人聊天记录
+//                    {
+//                        System.out.println("正在查询聊天记录");
+//                        long temp = Long.parseLong(reader.readLine());
+//                        ArrayList<Text> arrayList = JDBC_Texts.query(this.Id, temp);
+//
+//                        writer.println(arrayList.size());
+//                        for (int i = 0; i < arrayList.size(); i++)
+//                        {
+//                            writer.println(arrayList.get(i).getSender());
+//                            writer.println(arrayList.get(i).getReceiver());
+//                            writer.println(arrayList.get(i).getText());
+//                            writer.println(arrayList.get(i).getTime().getTime());
+//                        }
+//                        System.out.println("OK");
+//                        writer.println("OK");
+//                    }
+//                    break;
+//                    case 'e'://查询大群群聊记录
+//                    {
+//                        System.out.println("正在查询群聊记录");
+//                        String temp = reader.readLine();
+//                        ArrayList<Text> arrayList = jdbc_messages.query(temp);
+//                        writer.println(arrayList.size());
+//                        for (int i = 0; i < arrayList.size(); i++)
+//                        {
+//                            writer.println(arrayList.get(i).getSender());
+//                            writer.println(arrayList.get(i).getText());
+//                            writer.println(arrayList.get(i).getTime().getTime());
+//                        }
+//
+//                        System.out.println("OK");
+//                        writer.println("OK");
+//
+//                    }
+//                    break;
                     default:
                         break;
                 }

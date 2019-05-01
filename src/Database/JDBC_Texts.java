@@ -1,16 +1,17 @@
 package Database;
 
-import Entity.Messages;
+import Entity.Text;
 
-import javax.xml.transform.sax.SAXTransformerFactory;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class JDBC_Messages
+public class JDBC_Texts
 {
-    private static ArrayList<Messages> messages = new ArrayList<>();
+    private static ArrayList<Text> texts = new ArrayList<>();
 
-    private static Messages message = new Messages();
+    private static Text text = new Text();
 
     public Connection getConn()
     {
@@ -34,7 +35,7 @@ public class JDBC_Messages
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "insert into messages(Sender ,Receiver ,Text,MyGroup,Time,Flag) values(?,?,?,?,now(),?);";
+        String sql = "insert into texts(Sender ,Receiver ,Text,MyGroup,Time,Flag) values(?,?,?,?,now(),?);";
         try
         {
             statement = conn.prepareStatement(sql);
@@ -52,23 +53,54 @@ public class JDBC_Messages
         }
     }
 
-    //查询私聊的未读消息，这个方法在私聊面板打开的时候使用
-
-    public ArrayList<Messages> queryId(long sender, long receiver)
+    //查询某用户未读消息的个数，在登录时使用
+    public Map register(long receiver)
     {
+        Map<Long, Short> map = new HashMap<>();
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "select*from messages where Receiver=" + receiver + "&&Sender=" + sender + "&&Mygroup=0;";
-        ArrayList<Messages> array = new ArrayList<>();
+        String sql = "select*from texts where Receiver=" + receiver + "&&Flag=0;";
         try
         {
             statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                message.setText(rs.getString(4));
-                message.setTime(rs.getTimestamp(6));
-                array.add(message);
+                if (map.containsKey(rs.getLong(2)))
+                {
+                    short temp = map.get(rs.getLong(2));
+                    map.put(rs.getLong(2), temp++);
+                } else
+                {
+                    map.put(rs.getLong(2), (short) 1);
+                }
+            }
+
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    //查询私聊的未读消息，这个方法在私聊面板打开的时候使用
+
+    public ArrayList<Text> queryId(long sender, long receiver)
+    {
+        Connection conn = getConn();
+        PreparedStatement statement;
+        String sql = "select*from texts where Receiver=" + receiver + "&&Sender=" + sender + "&&MyGroup=0&&Flag=0;";
+        ArrayList<Text> array = new ArrayList<>();
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                text.setText(rs.getString(4));
+                text.setTime(rs.getTimestamp(6));
+                array.add(text);
             }
 
         } catch (SQLException e)
@@ -81,21 +113,21 @@ public class JDBC_Messages
     }
 
     //查询某人的大群未读消息，这个方法仅在打开群聊面板的时候使用
-    public ArrayList<Messages> queryGroup(long receiver)
+    public ArrayList<Text> queryGroup(long receiver)
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "select*from messages where Receiver=" + receiver + "&&MyGroup=1&&;";
-        ArrayList<Messages> arrayList = new ArrayList<Messages>();
+        String sql = "select*from texts where Receiver=" + receiver + "&&MyGroup=1;";
+        ArrayList<Text> arrayList = new ArrayList<Text>();
         try
         {
             statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                message.setSender(rs.getInt(2));
-                message.setText(rs.getString(4));
-                message.setTime(rs.getTimestamp(6));
+                text.setSender(rs.getLong(2));
+                text.setText(rs.getString(4));
+                text.setTime(rs.getTimestamp(6));
             }
 
         } catch (SQLException e)
@@ -108,11 +140,11 @@ public class JDBC_Messages
 
 
     //查询大群的聊天记录
-    public ArrayList<Messages> query()
+    public ArrayList<Text> query()
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "select*from messages where MyGroup=1&&Receiver=1;";
+        String sql = "select*from texts where MyGroup=1&&Receiver=100000000000;";
         try
         {
             statement = conn.prepareStatement(sql);
@@ -120,10 +152,10 @@ public class JDBC_Messages
             while (rs.next())
             {
 
-                message.setSender(rs.getLong(2));
-                message.setText(rs.getString(4));
-                message.setTime(rs.getTimestamp(6));
-                messages.add(message);
+                text.setSender(rs.getLong(2));
+                text.setText(rs.getString(4));
+                text.setTime(rs.getTimestamp(6));
+                texts.add(text);
             }
             rs.close();
             statement.close();
@@ -133,15 +165,15 @@ public class JDBC_Messages
         {
             e.printStackTrace();
         }
-        return messages;
+        return texts;
     }
 
     //查询私聊记录
-    public ArrayList<Messages> query(long sender, long receiver)
+    public ArrayList<Text> query(long sender, long receiver)
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "select*from messages where (Sender=" + sender + "&&Receiver=" + receiver +
+        String sql = "select*from texts where (Sender=" + sender + "&&Receiver=" + receiver +
                 "&&MyGroup=0)||(Sender=" + receiver + "&&Receiver=" + sender + "&&MyGroup=0);";
 
         try
@@ -151,11 +183,11 @@ public class JDBC_Messages
             while (rs.next())
             {
 
-                message.setSender(rs.getLong(2));
-                message.setReceiver(rs.getLong(3));
-                message.setText(rs.getString(4));
-                message.setTime(rs.getTimestamp(6));
-                messages.add(message);
+                text.setSender(rs.getLong(2));
+                text.setReceiver(rs.getLong(3));
+                text.setText(rs.getString(4));
+                text.setTime(rs.getTimestamp(6));
+                texts.add(text);
             }
 
             rs.close();
@@ -167,7 +199,7 @@ public class JDBC_Messages
             e.printStackTrace();
         }
         update(sender, receiver);
-        return messages;
+        return texts;
     }
 
     //更新一对一聊天为已读
@@ -175,7 +207,7 @@ public class JDBC_Messages
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "update messages set Flag=1 where Receiver=" + receiver + "&&Sender=" + sender + ";";
+        String sql = "update texts set Flag=1 where Receiver=" + receiver + "&&Sender=" + sender + ";";
         try
         {
             statement = conn.prepareStatement(sql);
@@ -195,7 +227,7 @@ public class JDBC_Messages
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "delete from messages where Receiver=" + receiver + "&&MyGroup=1;";
+        String sql = "delete from texts where Receiver=" + receiver + "&&MyGroup=1;";
         try
         {
             statement = conn.prepareStatement(sql);

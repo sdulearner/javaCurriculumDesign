@@ -2,12 +2,12 @@ package Entity;
 
 import java.sql.Timestamp;
 
-public class Messages
+public class Photo extends Message
 {
     private int NO;
     private long Sender;
     private long receiver;
-    private String Text;
+    private String Path;
     private boolean Photo;
 
     private boolean MyGroup;
@@ -17,6 +17,16 @@ public class Messages
     public void setMyGroup(boolean myGroup)
     {
         MyGroup = myGroup;
+    }
+
+    public String getPath()
+    {
+        return Path;
+    }
+
+    public void setPath(String path)
+    {
+        Path = path;
     }
 
     public boolean isPhoto()
@@ -32,16 +42,6 @@ public class Messages
     public boolean isMyGroup()
     {
         return MyGroup;
-    }
-
-    public void setText(String text)
-    {
-        Text = text;
-    }
-
-    public String getText()
-    {
-        return Text;
     }
 
     public void setFlag(boolean flag)
@@ -62,11 +62,6 @@ public class Messages
     public void setReceiver(long receiver)
     {
         this.receiver = receiver;
-    }
-
-    public void setTime(Timestamp time)
-    {
-        Time = time;
     }
 
     public int getNO()
@@ -94,4 +89,9 @@ public class Messages
         return flag;
     }
 
+    public void setTime(Timestamp time)
+    {
+        Time = time;
+        super.time =time.getTime();
+    }
 }

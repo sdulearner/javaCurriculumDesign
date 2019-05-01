@@ -32,6 +32,7 @@ public class VotingThread extends Thread
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
 
             result = jdbc_vote.calculate(no);
+            writer.println(2);
             writer.println(result.getTitle());//标题
             writer.println(result.getName());//发起人
             //选项内容，以及现在的票数

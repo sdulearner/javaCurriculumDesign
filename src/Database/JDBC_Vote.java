@@ -64,7 +64,7 @@ public class JDBC_Vote
         Connection conn = getConn();
 
         if (judgeTitle(title)) return false;
-        String sql1 = "insert into vote (Name,Title) values(?,?);";
+        String sql1 = "insert into vote ( Name,Title) values(?,?);";
         for (int i = 0; i < a; i++)
         {
             builder.append("`" + options[i] + "`" + " tinyint(1),");

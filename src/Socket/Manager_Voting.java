@@ -43,20 +43,25 @@ public class Manager_Voting implements Runnable
                 jdbc_students = new JDBC_Students();
                 array = jdbc_students.getId();
                 Thread.sleep(333);
-
+                int i;
                 Random random = new Random();
-                int i = random.nextInt(array.length);
-                if (!idlist.contains(array[i]))
+                do
                 {
-                    socketList.get(i).outVoting();
-                    votingThread = socketList.get(i).getVotingThread();
-                    votingThread.join();
-                }
+                    i = random.nextInt(array.length);
+                } while (idlist.contains(array[i]));
+
+
+                socketList.get(i).outVoting();
+                votingThread = socketList.get(i).getVotingThread();
+                votingThread.join();
+                idlist.add(array[i]);
+//                if (!idlist.contains(array[i]))
+//                {
+//                }
             }
         } catch (InterruptedException e)
         {
             e.printStackTrace();
         }
-
     }
 }
