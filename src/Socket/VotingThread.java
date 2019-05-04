@@ -42,14 +42,20 @@ public class VotingThread extends Thread
                 writer.println(result.getOptions()[i]);
                 writer.println(result.getVotes()[i]);
             }
-            //已有的补充意见
-            writer.println(result.getOpinions().length);
-            for (int i = 0; i < result.getOpinions().length; i++)
-            {
-                writer.println(result.getOpinions()[i]);
-                writer.println(result.getTime()[i]);
-            }
 
+
+            //已有的补充意见
+            int counter = 0;
+            for (String temp : result.getOpinions())
+            {
+                if (temp != null) counter++;
+            }
+            writer.println(counter);
+            for (String a :
+                    result.getOpinions())
+            {
+                if (a != null) writer.println(a);
+            }
 
             //这个人的投票结果
             array = new int[result.getOptions().length];

@@ -2,7 +2,13 @@ package Database;
 
 import java.sql.*;
 
-public  class Test
+/**
+ * @description: 对管理员日志操作的类
+ * @author: sdulearner
+ * @create: 2019-05-04 10:33
+ **/
+
+public class JDBC_Log
 {
     public static Connection getConn()
     {
@@ -22,14 +28,39 @@ public  class Test
         return conn;
     }
 
-    public static void execSQL(String sql)
+
+    public static void insert(long id, String name, String operation)
     {
         Connection conn = getConn();
+        PreparedStatement statement;
+        String sql = "insert into log (Operator ,Name ,Operation,Time ) values(?,?,?,now())";
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            statement.setLong(1, id);
+            statement.setString(2, name);
+            statement.setString(3, operation);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public static int count()
+    {
+        Connection conn = getConn();
+        String sql = "select*from students;";
+        int count = 0;
         PreparedStatement statement;
         try
         {
             statement = conn.prepareStatement(sql);
-            statement.execute();
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next())
+            {
+                count++;
+            }
+            rs.close();
             statement.close();
             conn.close();
 
@@ -37,30 +68,24 @@ public  class Test
         {
             e.printStackTrace();
         }
+        return count;
     }
 
-    public static ResultSet rawQuery(String sql)
+    public static ResultSet query()
     {
         Connection conn = getConn();
         PreparedStatement statement;
+        String sql = "select*from log;";
         ResultSet rs = null;
         try
         {
             statement = conn.prepareStatement(sql);
-            rs=statement.executeQuery();
-
-            statement.close();
-            conn.close();
-
+            rs = statement.executeQuery();
 
         } catch (SQLException e)
         {
             e.printStackTrace();
-        } finally
-        {
-            return rs;
         }
+        return rs;
     }
-
-
 }

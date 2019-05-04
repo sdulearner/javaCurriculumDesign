@@ -1,6 +1,7 @@
 package Database;
 
 import Entity.Photo;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,11 +9,10 @@ import java.util.Map;
 
 public class JDBC_Photos
 {
-    private static ArrayList<Photo> photos = new ArrayList<>();
 
     private static Photo photo = new Photo();
 
-    public Connection getConn()
+    public static Connection getConn()
     {
         String driver = "com.mysql.cj.jdbc.Driver";
         String URL = "jdbc:mysql://localhost:3306/test?serverTimezone=GMT&useSSL=false";
@@ -30,17 +30,17 @@ public class JDBC_Photos
         return conn;
     }
 
-    public void insert(long sender, long receiver, String path, boolean group, boolean flag)
+    public void insert(long sender, long receiver, String extension, boolean group, boolean flag)
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "insert into photos(Sender ,Receiver ,Path,MyGroup,Time,Flag) values(?,?,?,?,now(),?);";
+        String sql = "insert into photos(Sender ,Receiver ,Extension,MyGroup,Time,Flag) values(?,?,?,?,now(),?);";
         try
         {
             statement = conn.prepareStatement(sql);
             statement.setLong(1, sender);
             statement.setLong(2, receiver);
-            statement.setString(3, path);
+            statement.setString(3, extension);
             statement.setInt(4, group ? 1 : 0);
             statement.setInt(5, flag ? 1 : 0);
             statement.execute();
@@ -97,7 +97,8 @@ public class JDBC_Photos
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                photo.setPath(rs.getString(4));
+                photo.setNO(rs.getInt(1));
+                photo.setExtension(rs.getString(4));
                 photo.setTime(rs.getTimestamp(6));
                 array.add(photo);
             }
@@ -124,8 +125,9 @@ public class JDBC_Photos
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
+                photo.setNO(rs.getInt(1));
                 photo.setSender(rs.getLong(2));
-                photo.setPath(rs.getString(4));
+                photo.setExtension(rs.getString(4));
                 photo.setTime(rs.getTimestamp(6));
             }
 
@@ -143,6 +145,7 @@ public class JDBC_Photos
     {
         Connection conn = getConn();
         PreparedStatement statement;
+        ArrayList<Photo> photos = new ArrayList<>();
         String sql = "select*from photos where MyGroup=1&&Receiver=100000000000;";
         try
         {
@@ -151,8 +154,9 @@ public class JDBC_Photos
             while (rs.next())
             {
 
+                photo.setNO(rs.getInt(1));
                 photo.setSender(rs.getLong(2));
-                photo.setPath(rs.getString(4));
+                photo.setExtension(rs.getString(4));
                 photo.setTime(rs.getTimestamp(6));
                 photos.add(photo);
             }
@@ -172,6 +176,7 @@ public class JDBC_Photos
     {
         Connection conn = getConn();
         PreparedStatement statement;
+        ArrayList<Photo> photos = new ArrayList<>();
         String sql = "select*from photos where (Sender=" + sender + "&&Receiver=" + receiver +
                 "&&MyGroup=0)||(Sender=" + receiver + "&&Receiver=" + sender + "&&MyGroup=0);";
 
@@ -181,10 +186,10 @@ public class JDBC_Photos
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-
+                photo.setNO(rs.getInt(1));
                 photo.setSender(rs.getLong(2));
                 photo.setReceiver(rs.getLong(3));
-                photo.setPath(rs.getString(4));
+                photo.setExtension(rs.getString(4));
                 photo.setTime(rs.getTimestamp(6));
                 photos.add(photo);
             }
@@ -238,4 +243,76 @@ public class JDBC_Photos
         }
     }
 
+    public static int count(long sender, long receiver)
+    {
+        Connection conn = getConn();
+        String sql = "select*from photos where Receiver=" + receiver + "&&Sender=" + sender + ";";
+        int count = 0;
+        PreparedStatement statement;
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next())
+            {
+                count++;
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public int getNO(long sender, long receiver)
+    {
+        Connection conn = getConn();
+        PreparedStatement statement;
+        int count = count(sender, receiver);
+        int result = 0;
+        String sql = "select*from photos where Receiver=" + receiver + "&&Sender=" + sender + ";";
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            for (int i = 0; i < count; i++)
+            {
+                rs.next();
+            }
+            result = rs.getInt(1);
+            rs.close();
+
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public String getExtension(int no)
+    {
+        Connection conn = getConn();
+        String extension = null;
+        PreparedStatement statement;
+        String sql = "select*from photos where NO=" + no + ";";
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            extension = rs.getString(4);
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return extension;
+    }
 }

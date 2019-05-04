@@ -9,7 +9,7 @@ public class Manager_Voting implements Runnable
 {
 
 
-    private ArrayList<Socket_Util> socketList = new ArrayList<>();
+    private ArrayList<Socket_Util> socketList;
     private ArrayList<Long> idlist = new ArrayList<>();//已经投票的用户
     private Socket_Util cs;
     private long[] array;
@@ -52,8 +52,6 @@ public class Manager_Voting implements Runnable
 
 
                 socketList.get(i).outVoting();
-                votingThread = socketList.get(i).getVotingThread();
-                votingThread.join();
                 idlist.add(array[i]);
 //                if (!idlist.contains(array[i]))
 //                {

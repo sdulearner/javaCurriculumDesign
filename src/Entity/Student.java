@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class Student implements Serializable
 {
-    private static final long serialVersionUID = 1L;
     private long Id;
     private String Name;
     private String Nickname;
@@ -14,12 +13,6 @@ public class Student implements Serializable
 
     public Student()
     {
-    }
-
-    public static insert()
-    {
-        String sql = "";
-
     }
 
     public Student(long id, String password)

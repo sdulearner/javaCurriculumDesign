@@ -1,5 +1,6 @@
 package Database;
 
+import Entity.Message;
 import Entity.Text;
 
 import java.sql.*;
@@ -9,7 +10,6 @@ import java.util.Map;
 
 public class JDBC_Texts
 {
-    private static ArrayList<Text> texts = new ArrayList<>();
 
     private static Text text = new Text();
 
@@ -86,12 +86,12 @@ public class JDBC_Texts
 
     //查询私聊的未读消息，这个方法在私聊面板打开的时候使用
 
-    public ArrayList<Text> queryId(long sender, long receiver)
+    public ArrayList<Message> queryId(long sender, long receiver)
     {
         Connection conn = getConn();
         PreparedStatement statement;
         String sql = "select*from texts where Receiver=" + receiver + "&&Sender=" + sender + "&&MyGroup=0&&Flag=0;";
-        ArrayList<Text> array = new ArrayList<>();
+        ArrayList<Message> array = new ArrayList<>();
         try
         {
             statement = conn.prepareStatement(sql);
@@ -113,12 +113,12 @@ public class JDBC_Texts
     }
 
     //查询某人的大群未读消息，这个方法仅在打开群聊面板的时候使用
-    public ArrayList<Text> queryGroup(long receiver)
+    public ArrayList<Message> queryGroup(long receiver)
     {
         Connection conn = getConn();
         PreparedStatement statement;
         String sql = "select*from texts where Receiver=" + receiver + "&&MyGroup=1;";
-        ArrayList<Text> arrayList = new ArrayList<Text>();
+        ArrayList<Message> arrayList = new ArrayList<>();
         try
         {
             statement = conn.prepareStatement(sql);
@@ -140,11 +140,12 @@ public class JDBC_Texts
 
 
     //查询大群的聊天记录
-    public ArrayList<Text> query()
+    public ArrayList<Message> query()
     {
         Connection conn = getConn();
         PreparedStatement statement;
         String sql = "select*from texts where MyGroup=1&&Receiver=100000000000;";
+        ArrayList<Message> texts = new ArrayList<>();
         try
         {
             statement = conn.prepareStatement(sql);
@@ -169,10 +170,11 @@ public class JDBC_Texts
     }
 
     //查询私聊记录
-    public ArrayList<Text> query(long sender, long receiver)
+    public ArrayList<Message> query(long sender, long receiver)
     {
         Connection conn = getConn();
         PreparedStatement statement;
+        ArrayList<Message> texts = new ArrayList<>();
         String sql = "select*from texts where (Sender=" + sender + "&&Receiver=" + receiver +
                 "&&MyGroup=0)||(Sender=" + receiver + "&&Receiver=" + sender + "&&MyGroup=0);";
 

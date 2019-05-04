@@ -14,10 +14,15 @@ public class Database_Test
     public static void main(String[] args)
     {
 
-        JDBC_Students jdbc = new JDBC_Students();
-        JDBC_Announcement announcement = new JDBC_Announcement();
-        JDBC_Vote vote = new JDBC_Vote();
-//        jdbc.insert(new Student(201800301186L, "孙振瑜", "java垃圾", "请选择", "88888888", 0));
+        JDBC_Students jdbc_students = new JDBC_Students();
+        JDBC_Announcement jdbc_announcement = new JDBC_Announcement();
+        JDBC_Vote jdbc_vote = new JDBC_Vote();
+        JDBC_Documents jdbc_documents = new JDBC_Documents();
+        JDBC_Photos jdbc_photos = new JDBC_Photos();
+        JDBC_Texts jdbc_texts = new JDBC_Texts();
+
+
+//        jdbc_students.insert(new Student(201800301186L, "孙振瑜", "java垃圾", "请选择", "88888888", 0));
 
 //        jdbc.insert(new Student(201800301176L ,"王永超","java大佬","女","12345678",0));
 
@@ -38,17 +43,21 @@ public class Database_Test
 
 //        System.out.println(new Timestamp(System.currentTimeMillis()));
 
-        String[] options = {"这是选项1", "option2", "This is option3"};
+//        String[] options = {"这是选项1", "option2", "This is option3"};
 
 //        System.out.println(vote.start("learner","This is title.",options));
 
 //        System.out.println(announcement.query(2));
 
-        int[] array = {0, 1, 1};
+//        int[] array = {0, 1, 1};
+//
+//        vote.voting(new Voting(1, array, "Good！"));
+//
+//        System.out.println(vote.calculate(1));
 
-        vote.voting(new Voting(1, array, "Good！"));
 
-        System.out.println(vote.calculate(1));
+
+//        jdbc_students.update(new Student(201800301165L, "孙振瑜", "javaAha", "请选择", "12345678", 0));
     }
 
 }

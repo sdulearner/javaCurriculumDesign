@@ -181,6 +181,7 @@ public class JDBC_Students
         {
             statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
+//            ResultSet rs=Test.rawQuery(sql);
 //            int column = rs.getMetaData().getColumnCount();
             while (rs.next())
             {
@@ -237,8 +238,7 @@ public class JDBC_Students
     {
         int i = 0;
         Connection conn = getConn();
-        String sql = "update students set Name='" + student.getName() + "',Nickname ='" + student.getNickname() + "',Sex='"
-                + student.getSex() + "',Administrator=" + student.getAdministrator() + " where Id=" + student.getId() + ";";
+        String sql = "update students set Nickname ='" + student.getNickname() + "',Password=" + student.getPassword() + " where Id=" + student.getId() + ";";
         PreparedStatement statement;
         try
         {

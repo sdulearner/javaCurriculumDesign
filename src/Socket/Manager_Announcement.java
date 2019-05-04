@@ -16,12 +16,8 @@ public class Manager_Announcement implements Runnable
         return socketList;
     }
 
-    public Manager_Announcement()
-    {
-    }
 
-
-    public void add(Socket_Util socket)
+       public void add(Socket_Util socket)
     {
         socketList.add(socket);
     }
@@ -43,7 +39,7 @@ public class Manager_Announcement implements Runnable
                 for (int i = 0; i < JDBC_Students.count(); i++)
                 {
                     if (!idlist.contains(socketList.get(i).getId()))
-                        socketList.get(i).outAnnouncemt(cs.getName(), cs.getTitle(), cs.getText(), cs.getTime());
+                        socketList.get(i).outAnnouncement(cs.getName(), cs.getTitle(), cs.getText(), cs.getTime());
                 }
             }
 
