@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Student implements Serializable
 {
+    private static final long serialVersionUID = 1L;
     private long Id;
     private String Name;
     private String Nickname;
@@ -19,6 +20,15 @@ public class Student implements Serializable
     {
         Id = id;
         Password = password;
+    }
+
+    public Student(long id, String name, String nickname, String sex, int administrator)
+    {
+        Id = id;
+        Name = name;
+        Nickname = nickname;
+        Sex = sex;
+        Administrator = administrator;
     }
 
     public Student(long id, String name, String nickname, String sex, String password, int administrator)

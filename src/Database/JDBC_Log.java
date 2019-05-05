@@ -40,6 +40,10 @@ public class JDBC_Log
             statement.setLong(1, id);
             statement.setString(2, name);
             statement.setString(3, operation);
+            statement.executeUpdate();
+
+            statement.close();
+            conn.close();
         } catch (SQLException e)
         {
             e.printStackTrace();

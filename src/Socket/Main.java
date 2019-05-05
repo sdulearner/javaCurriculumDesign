@@ -4,7 +4,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        new Listener_Server().start();
         new Listener_File().start();
+        new Listener_Server().start();
     }
 }

@@ -2,7 +2,6 @@ package Database;
 
 
 import Entity.Student;
-import com.mysql.cj.xdevapi.SqlDataResult;
 
 import java.sql.*;
 

@@ -56,13 +56,10 @@ public class JDBC_Documents
     public boolean insert(String name)
     {
         Connection conn = getConn();
-
-        if (judge(name))
-        {
-            return false;
-        }
         PreparedStatement statement;
         String sql = "insert into documents (Name)values (?);";
+        if (judge(name)) return false;
+
         try
         {
             statement = conn.prepareStatement(sql);
@@ -81,7 +78,7 @@ public class JDBC_Documents
     {
         boolean b = true;
         Connection conn = getConn();
-        String sql = "select *from students where Name =" + name + ";";
+        String sql = "select *from documents where Name ='" + name.trim() + "';";
         PreparedStatement statement;
         try
         {
@@ -90,13 +87,12 @@ public class JDBC_Documents
             long count = 0;
             while (rs.next())
             {
-                count = rs.getLong(1);
+                count++;
             }
             if (count == 0) b = false;
             rs.close();
             statement.close();
             conn.close();
-
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -114,6 +110,7 @@ public class JDBC_Documents
         {
             statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
+            rs.next();
             document.setNo(no);
             document.setName(rs.getString(2));
             rs.close();

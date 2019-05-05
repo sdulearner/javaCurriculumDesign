@@ -1,19 +1,19 @@
 package Entity;
 
-import java.io.Serializable;
+
 import java.sql.Timestamp;
 import java.util.Arrays;
 
-public class Result implements Serializable
+public class Result
 {
-    private static final long serialVersionUID = 4L;
+
     private int no;//vote表的NO
     private String name;
     private String title;
     private String[] options;
     private int[] votes;
     private String[] opinions;
-    private Timestamp[] time;
+    private Timestamp time;
 
     @Override
     public String toString()
@@ -25,11 +25,11 @@ public class Result implements Serializable
                 ", options=" + Arrays.toString(options) +
                 ", votes=" + Arrays.toString(votes) +
                 ", opinions=" + Arrays.toString(opinions) +
-                ", time=" + Arrays.toString(time) +
+                ", time=" + time +
                 '}';
     }
 
-    public Result(int no, String name, String title, String[] options, int[] votes, String[] opinions, Timestamp[] time)
+    public Result(int no, String name, String title, String[] options, int[] votes, String[] opinions, Timestamp time)
     {
         this.no = no;
         this.name = name;
@@ -80,7 +80,7 @@ public class Result implements Serializable
         this.votes = votes;
     }
 
-    public void setTime(Timestamp[] time)
+    public void setTime(Timestamp time)
     {
         this.time = time;
     }
@@ -105,7 +105,7 @@ public class Result implements Serializable
         return votes;
     }
 
-    public Timestamp[] getTime()
+    public Timestamp getTime()
     {
         return time;
     }

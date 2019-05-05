@@ -4,16 +4,16 @@ import java.sql.Timestamp;
 
 public class Photo extends Message
 {
-    private String Extension;
+    private String extension;
 
     public String getExtension()
     {
-        return Extension;
+        return extension;
     }
 
     public void setExtension(String extension)
     {
-        Extension = extension;
+        this.extension = extension;
     }
 
     public void setTime(Timestamp time)

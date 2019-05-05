@@ -69,7 +69,7 @@ public class JDBC_Vote
         {
             builder.append("`" + options[i] + "`" + " tinyint(1),");
         }
-        String sql2 = "create table `options_" + title + "`(NO tinyint pimary key auto_increment not null," + builder + "Time timestamp,opinion tinytext );";
+        String sql2 = "create table `options_" + title + "`(NO tinyint primary key auto_increment not null," + builder + "Time timestamp,opinion tinytext );";
 
         PreparedStatement statement;
         try
@@ -82,7 +82,6 @@ public class JDBC_Vote
             statement.close();
             statement = conn.prepareStatement(sql2);
             statement.execute();
-
             statement.close();
             conn.close();
         } catch (SQLException e)
@@ -221,16 +220,19 @@ public class JDBC_Vote
 
             statement = conn.prepareStatement(sql2);
             rs = statement.executeQuery();
-            ArrayList<Timestamp> time = new ArrayList<>();
+            Timestamp time = null;
             ArrayList<String> opinion = new ArrayList<>();
+            rs.next();
+
+            time = new Timestamp(rs.getTimestamp(columns + 2).getTime());
+            opinion.add(rs.getString(columns + 3));
+
             while (rs.next())
             {
-                time.add(rs.getTimestamp(columns + 2));
                 opinion.add(rs.getString(columns + 3));
             }
             result.setOpinions(opinion.toArray(new String[opinion.size()]));
-            result.setTime(time.toArray(new Timestamp[time.size()]));
-
+            result.setTime(time);
 
             statement = conn.prepareStatement(sql3);
             rs = statement.executeQuery();

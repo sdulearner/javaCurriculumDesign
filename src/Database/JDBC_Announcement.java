@@ -1,7 +1,6 @@
 package Database;
 
 import Entity.Announcement;
-import Entity.Student;
 
 import java.sql.*;
 
@@ -57,7 +56,7 @@ public class JDBC_Announcement
     {
         boolean b = true;
         Connection conn = getConn();
-        String sql = "select *from announcement where Title =`" + title + "`;";
+        String sql = "select*from announcement where Title='" + title + ";";
         PreparedStatement statement;
         try
         {
@@ -66,7 +65,7 @@ public class JDBC_Announcement
             long count = 0;
             while (rs.next())
             {
-                count = rs.getLong(1);
+                count++;
             }
             if (count == 0) b = false;
             rs.close();

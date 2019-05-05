@@ -269,6 +269,7 @@ public class JDBC_Photos
         return count;
     }
 
+    //得到sender发给receiver的最新的图片的序号
     public int getNO(long sender, long receiver)
     {
         Connection conn = getConn();
@@ -286,15 +287,13 @@ public class JDBC_Photos
             }
             result = rs.getInt(1);
             rs.close();
-
-
         } catch (SQLException e)
         {
             e.printStackTrace();
         }
         return result;
     }
-
+    //根据NO获取对应的扩展名
     public String getExtension(int no)
     {
         Connection conn = getConn();
@@ -304,7 +303,9 @@ public class JDBC_Photos
         try
         {
             statement = conn.prepareStatement(sql);
+
             ResultSet rs = statement.executeQuery();
+            rs.next();
             extension = rs.getString(4);
             rs.close();
             statement.close();
