@@ -34,6 +34,17 @@ public class SignIn
     private Document[] documents;
     private Map<Long, Short> map;
     private char result;
+    private  int Administrator;
+
+    public int getAdministrator()
+    {
+        return Administrator;
+    }
+
+    public void setAdministrator(int administrator)
+    {
+        Administrator = administrator;
+    }
 
     public Student[] getStudentsOnline()
     {
@@ -65,8 +76,9 @@ public class SignIn
         return result;
     }
 
-    public SignIn(Student[] studentsOnline, Student[] studentsOffline, Announcement[] announcements, Document[] documents, Map<Long, Short> map, char result)
+    public SignIn(int administrator,Student[] studentsOnline, Student[] studentsOffline, Announcement[] announcements, Document[] documents, char result)
     {
+        this.Administrator=administrator;
         this.studentsOnline = studentsOnline;
         this.studentsOffline = studentsOffline;
         this.announcements = announcements;

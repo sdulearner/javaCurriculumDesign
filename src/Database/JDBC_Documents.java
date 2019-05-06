@@ -11,7 +11,7 @@ public class JDBC_Documents
     public static Connection getConn()
     {
         String driver = "com.mysql.cj.jdbc.Driver";
-        String URL = "jdbc:mysql://localhost:3306/test?serverTimezone=GMT&useSSL=false";
+        String URL = "jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true";
         String name = "root";
         String password = "357422";
         Connection conn = null;
@@ -29,7 +29,7 @@ public class JDBC_Documents
     public static int count()
     {
         Connection conn = getConn();
-        String sql = "select*from announcement;";
+        String sql = "select*from documents;";
         int count = 0;
         PreparedStatement statement;
         try
@@ -53,17 +53,18 @@ public class JDBC_Documents
     }
 
 
-    public boolean insert(String name)
+    public boolean insert(String name, long size)
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "insert into documents (Name)values (?);";
+        String sql = "insert into documents (Name,Size)values (?,?);";
         if (judge(name)) return false;
 
         try
         {
             statement = conn.prepareStatement(sql);
             statement.setString(1, name);
+            statement.setLong(2, size);
             statement.executeUpdate();
             statement.close();
             conn.close();
@@ -113,6 +114,8 @@ public class JDBC_Documents
             rs.next();
             document.setNo(no);
             document.setName(rs.getString(2));
+            document.setSize(rs.getLong(3));
+
             rs.close();
             statement.close();
             conn.close();

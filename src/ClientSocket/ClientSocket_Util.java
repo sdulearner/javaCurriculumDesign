@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ClientSocket_Util extends Thread
@@ -16,6 +17,10 @@ public class ClientSocket_Util extends Thread
     private Socket socket;
     private long Id;
 
+//    public ClientSocket_Util(Socket socket, MainFrame mainFrame) {
+//        this.socket = socket;
+//        this.mainFrame = mainFrame;
+//    }
 
     public ClientSocket_Util(Socket socket)
     {
@@ -119,6 +124,7 @@ public class ClientSocket_Util extends Thread
             } else
             {
                 int Administrator = Integer.parseInt(reader.readLine());//是否为管理员
+                System.out.println("是否为管理员：" + Administrator);
 
                 //在线的学生
                 int numOfStudentsOnline = Integer.parseInt(reader.readLine());
@@ -129,15 +135,16 @@ public class ClientSocket_Util extends Thread
                     studentsOnline[i].setId(Long.parseLong(reader.readLine()));
                     studentsOnline[i].setName(reader.readLine());
                     studentsOnline[i].setNickname(reader.readLine());
+                    studentsOnline[i].setMessagesUnread(Integer.parseInt(reader.readLine())
+                    );
 //                    System.out.println(reader.readLine());
 //                    System.out.println(reader.readLine());
 //                    System.out.println(reader.readLine());
-
-
                 }
+                studentsOnline[numOfStudentsOnline - 1].setAdministrator(Administrator);
                 //不在线的学生
                 int numOfStudentsOffLine = Integer.parseInt(reader.readLine());
-                System.out.println(numOfStudentsOffLine);
+                System.out.println("不在线的学生：" + numOfStudentsOffLine);
                 Student[] studentsOffline = new Student[numOfStudentsOffLine];
                 for (int i = 0; i < numOfStudentsOffLine; i++)
                 {
@@ -145,6 +152,7 @@ public class ClientSocket_Util extends Thread
                     studentsOffline[i].setId(Long.parseLong(reader.readLine()));
                     studentsOffline[i].setName(reader.readLine());
                     studentsOffline[i].setNickname(reader.readLine());
+                    studentsOffline[i].setMessagesUnread(Integer.parseInt(reader.readLine()));
                 }
                 //公告
                 int numOfAnnouncements = Integer.parseInt(reader.readLine());
@@ -166,26 +174,25 @@ public class ClientSocket_Util extends Thread
                     documents[i] = new Document();
                     documents[i].setNo(Integer.parseInt(reader.readLine()));
                     documents[i].setName(reader.readLine());
+                    documents[i].setSize(Long.parseLong(reader.readLine()));
                     System.out.println(documents[i]);
                 }
 
-                //未读消息
-                int numOfUsersUnread = Integer.parseInt(reader.readLine());//有多少个用户有未读消息
-                System.out.println("未读消息用户数" + numOfUsersUnread);
-                Map<Long, Short> map = new HashMap<>();
-                String temp = null;
-                long id = 0;
-                int num = 0;
-                for (int i = 0; i < numOfUsersUnread; i++)
-                {
-                    temp = reader.readLine();
-                    System.out.println(temp);
-                    id = Long.parseLong(temp.substring(0, 12));
-                    num = Integer.parseInt(temp.substring(13));
-                    map.put(id, (short) num);
-                }
-
-                return new SignIn(studentsOnline, studentsOffline, announcements, documents, map, '2');
+//                //未读消息
+//                int numOfUsersUnread = Integer.parseInt(reader.readLine());//有多少个用户有未读消息
+//                System.out.println("未读消息用户数" + numOfUsersUnread);
+//                Map<Long, Short> map = new HashMap<>();
+//                String temp = null;
+//                long id = 0;
+//                int num = 0;
+//                for (int i = 0; i < numOfUsersUnread; i++) {
+//                    temp = reader.readLine();
+////                    System.out.println(temp);
+//                    id = Long.parseLong(temp.substring(0, 12));
+//                    num = Integer.parseInt(temp.substring(13));
+//                    map.put(id, (short) num);
+//                }
+                return new SignIn(Administrator, studentsOnline, studentsOffline, announcements, documents, '2');
             }
         }
     }
@@ -741,7 +748,7 @@ public class ClientSocket_Util extends Thread
      */
     public Map selectLog()
     {
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new LinkedHashMap<>();
         try
         {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -758,7 +765,6 @@ public class ClientSocket_Util extends Thread
                 builder.append(reader.readLine());//Time  13
                 builder.append(reader.readLine());//Name
                 operation = reader.readLine();
-
                 map.put(builder.toString(), operation);
             }
         } catch (IOException e)
@@ -785,17 +791,45 @@ public class ClientSocket_Util extends Thread
                         long id = Long.parseLong(reader.readLine());
                         String name = reader.readLine();
                         String nickname = reader.readLine();
+                        Student student = new Student();
+                        student.setId(id);
+                        student.setName(name);
+                        student.setNickname(nickname);
+                        System.out.println("有人上线了:" + name);
+                        System.out.println(student);
+//                        mainFrame.OnlineStudentsUpdate(student);
                     }
                     break;
-                    case '1'://弹出公告
+                    case '1':
+                    {
+                        long id = Long.parseLong(reader.readLine());
+                        String name = reader.readLine();
+                        String nickname = reader.readLine();
+                        Student student = new Student();
+                        student.setId(id);
+                        student.setName(name);
+                        student.setNickname(nickname);
+                        System.out.println("有人下线了:" + name);
+                        System.out.println(student);
+//                        mainFrame.OffOnlineStudentUpdate(student);
+                    }
+                    break;
+                    case '2'://弹出公告
                     {
                         String name = reader.readLine();
                         String title = reader.readLine();//标题
                         String text = reader.readLine();//内容
                         Timestamp time = new Timestamp(Long.parseLong(reader.readLine()));
+                        Announcement announcement = new Announcement();
+                        announcement.setName(name);
+                        announcement.setTitle(title);
+                        announcement.setText(text);
+                        announcement.setTime(time);
+//                        new AcceptAnnounce().acceptNotice(announcement);
+//                        mainFrame.AnnouncementUpdate(announcement);
                     }
                     break;
-                    case '2'://弹出投票
+                    case '3'://弹出投票
                     {
                         Result result = new Result();
                         result.setTitle(reader.readLine());
@@ -831,12 +865,12 @@ public class ClientSocket_Util extends Thread
                     }
                     break;
 
-                    case '3'://有人上传了新文件
+                    case '4'://有人上传了新文件
                     {
                         String fileName = reader.readLine();
                     }
                     break;
-                    case '4'://有人删除了某文件
+                    case '5'://有人删除了某文件
                     {
                         //no:文件的序号
                         int no = Integer.parseInt(reader.readLine());

@@ -1,17 +1,51 @@
 package Socket;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Manager_File implements Runnable
 {
-    private ArrayList<Socket_Util> sockets;
-    private Socket_Util cs;
-    private int flag;
 
-    public Manager_File(Socket_Util socket, ArrayList<Socket_Util> socketList, int flag)
+    private char flag;
+//
+//    public Manager_File(Socket_Util socket, ArrayList<Socket_Util> socketList, int flag)
+//    {
+//        cs = socket;
+//        sockets = socketList;
+//        this.flag = flag;
+//    }
+
+    private Manager_File()
     {
-        cs = socket;
-        sockets = socketList;
+    }
+
+    private  static final Manager_File MANAGER_FILE = new Manager_File();
+
+    public static Manager_File getManagerFile()
+    {
+        return MANAGER_FILE;
+    }
+
+    private Map<Socket_Util, Socket_Util> socketList = new HashMap<>();
+    private Socket_Util cs;
+
+    public void add(Socket_Util socket_util1, Socket_Util socket_util)
+    {
+        socketList.put(socket_util1, socket_util);
+    }
+
+    public void subtract(Socket_Util socket_util)
+    {
+        socketList.remove(socket_util);
+    }
+
+    public void setSocket(Socket_Util socket)
+    {
+        this.cs = socket;
+    }
+
+    public void setFlag(char flag)
+    {
         this.flag = flag;
     }
 
@@ -23,24 +57,18 @@ public class Manager_File implements Runnable
 
             case '1'://传文件
             {
-                for (int i = 0; i < sockets.size(); i++)
+                for (Map.Entry<Socket_Util, Socket_Util> entry : socketList.entrySet())
                 {
-                    if (sockets.get(i) != cs)
-                    {
-                        sockets.get(i).outUpload(cs.getFileName());
-                    }
+                    entry.getValue().outUpload(cs.getFileName(), cs.getFileSize());
                 }
             }
             break;
             case '2'://删文件
             {
 
-                for (int i = 0; i < sockets.size(); i++)
+                for (Map.Entry<Socket_Util, Socket_Util> entry : socketList.entrySet())
                 {
-                    if (sockets.get(i) != cs)
-                    {
-                        sockets.get(i).outDeleteFile(cs.getFileNo());
-                    }
+                    entry.getValue().outDeleteFile(cs.getFileNo());
                 }
 
             }

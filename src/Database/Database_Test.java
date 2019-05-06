@@ -1,12 +1,7 @@
 package Database;
 
 
-import Entity.Announcement;
-import Entity.Student;
-
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 public class Database_Test
 {
@@ -21,12 +16,12 @@ public class Database_Test
         JDBC_Texts jdbc_texts = new JDBC_Texts();
 //
 //
-        jdbc_students.insert(new Student(201800301185L, "啊哈", "java大佬", "请选择", "88888888", 0));
+//        jdbc_students.insert(new Student(201800301185L, "啊哈", "java大佬", "请选择", "88888888", 0));
 //
 //        jdbc_students.insert(new Student(201800301176L, "王永超", "java大佬", "女", "12345678", 0));
 //
-//        System.out.println(jdbc_students.count());
-//
+        System.out.println(jdbc_students.count());
+
 //        System.out.println(jdbc_students.judgeId(201800301185L));
 //
 //        System.out.println(jdbc_students.getAll());
@@ -53,12 +48,13 @@ public class Database_Test
 
 //        System.out.println(jdbc_announcement.judgeTitle("This is title  ".trim()));
 //        System.out.println(jdbc_announcement.query(2));
-//        System.out.println(jdbc_documents.insert("aha   ") );
+        System.out.println(jdbc_documents.insert("test.txt",10241024) );
+
 //        System.out.println(jdbc_documents.query(2));
 //        jdbc_documents.delete(1);
 //        jdbc_texts.insert(201800301185L,201800301165L,"ahaha",true,false);
 //        jdbc_texts.update(201800301185L,201800301165L);
-//        System.out.println(jdbc_texts.register(201800301165L).toString());
+//        System.out.println(jdbc_texts.signIn(201800301165L).toString());
 //        jdbc_photos.insert(201800301165L,201800301175L,"aha",false,false);
 //        System.out.println(jdbc_photos.getExtension(3));
 //        JDBC_Log.insert(201800301175L, "啊哈怪", "aha");

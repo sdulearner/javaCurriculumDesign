@@ -11,6 +11,17 @@ public class Student implements Serializable
     private String Sex;
     private String Password;
     private int Administrator;
+    private int messagesUnread ;
+
+    public int getMessagesUnread()
+    {
+        return messagesUnread;
+    }
+
+    public void setMessagesUnread(int messagesUnread)
+    {
+        this.messagesUnread = messagesUnread;
+    }
 
     public Student()
     {

@@ -2,64 +2,123 @@ package Socket;
 
 import Database.JDBC_Students;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public class Manager_Voting implements Runnable
 {
 
-
-    private ArrayList<Socket_Util> socketList;
-    private ArrayList<Long> idlist = new ArrayList<>();//已经投票的用户
-    private Socket_Util cs;
-    private long[] array;
-    private VotingThread votingThread;
-    private JDBC_Students jdbc_students;
-
-    public Manager_Voting(ArrayList<Socket_Util> managerAnnouncement)
+    private Manager_Voting()
     {
-        socketList = managerAnnouncement;
     }
 
-
-    public void add(Socket_Util socket)
+    private void setNO(int NO)
     {
-        socketList.add(socket);
+        this.NO = NO;
     }
 
-    public void subtract(Socket_Util socket)
+    private int NO;
+
+    private static ArrayList<Manager_Voting> manager_votings = new ArrayList<>();
+
+    public static void addManager(int no)
     {
-        socketList.remove(socket);
+        Manager_Voting manager_voting = new Manager_Voting();
+        manager_voting.setNO(no);
+        manager_votings.add(manager_voting);
     }
 
+    public int getNO()
+    {
+        return NO;
+    }
+
+    //根据NO返回Manager_Voting
+    public static Manager_Voting getManagerVoting(int no)
+    {
+        Manager_Voting manager_voting = null;
+        for (int i = 0; i < manager_votings.size(); i++)
+        {
+            if (manager_votings.get(i).getNO() == no) manager_voting = manager_votings.get(i);
+        }
+        return manager_voting;
+    }
+
+    private Map<Socket_Util, Socket_Util> socketList = new HashMap<>();
+    //usersVoted:已经投票的用户
+
+    private ArrayList<Long> usersVoted = new ArrayList<>();
+
+    public void setSocketList(Map<Socket_Util, Socket_Util> socketList)
+    {
+        this.socketList = socketList;
+    }
+
+    //    public void setSocket(Socket_Util socket)
+//    {
+//        this.cs = socket;
+
+//    }
+
+    public void addList(long id)
+    {
+
+        this.usersVoted.add(id);
+    }
+
+    public static ArrayList<Manager_Voting> getManager_votings()
+    {
+        return manager_votings;
+    }
 
     @Override
     public void run()
     {
-        try
+        JDBC_Students jdbc_students = new JDBC_Students();
+
+        int count = JDBC_Students.count();//现在的学生数
+
+        long[] array = jdbc_students.getId();
+
+        Long[] idList = new Long[count];
+        for (int i = 0; i < count; i++)
         {
-            while (idlist.size() < JDBC_Students.count())
+            idList[i] = array[i];
+        }
+        //所有学生的Id
+        ArrayList<Long> users = new ArrayList<Long>(count);
+        Collections.addAll(users, idList);
+
+        Iterator<Long> iterator = usersVoted.iterator();
+        while (iterator.hasNext())
+        {
+            users.remove(iterator);
+        }
+
+        boolean flag = false;
+        //直到找到一个在线且没有投过票的用户 while循环才会结束
+        while (true)
+        {
+            try
             {
-                jdbc_students = new JDBC_Students();
-                array = jdbc_students.getId();
-                Thread.sleep(333);
-                int i;
-                Random random = new Random();
-                do
-                {
-                    i = random.nextInt(array.length);
-                } while (idlist.contains(array[i]));
-
-
-                socketList.get(i).outVoting();
-                idlist.add(array[i]);
-//                if (!idlist.contains(array[i]))
-//                {
-//                }
+                Thread.sleep(100);
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
             }
-        } catch (InterruptedException e)
-        {
-            e.printStackTrace();
+            int random = (int) (1 + Math.random() * users.size());
+            for (Map.Entry<Socket_Util, Socket_Util> entry : socketList.entrySet())
+            {
+                if (entry.getKey().getId() == users.get(random))
+                {
+                    entry.getValue().outVoting(NO);
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                break;
+            }
         }
     }
 }

@@ -27,9 +27,12 @@ public class Manager_Id
     {
         return idList;
     }
-
     public void add(long id)
     {
         idList.add(id);
+    }
+    public void remove(long id)
+    {
+        idList.remove(id);
     }
 }

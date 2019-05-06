@@ -9,11 +9,9 @@ import java.net.Socket;
 public class Socket_File extends Thread
 {
     private Socket socket;
-    private int flag;
     private String fileName;
     private int no;
     private JDBC_Documents jdbc_documents = new JDBC_Documents();
-    private JDBC_Photos jdbc_photos;
 
 
     public Socket_File(Socket socket)
@@ -28,14 +26,16 @@ public class Socket_File extends Thread
         {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            char flag;
             if (reader.readLine().equals("photo"))//发图片
             {
-                jdbc_photos = new JDBC_Photos();
-                flag = Integer.parseInt(reader.readLine());
+                System.out.println("图片操作");
+                JDBC_Photos jdbc_photos = new JDBC_Photos();
+                flag = reader.readLine().charAt(0);
                 String extension = null;
                 long sender = Long.parseLong(reader.readLine());
                 long receiver = Long.parseLong(reader.readLine());
-                if (flag == 2)
+                if (flag == '2')
                 {
                     no = Integer.parseInt(reader.readLine());
                 } else
@@ -46,6 +46,7 @@ public class Socket_File extends Thread
                 {
                     case '1'://上传图片
                     {
+                        System.out.println("上传图片");
                         byte[] inputBytes;
                         int length;
                         DataInputStream dis = null;
@@ -86,6 +87,7 @@ public class Socket_File extends Thread
                     break;
                     case '2'://下载图片
                     {
+                        System.out.println("下载图片");
                         int length;
                         double sumL = 0;
                         byte[] sendBytes;
@@ -139,8 +141,9 @@ public class Socket_File extends Thread
 
             } else//共享空间
             {
-                flag = Integer.parseInt(reader.readLine());
-                if (flag == 1)
+                System.out.println("共享空间操作");
+                flag = reader.readLine().charAt(0);
+                if (flag == '1')
                 {
                     fileName = reader.readLine();
                 } else
@@ -153,6 +156,7 @@ public class Socket_File extends Thread
                 {
                     case '1'://上传文件
                     {
+                        System.out.println("上传文件");
                         byte[] inputByte;
                         int length;
                         DataInputStream dis = null;
@@ -176,7 +180,7 @@ public class Socket_File extends Thread
                             fos.write(inputByte, 0, length);
                             fos.flush();
                         }
-                        writer.println("OK");
+//                        writer.println("OK");
                         System.out.println("完成接收：" + filePath);
 //                            } finally
 //                            {
@@ -195,6 +199,7 @@ public class Socket_File extends Thread
                     break;
                     case '2'://下载文件
                     {
+                        System.out.println("下载文件");
                         int length;
                         double sumL = 0;
                         byte[] sendBytes;
@@ -205,10 +210,9 @@ public class Socket_File extends Thread
 //                        {
 //                            try
 //                            {
-                        String fileName=jdbc_documents.query(no).getName();
+                        String fileName = jdbc_documents.query(no).getName();
 
-                        writer.println(fileName);
-                        File file = new File("D:/课设专用/" +fileName ); //要传输的文件路径
+                        File file = new File("D:/课设专用/" + fileName); //要传输的文件路径
                         long l = file.length();
                         dos = new DataOutputStream(socket.getOutputStream());
                         fis = new FileInputStream(file);
@@ -240,7 +244,7 @@ public class Socket_File extends Thread
 //                            bool = false;
 //                            e.printStackTrace();
 //                        }
-                        writer.println(bool ? "OK" : "NO");
+//                        writer.println(bool ? "OK" : "NO");
                         System.out.println(bool ? "成功" : "失败");
 
                     }

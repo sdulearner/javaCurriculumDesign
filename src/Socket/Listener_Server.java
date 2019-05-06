@@ -19,8 +19,10 @@ public class Listener_Server extends Thread
                 System.out.println("succeed!" + socket.getPort());
                 Socket_Util cs = new Socket_Util(socket);
                 cs.start();
-                Manager_Online.getManagerOnline().add(cs);
-                System.out.println("建立成功");
+//                Manager_Online.getManagerOnline().add(cs);
+//                Manager_Announcement.getManagerAnnouncement().add(cs);
+//                Manager_Voting.getManagerVoting().add(cs);
+//                Manager_File.getManagerFile().add(cs);
 
             }
         } catch (IOException e)

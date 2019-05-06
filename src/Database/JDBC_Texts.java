@@ -16,7 +16,7 @@ public class JDBC_Texts
     public Connection getConn()
     {
         String driver = "com.mysql.cj.jdbc.Driver";
-        String URL = "jdbc:mysql://localhost:3306/test?serverTimezone=GMT&useSSL=false";
+        String URL = "jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true";
         String name = "root";
         String password = "357422";
         Connection conn = null;
@@ -54,7 +54,7 @@ public class JDBC_Texts
     }
 
     //查询某用户未读消息的个数，在登录时使用
-    public Map register(long receiver)
+    public Map signIn(long receiver)
     {
         Map<Long, Short> map = new HashMap<>();
         Connection conn = getConn();

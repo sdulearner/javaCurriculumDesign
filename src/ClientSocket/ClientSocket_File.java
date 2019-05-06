@@ -17,6 +17,7 @@ public class ClientSocket_File extends Thread
     private File photo;
     private int no;
     private String fileName;
+    private String filePath;
     private File file;
 
     /**
@@ -67,17 +68,17 @@ public class ClientSocket_File extends Thread
     }
 
     /**
-    * @Description: 下载文件时使用的构造方法
-    * @Parameters: [a=4, socket, no]
-    * @return:
-    * @date: 2019/5/3
-    * @time: 21:28
-    */
-    public ClientSocket_File(char a, Socket socket, int no)
+     * @Description: 下载文件时使用的构造方法
+     * @Parameters: [a=4, socket, no]
+     * @return:
+     * @date: 2019/5/3
+     * @time: 21:28
+     */
+    public ClientSocket_File(char a, Socket socket, String path)
     {
         this.a = a;
         this.socket = socket;
-        this.no = no;
+        this.filePath = path;
     }
 
     @Override
@@ -215,16 +216,9 @@ public class ClientSocket_File extends Thread
                     writer.println(2);
                     writer.println(no);
 
-                    String fileName = reader.readLine();
 
                     int length;
-                    File f = new File("C:/课设专用");
-                    if (!f.exists())
-                    {
-                        f.mkdir();
-                    }
                     dis = new DataInputStream(socket.getInputStream());
-                    String filePath = "C:/课设专用/" + fileName;
                     fos = new FileOutputStream(new File(filePath));
                     bytes = new byte[1024];
                     while ((length = dis.read(bytes, 0, bytes.length)) > 0)
@@ -232,7 +226,6 @@ public class ClientSocket_File extends Thread
                         fos.write(bytes, 0, length);
                         fos.flush();
                     }
-                    System.out.println(reader.readLine());
                     dos.close();
                     fis.close();
                     socket.close();

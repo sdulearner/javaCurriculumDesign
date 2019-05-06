@@ -13,7 +13,7 @@ public class JDBC_Log
     public static Connection getConn()
     {
         String driver = "com.mysql.cj.jdbc.Driver";
-        String URL = "jdbc:mysql://localhost:3306/test?serverTimezone=GMT&useSSL=false";
+        String URL = "jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true";
         String name = "root";
         String password = "357422";
         Connection conn = null;
@@ -49,10 +49,11 @@ public class JDBC_Log
             e.printStackTrace();
         }
     }
+
     public static int count()
     {
         Connection conn = getConn();
-        String sql = "select*from students;";
+        String sql = "select*from log;";
         int count = 0;
         PreparedStatement statement;
         try
