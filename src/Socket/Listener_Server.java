@@ -21,7 +21,7 @@ public class Listener_Server extends Thread
                 cs.start();
 //                Manager_Online.getManagerOnline().add(cs);
 //                Manager_Announcement.getManagerAnnouncement().add(cs);
-//                Manager_Voting.getManagerVoting().add(cs);
+//                Manager_Voting.getManagerAnnouncement().add(cs);
 //                Manager_File.getManagerFile().add(cs);
             }
         } catch (IOException e)

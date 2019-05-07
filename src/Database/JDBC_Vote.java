@@ -214,7 +214,6 @@ public class JDBC_Vote
             String sql2 = "insert into `options_" + title + "` (" + builder1 + "Time,opinion)values (" + builder2 + "now(),?);";
             statement = conn.prepareStatement(sql2);
 
-
             for (int i = 0; i < length; i++)
             {
                 statement.setInt(i + 1, voting.getVotes()[i]);

@@ -10,14 +10,13 @@ import java.util.Map;
 
 public class Manager_Voting implements Runnable
 {
-
     private static final ArrayList<Manager_Voting> manager_votings = new ArrayList<>();
     private Map<Socket_Util, Socket_Util> socketList = new LinkedHashMap<>();
     private int NO;
     private Socket_Util cs;
+
     //usersVoted:已经投票的用户
     private ArrayList<Long> usersVoted = new ArrayList<>();
-
 
     private Manager_Voting(Socket_Util socket_util, int no)
     {
@@ -33,7 +32,6 @@ public class Manager_Voting implements Runnable
     private void setSockets(Map<Socket_Util, Socket_Util> socketList)
     {
         this.socketList = socketList;
-
     }
 
 
@@ -62,13 +60,12 @@ public class Manager_Voting implements Runnable
     public static Manager_Voting getManagerVoting(int no)
     {
         Manager_Voting manager_voting = null;
-        for (int i = 0; i < manager_votings.size(); i++)
+        for (Manager_Voting managerVoting : manager_votings)
         {
-            if (manager_votings.get(i).getNO() == no) manager_voting = manager_votings.get(i);
+            if (managerVoting.getNO() == no) manager_voting = managerVoting;
         }
         return manager_voting;
     }
-
 
     @Override
     public void run()
@@ -102,7 +99,7 @@ public class Manager_Voting implements Runnable
                 try
                 {
                     String name = null;
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                     System.out.println("投票时间已经过去了1秒");
                     System.out.println("已投票用户：" + usersVoted.toString() + "\n");
                     int random = (int) (1 + Math.random() * users.size());

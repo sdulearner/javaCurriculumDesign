@@ -36,7 +36,6 @@ public class Socket_Util extends Thread
     private Timestamp Time;
     private String Text;
 
-
     public int getFileNo()
     {
         return fileNo;
@@ -124,7 +123,6 @@ public class Socket_Util extends Thread
         {
             e.printStackTrace();
         }
-
     }
 
     //1弹出公告
@@ -168,8 +166,8 @@ public class Socket_Util extends Thread
             {
                 writer.println(result.getOptions()[i]);
                 writer.println(result.getVotes()[i]);
-                System.out.println(Arrays.toString(result.getOptions()));
             }
+            System.out.println(Arrays.toString(result.getOptions()));
             //已有的补充意见
             int counter = 0;
             for (String temp : result.getOpinions())
@@ -181,7 +179,11 @@ public class Socket_Util extends Thread
             for (String a :
                     result.getOpinions())
             {
-                if (a != null) writer.println(a);
+                if (a != null)
+                {
+                    writer.println(a);
+                    System.out.println(a);
+                }
             }
 
         } catch (IOException e)
@@ -189,6 +191,7 @@ public class Socket_Util extends Thread
             e.printStackTrace();
         }
     }
+
     //3弹出投票结果
     public void votingResult(int no)
     {
@@ -224,6 +227,7 @@ public class Socket_Util extends Thread
             {
                 if (a != null) writer.println(a);
             }
+            Manager_Voting.subtractManager(no);
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -324,8 +328,8 @@ public class Socket_Util extends Thread
 
 
                     Manager_Online.getManagerOnline().subtract(this);
-                    Manager_Announcement.getManagerAnnouncement().subtract(this);
                     Manager_File.getManagerFile().subtract(this);
+                    Manager_Announcement.setAllSocketLists(Manager_Online.getManagerOnline().getSocketList());
                     Manager_Voting.setAllSocketLists(Manager_Online.getManagerOnline().getSocketList());
 
                     Manager_Id.getManagerId().remove(this.Id);
@@ -498,11 +502,12 @@ public class Socket_Util extends Thread
 //                                }
                                 {
                                     ServerSocket serverSocket = new ServerSocket(6666);
+
                                     Socket socket = serverSocket.accept();
                                     System.out.println("6666:" + socket.getPort() + "\n");
                                     Manager_Online.getManagerOnline().add(this, new Socket_Util(socket));
-                                    Manager_Announcement.getManagerAnnouncement().add(this, new Socket_Util(socket));
                                     Manager_File.getManagerFile().add(this, new Socket_Util(socket));
+                                    Manager_Announcement.setAllSocketLists(Manager_Online.getManagerOnline().getSocketList());
                                     Manager_Voting.setAllSocketLists(Manager_Online.getManagerOnline().getSocketList());
                                     serverSocket.close();
                                 }
@@ -536,9 +541,12 @@ public class Socket_Util extends Thread
                             writer.println("OK");
 
                             JDBC_Log.insert(this.Id, this.Name, "发布了公告:" + Title);
+                            int count = JDBC_Announcement.count();
+                            System.out.println("目前的公告数："+count);
                             //告诉其他人我发公告了
-                            Manager_Announcement.getManagerAnnouncement().setSocket(this);
-                            new Thread(Manager_Announcement.getManagerAnnouncement()).start();
+                            Manager_Announcement.addManager(count, this);
+                            Manager_Announcement.setAllSocketLists(Manager_Online.getManagerOnline().getSocketList());
+                            new Thread(Manager_Announcement.getManagerAnnouncement(count)).start();
                         } else
                         {
                             System.out.println("公告标题重复");
@@ -598,9 +606,8 @@ public class Socket_Util extends Thread
                             JDBC_Log.insert(this.Id, this.Name, "发起了投票:" + title);
                             //开启投票线程
                             Manager_Voting.addManager(count, this);
+                            Manager_Voting.setAllSocketLists(Manager_Online.getManagerOnline().getSocketList());
                             new Thread(Manager_Voting.getManagerVoting(count)).start();
-
-
                         } else
                         {
                             System.out.println("投票标题重复");
@@ -626,7 +633,6 @@ public class Socket_Util extends Thread
                             writer.println(result.getOptions()[i]);
                             writer.println(result.getVotes()[i]);
                         }
-
                         int counter = 0;
                         for (String temp : result.getOpinions())
                         {
@@ -640,7 +646,7 @@ public class Socket_Util extends Thread
                         System.out.println("已查询投票结果");
                     }
                     break;
-                    case 'L'://某人完成投票
+                    case 'S'://某人完成投票
                     {
                         System.out.println(Name + "完成了投票");
                         jdbc_vote = new JDBC_Vote();
@@ -661,7 +667,7 @@ public class Socket_Util extends Thread
                         Voting voting = new Voting();
                         voting.setNO(no);
                         voting.setVotes(votes);
-                        voting.setOpinion(input);
+                        voting.setOpinion(opinion);
                         jdbc_vote.voting(voting);
 
                         System.out.println("已经完成投票结果的插库");
@@ -683,6 +689,7 @@ public class Socket_Util extends Thread
                         {
                             writer.println(entry.getKey());
                             writer.println(entry.getValue());
+                            System.out.println(entry.getKey()+":"+entry.getValue());
                         }
                     }
                     break;
@@ -996,6 +1003,7 @@ public class Socket_Util extends Thread
                     break;
                     case 'k'://查询管理员操作日志
                     {
+                        System.out.println("查看操作日志");
                         int count = JDBC_Log.count();
                         ResultSet rs = JDBC_Log.query();
                         writer.println(count);
@@ -1015,10 +1023,13 @@ public class Socket_Util extends Thread
                 }
             }
             reader.close();
-        } catch (IOException | SQLException | InterruptedException e)
+        } catch (IOException | SQLException |
+                InterruptedException e)
+
         {
             e.printStackTrace();
         } finally
+
         {
             if (socket != null)
             {

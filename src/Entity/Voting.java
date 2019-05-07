@@ -41,8 +41,6 @@ public class Voting implements Serializable
     {
         return NO;
     }
-
-
     public int[] getVotes()
     {
         return votes;

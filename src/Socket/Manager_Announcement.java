@@ -5,39 +5,66 @@ import Database.JDBC_Students;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Manager_Announcement implements Runnable
 {
-    private Manager_Announcement()
-    {
-    }
-
-    private static final Manager_Announcement MANAGER_ANNOUNCEMENT = new Manager_Announcement();
-
-    public static Manager_Announcement getManagerAnnouncement()
-    {
-        return MANAGER_ANNOUNCEMENT;
-    }
-
-    private Map<Socket_Util, Socket_Util> socketList = new HashMap<>();
+    private static final ArrayList<Manager_Announcement> manager_announcements = new ArrayList<>();
+    private Map<Socket_Util, Socket_Util> socketList = new LinkedHashMap<>();
+    private int NO;
     private Socket_Util cs;
-    private static ArrayList<Long> usersRead = new ArrayList<>();
 
-    public void add(Socket_Util socket_util1, Socket_Util socket_util)
+    //已经收到公告的用户
+    private ArrayList<Long> usersRead = new ArrayList<>();
+
+    private Manager_Announcement(Socket_Util socket_util, int no)
     {
-        socketList.put(socket_util1, socket_util);
+        this.NO = no;
+        this.cs = socket_util;
     }
 
-    public void subtract(Socket_Util socket_util)
+    private int getNO()
     {
-        socketList.remove(socket_util);
+        return this.NO;
     }
 
-    public void setSocket(Socket_Util socket)
+    private void setSockets(Map<Socket_Util, Socket_Util> map)
     {
-        this.cs = socket;
+        this.socketList = map;
+    }
+
+
+    public static void addManager(int no, Socket_Util socket_util)
+    {
+        manager_announcements.add(new Manager_Announcement(socket_util, no));
+    }
+
+    public static void subtractManager(int no)
+    {
+        for (int i = 0; i < manager_announcements.size(); i++)
+        {
+            if (manager_announcements.get(i).getNO() == no) manager_announcements.remove(i);
+        }
+    }
+
+    public static void setAllSocketLists(Map<Socket_Util, Socket_Util> socketList1)
+    {
+        for (int i = 0; i < manager_announcements.size(); i++)
+        {
+            manager_announcements.get(i).setSockets(socketList1);
+        }
+    }
+
+    //根据NO返回Manager_Announcement
+    public static Manager_Announcement getManagerAnnouncement(int no)
+    {
+        Manager_Announcement manager_announcement = null;
+        for (Manager_Announcement managerAnnouncement : manager_announcements)
+        {
+            if (managerAnnouncement.getNO() == no) manager_announcement = managerAnnouncement;
+        }
+        return manager_announcement;
     }
 
     @Override
@@ -67,7 +94,7 @@ public class Manager_Announcement implements Runnable
 //
 //                    entry.getValue().outAnnouncement(cs.get_Name(), cs.getTitle(), cs.getText(), new Timestamp(System.currentTimeMillis()));
 //                }
-                System.out.println("公告时间又过去了1秒");
+                System.out.println("公告时间" + NO + "又过去了1秒");
                 JDBC_Students jdbc_students = new JDBC_Students();
 
                 int count = JDBC_Students.count();//现在的学生数
@@ -95,7 +122,7 @@ public class Manager_Announcement implements Runnable
                     if (users.contains(entry.getKey().getId()))//如果在线的学生里有没收到公告的
                     {
                         entry.getValue().outAnnouncement(cs.get_Name(), cs.getTitle(), cs.getText(), new Timestamp(System.currentTimeMillis()));
-                        usersRead.add(entry.getKey().getId());
+                        this.usersRead.add(entry.getKey().getId());
                         System.out.println("已经向" + entry.getKey().getId() + "发送公告");
                         System.out.println("已读用户：" + usersRead.toString());
                     }
@@ -106,5 +133,8 @@ public class Manager_Announcement implements Runnable
                 e.printStackTrace();
             }
         }
+        System.out.println("所有人已经收到了公告");
+        Manager_Announcement.subtractManager(NO);
+        System.out.println("投票线程" + NO + "已结束");
     }
 }
