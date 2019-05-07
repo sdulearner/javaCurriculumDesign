@@ -7,38 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b1a50d6-4077-403e-8c46-f2cf97dcf20e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/ClientSocket/ClientSocket_Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/ClientSocket/ClientSocket_Util.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Database/Database_Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Database/Database_Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Documents.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Documents.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Photos.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Photos.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Texts.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Texts.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Vote.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Vote.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Entity/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Entity/Student.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Listener_File.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Listener_File.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Listener_Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Listener_Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Manager_Announcement.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Manager_Announcement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Manager_Voting.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Manager_Voting.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/MyTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/MyTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Socket_File.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Socket_File.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Socket_Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Socket_Util.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ClientSocket/ClientSocket_Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientSocket/ClientSocket_Util.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Database/Database_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/Database_Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/JDBC_Announcement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/JDBC_Announcement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/JDBC_Documents.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/JDBC_Documents.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/JDBC_Photos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/JDBC_Photos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/JDBC_Texts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/JDBC_Texts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/JDBC_Vote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/JDBC_Vote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Socket/Listener_File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Listener_File.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Socket/Listener_Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Listener_Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Socket/Manager_Announcement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Manager_Announcement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Socket/Manager_Voting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Manager_Voting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Socket/MyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/MyTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Socket/Socket_File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Socket_File.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Socket/Socket_Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Socket_Util.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Socket/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Test.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -132,8 +101,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Database/Database_Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="71" column="62" lean-forward="true" selection-start-line="71" selection-start-column="62" selection-end-line="71" selection-end-column="62" />
+            <state relative-caret-position="306">
+              <caret line="76" column="27" selection-start-line="76" selection-start-column="27" selection-end-line="76" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -560,7 +529,7 @@
       <workItem from="1556952859506" duration="16497000" />
       <workItem from="1557012798322" duration="57066000" />
       <workItem from="1557142441936" duration="20570000" />
-      <workItem from="1557193173642" duration="8440000" />
+      <workItem from="1557193173642" duration="8675000" />
     </task>
     <task id="LOCAL-00001" summary="java课设">
       <created>1552651621872</created>
@@ -737,11 +706,25 @@
       <option name="project" value="LOCAL" />
       <updated>1557140986328</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="java课设">
+      <created>1557224922707</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1557224922707</updated>
+    </task>
+    <task id="LOCAL-00027" summary="java课设">
+      <created>1557225069729</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1557225069729</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="294551000" />
+    <option name="totallyTimeSpent" value="294786000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1321,8 +1304,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Database/Database_Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="71" column="62" lean-forward="true" selection-start-line="71" selection-start-column="62" selection-end-line="71" selection-end-column="62" />
+        <state relative-caret-position="306">
+          <caret line="76" column="27" selection-start-line="76" selection-start-column="27" selection-end-line="76" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
