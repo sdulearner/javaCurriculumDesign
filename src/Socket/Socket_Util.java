@@ -153,7 +153,6 @@ public class Socket_Util extends Thread
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             writer.println(3);
 
-
             jdbc_vote = new JDBC_Vote();
             Result result = jdbc_vote.calculate(no);
 
@@ -161,12 +160,15 @@ public class Socket_Util extends Thread
             writer.println(result.getTitle());//标题
             writer.println(result.getName());//发起人
             writer.println(result.getTime().getTime());
+
             //选项内容，以及现在的票数
             writer.println(result.getOptions().length);
+
             for (int i = 0; i < result.getOptions().length; i++)
             {
                 writer.println(result.getOptions()[i]);
                 writer.println(result.getVotes()[i]);
+                System.out.println(Arrays.toString(result.getOptions()));
             }
             //已有的补充意见
             int counter = 0;
@@ -174,6 +176,7 @@ public class Socket_Util extends Thread
             {
                 if (temp != null) counter++;
             }
+
             writer.println(counter);
             for (String a :
                     result.getOpinions())
@@ -186,7 +189,6 @@ public class Socket_Util extends Thread
             e.printStackTrace();
         }
     }
-
     //3弹出投票结果
     public void votingResult(int no)
     {
@@ -194,6 +196,7 @@ public class Socket_Util extends Thread
         {
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             writer.println(4);
+
 
             jdbc_vote = new JDBC_Vote();
             Result result = jdbc_vote.calculate(no);
@@ -637,7 +640,7 @@ public class Socket_Util extends Thread
                         System.out.println("已查询投票结果");
                     }
                     break;
-                    case 'l'://某人完成投票
+                    case 'L'://某人完成投票
                     {
                         System.out.println(Name + "完成了投票");
                         jdbc_vote = new JDBC_Vote();
@@ -744,10 +747,9 @@ public class Socket_Util extends Thread
                         //输出未读消息的个数
                         writer.println(arrayList.size());
                         //依次输出图片以及文字的消息
-                        for (int i = 0; i < arrayList.size(); i++)
+                        for (Message a : arrayList)
                         {
-                            Message a = arrayList.get(i);
-                            if (arrayList.get(i) instanceof Text)
+                            if (a instanceof Text)
                             {
                                 Text b = (Text) a;
                                 writer.println(b.getText());

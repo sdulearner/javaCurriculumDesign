@@ -247,7 +247,6 @@ public class Socket_File extends Thread
 //                        }
 //                        writer.println(bool ? "OK" : "NO");
                         System.out.println(bool ? "成功" : "失败");
-
                     }
                 }
             }

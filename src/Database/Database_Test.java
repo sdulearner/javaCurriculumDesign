@@ -41,7 +41,7 @@ public class Database_Test
 //        System.out.println(jdbc_vote.start("learner", "title", options));
 //        int[] array = {0, 1, 1};
 //        jdbc_vote.voting(new Voting(1, array, "Good！"));
-//        System.out.println(jdbc_vote.calculate(1));
+        System.out.println(jdbc_vote.calculate(1));
 
 //        jdbc_students.update(new Student(201800301165L, "孙振瑜", "javaAha", "请选择", "12345678", 0));
 //        System.out.println(jdbc_announcement.insert(new Announcement("孙振瑜", "这是题目",

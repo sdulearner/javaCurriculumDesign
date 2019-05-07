@@ -789,7 +789,7 @@ public class ClientSocket_Util extends Thread
         try
         {
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-            writer.println("l");
+            writer.println("L");
 
             writer.println(no);
             writer.println(vote);
@@ -830,7 +830,6 @@ public class ClientSocket_Util extends Thread
         {
             e.printStackTrace();
         }
-
         return map;
     }
 
