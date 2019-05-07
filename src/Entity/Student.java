@@ -122,6 +122,7 @@ public class Student implements Serializable
                 ", Sex='" + Sex + '\'' +
                 ", Password='" + Password + '\'' +
                 ", Administrator=" + Administrator +
+                ", messagesUnread=" + messagesUnread +
                 '}';
     }
 }

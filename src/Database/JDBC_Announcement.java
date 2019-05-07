@@ -161,6 +161,4 @@ public class JDBC_Announcement
             e.printStackTrace();
         }
     }
-
-
 }

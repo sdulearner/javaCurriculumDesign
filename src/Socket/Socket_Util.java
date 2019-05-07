@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -180,7 +181,6 @@ public class Socket_Util extends Thread
                 if (a != null) writer.println(a);
             }
 
-            System.out.println("投票已经传到：" + this.Name);
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -208,19 +208,19 @@ public class Socket_Util extends Thread
                 writer.println(result.getOptions()[i]);
                 writer.println(result.getVotes()[i]);
             }
-            //已有的补充意见
+            //所有的补充意见
             int counter = 0;
             for (String temp : result.getOpinions())
             {
                 if (temp != null) counter++;
             }
+
             writer.println(counter);
             for (String a :
                     result.getOpinions())
             {
                 if (a != null) writer.println(a);
             }
-            System.out.println("投票结果已经传到：" + this.Name);
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -260,7 +260,6 @@ public class Socket_Util extends Thread
             e.printStackTrace();
         }
     }
-
     //5有人给你发消息
 
     public void outSending(long sender, String text, boolean group)//发消息用
@@ -277,7 +276,6 @@ public class Socket_Util extends Thread
         {
             e.printStackTrace();
         }
-
     }
     //6有人给你发图片
 
@@ -305,7 +303,7 @@ public class Socket_Util extends Thread
         try
         {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true);
 
 
             String input;
@@ -325,11 +323,7 @@ public class Socket_Util extends Thread
                     Manager_Online.getManagerOnline().subtract(this);
                     Manager_Announcement.getManagerAnnouncement().subtract(this);
                     Manager_File.getManagerFile().subtract(this);
-                    ArrayList<Manager_Voting> manager_votings = Manager_Voting.getManager_votings();
-                    for (Manager_Voting manager_voting : manager_votings)
-                    {
-                        manager_voting.setSocketList(Manager_Online.getManagerOnline().getSocketList());
-                    }
+                    Manager_Voting.setAllSocketLists(Manager_Online.getManagerOnline().getSocketList());
 
                     Manager_Id.getManagerId().remove(this.Id);
 
@@ -399,21 +393,26 @@ public class Socket_Util extends Thread
                                 jdbc_photos = new JDBC_Photos();
                                 jdbc_texts = new JDBC_Texts();
 
-                                Map map1 = jdbc_texts.signIn(this.Id);
-                                Map map2 = jdbc_photos.signIn(this.Id);
+                                Map<Long, Short> map1 = jdbc_texts.signIn(this.Id);
+                                Map<Long, Short> map2 = jdbc_photos.signIn(this.Id);
 
-                                for (Object o : map2.entrySet())
+                                for (Map.Entry<Long, Short> entry : map2.entrySet())
                                 {
-                                    Map.Entry entry = (Map.Entry) o;
                                     if (map1.containsKey(entry.getKey()))
                                     {
-                                        int temp = (Short) map1.get(entry.getKey()) + (Short) entry.getValue();
+                                        int temp = map1.get(entry.getKey()) + entry.getValue();
 
                                         map1.put(entry.getKey(), (short) temp);
                                     } else
                                     {
                                         map1.put(entry.getKey(), entry.getValue());
                                     }
+                                }
+                                for (Map.Entry entry : map1.entrySet())
+                                {
+                                    System.out.print(entry.getKey() + ": ");
+                                    System.out.println(entry.getValue());
+
                                 }
                                 int num = JDBC_Students.count();//总人数
                                 long[] array = jdbc_students.getId();
@@ -440,6 +439,7 @@ public class Socket_Util extends Thread
                                         writer.println(jdbc_students.getInformation(array[i]).getNickname());
                                         writer.println(jdbc_students.getInformation(array[i]).getSex());
                                         writer.println(map1.containsKey(array[i]) ? map1.get(array[i]) : 0);
+
                                     }
                                 }
                                 //公告信息
@@ -496,15 +496,11 @@ public class Socket_Util extends Thread
                                 {
                                     ServerSocket serverSocket = new ServerSocket(6666);
                                     Socket socket = serverSocket.accept();
-                                    System.out.println("6666:" + socket.getPort());
+                                    System.out.println("6666:" + socket.getPort() + "\n");
                                     Manager_Online.getManagerOnline().add(this, new Socket_Util(socket));
                                     Manager_Announcement.getManagerAnnouncement().add(this, new Socket_Util(socket));
                                     Manager_File.getManagerFile().add(this, new Socket_Util(socket));
-                                    ArrayList<Manager_Voting> manager_votings = Manager_Voting.getManager_votings();
-                                    for (Manager_Voting manager_voting : manager_votings)
-                                    {
-                                        manager_voting.setSocketList(Manager_Online.getManagerOnline().getSocketList());
-                                    }
+                                    Manager_Voting.setAllSocketLists(Manager_Online.getManagerOnline().getSocketList());
                                     serverSocket.close();
                                 }
                             } else
@@ -549,17 +545,15 @@ public class Socket_Util extends Thread
                     break;
                     case '4'://查公告
                     {
-                        StringBuilder builder = new StringBuilder();
                         System.out.println("正在查公告");
                         input = reader.readLine();
                         int no = Integer.parseInt(input);
                         Announcement announcement = jdbc_announcement.query(no);
 //                        builder.append(announcement.getNO()+"\t");
-                        builder.append(announcement.getName() + "\t");
-                        builder.append(announcement.getTitle() + "\t");
-                        builder.append(announcement.getText() + "\t");
-                        builder.append(announcement.getTime().getTime());
-                        writer.println(builder);
+                        writer.println(announcement.getName());
+                        writer.println(announcement.getTitle());
+                        writer.println(announcement.getText());
+                        writer.println(announcement.getTime().getTime());
                         System.out.println("OK");
                     }
                     break;
@@ -578,25 +572,31 @@ public class Socket_Util extends Thread
                     break;
                     case '6'://发起投票
                     {
+                        jdbc_vote = new JDBC_Vote();
                         System.out.println("正在发起投票");
                         String title = reader.readLine().trim();
-                        int num = reader.readLine().charAt(0);
+                        System.out.println("投票题目：" + title);
+
+                        int num = Integer.parseInt(reader.readLine());
+                        System.out.print("选项数 " + num + "    ");
+
                         String[] options = new String[num];
                         for (int i = 0; i < num; i++)
                         {
                             options[i] = reader.readLine();
                         }
+                        System.out.println(Arrays.toString(options));
+
                         if (jdbc_vote.start(this.Name, title, options))
                         {
-
                             int count = JDBC_Vote.count();
-                            Manager_Voting.addManager(count);
                             System.out.println("发布成功");
                             writer.println("OK");
                             JDBC_Log.insert(this.Id, this.Name, "发起了投票:" + title);
-
                             //开启投票线程
+                            Manager_Voting.addManager(count, this);
                             new Thread(Manager_Voting.getManagerVoting(count)).start();
+
 
                         } else
                         {
@@ -607,8 +607,10 @@ public class Socket_Util extends Thread
                     break;
                     case '7'://查询投票结果
                     {
+                        jdbc_vote = new JDBC_Vote();
+
                         System.out.println("正在查询投票结果");
-                        int a = Integer.parseInt(reader.readLine());//a:公告的序号
+                        int a = Integer.parseInt(reader.readLine());//a:投票的序号
 
                         Result result = jdbc_vote.calculate(a);
                         writer.println(result.getName());
@@ -637,20 +639,21 @@ public class Socket_Util extends Thread
                     break;
                     case 'l'://某人完成投票
                     {
+                        System.out.println(Name + "完成了投票");
                         jdbc_vote = new JDBC_Vote();
                         int no = Integer.parseInt(reader.readLine());//投票的序号
 
-                        //这个人的票数
+                        //这个人投的哪一票
+                        int index = Integer.parseInt(reader.readLine());
                         int[] votes = new int[jdbc_vote.calculate(no).getOptions().length];
                         for (int i = 0; i < votes.length; i++)
                         {
-                            votes[i] = Integer.parseInt(reader.readLine());
+                            if (i != index - 1) votes[i] = 0;
+                            else votes[i] = 1;
                         }
-
                         //这个人的意见
                         String opinion = reader.readLine();
                         if (opinion.equals("null")) opinion = null;
-
                         //插库
                         Voting voting = new Voting();
                         voting.setNO(no);
@@ -658,9 +661,26 @@ public class Socket_Util extends Thread
                         voting.setOpinion(input);
                         jdbc_vote.voting(voting);
 
-                        //此人已经完成投票
-                        Manager_Voting.getManagerVoting(no).addList(this.Id);
+                        System.out.println("已经完成投票结果的插库");
+
+                        //此人已经完成投票，寻找下一个人来投票
                         new Thread(Manager_Voting.getManagerVoting(no)).start();
+                    }
+                    break;
+                    case 'm'://查看已经完成的投票
+                    {
+                        jdbc_vote = new JDBC_Vote();
+                        System.out.println("正在查看已经完成的投票");
+
+                        Map<Integer, String> map = jdbc_vote.selectVotes();
+                        System.out.println(map.toString());
+
+                        writer.println(map.size());
+                        for (Map.Entry<Integer, String> entry : map.entrySet())
+                        {
+                            writer.println(entry.getKey());
+                            writer.println(entry.getValue());
+                        }
                     }
                     break;
                     case '8'://上传文件
@@ -670,8 +690,9 @@ public class Socket_Util extends Thread
                         fileSize = Long.parseLong(reader.readLine());
 
                         jdbc_documents = new JDBC_Documents();
-                        if (jdbc_documents.insert(fileName, fileSize))
+                        if (jdbc_documents.judge(fileName))
                         {
+                            jdbc_documents.insert(fileName, fileSize);
                             System.out.println("文件名没有重复");
                             writer.println("OK");
                             //告诉其他人我传了文件
@@ -699,7 +720,6 @@ public class Socket_Util extends Thread
                         Manager_File.getManagerFile().setFlag('2');
                         Manager_File.getManagerFile().setSocket(this);
                         new Thread(Manager_File.getManagerFile()).start();
-
                     }
                     break;
                     case '0'://打开与某人的聊天面板

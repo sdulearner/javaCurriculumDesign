@@ -5,7 +5,7 @@ import Entity.Text;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class JDBC_Texts
@@ -56,7 +56,7 @@ public class JDBC_Texts
     //查询某用户未读消息的个数，在登录时使用
     public Map signIn(long receiver)
     {
-        Map<Long, Short> map = new HashMap<>();
+        Map<Long, Short> map = new LinkedHashMap<>();
         Connection conn = getConn();
         PreparedStatement statement;
         String sql = "select*from texts where Receiver=" + receiver + "&&Flag=0;";
@@ -69,7 +69,7 @@ public class JDBC_Texts
                 if (map.containsKey(rs.getLong(2)))
                 {
                     short temp = map.get(rs.getLong(2));
-                    map.put(rs.getLong(2), temp++);
+                    map.put(rs.getLong(2), (short) (temp+1));
                 } else
                 {
                     map.put(rs.getLong(2), (short) 1);

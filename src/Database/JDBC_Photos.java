@@ -4,7 +4,7 @@ import Entity.Photo;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class JDBC_Photos
@@ -55,7 +55,7 @@ public class JDBC_Photos
     //查询某用户未读消息的个数，在登录时使用
     public Map signIn(long receiver)
     {
-        Map<Long, Short> map = new HashMap<>();
+        Map<Long, Short> map = new LinkedHashMap<>();
         Connection conn = getConn();
         PreparedStatement statement;
         String sql = "select*from photos where Receiver=" + receiver + "&&Flag=0;";
@@ -68,7 +68,7 @@ public class JDBC_Photos
                 if (map.containsKey(rs.getLong(2)))
                 {
                     short temp = map.get(rs.getLong(2));
-                    map.put(rs.getLong(2), temp++);
+                    map.put(rs.getLong(2), (short) (temp + 1));
                 } else
                 {
                     map.put(rs.getLong(2), (short) 1);
@@ -293,6 +293,7 @@ public class JDBC_Photos
         }
         return result;
     }
+
     //根据NO获取对应的扩展名
     public String getExtension(int no)
     {

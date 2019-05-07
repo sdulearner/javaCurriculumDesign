@@ -3,7 +3,10 @@ package Socket;
 import Database.JDBC_Students;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Manager_Announcement implements Runnable
 {
@@ -58,13 +61,13 @@ public class Manager_Announcement implements Runnable
         {
             try
             {
-                Thread.sleep(300);
+                Thread.sleep(1000);
 //                for (Map.Entry<Socket_Util, Socket_Util> entry : socketList.entrySet())
 //                {
 //
 //                    entry.getValue().outAnnouncement(cs.get_Name(), cs.getTitle(), cs.getText(), new Timestamp(System.currentTimeMillis()));
 //                }
-
+                System.out.println("公告时间又过去了1秒");
                 JDBC_Students jdbc_students = new JDBC_Students();
 
                 int count = JDBC_Students.count();//现在的学生数
@@ -80,26 +83,28 @@ public class Manager_Announcement implements Runnable
                 ArrayList<Long> users = new ArrayList<Long>(count);
                 Collections.addAll(users, idList);
 
-                Iterator<Long> iterator = usersRead.iterator();
-                while (iterator.hasNext())
+                for (Long aLong : usersRead)
                 {
-                    users.remove(iterator);
+                    users.remove(aLong);
                 }
+
+                System.out.println("用户" + users.toString() + "未读此公告");
                 for (Map.Entry<Socket_Util, Socket_Util> entry : socketList.entrySet())
                 {
+                    System.out.println("用户" + entry.getKey().getId() + "在线");
                     if (users.contains(entry.getKey().getId()))//如果在线的学生里有没收到公告的
                     {
                         entry.getValue().outAnnouncement(cs.get_Name(), cs.getTitle(), cs.getText(), new Timestamp(System.currentTimeMillis()));
-                        users.remove(entry.getKey().getId());
+                        usersRead.add(entry.getKey().getId());
+                        System.out.println("已经向" + entry.getKey().getId() + "发送公告");
+                        System.out.println("已读用户：" + usersRead.toString());
                     }
                 }
-
-
+                System.out.println("\n");
             } catch (InterruptedException e)
             {
                 e.printStackTrace();
             }
         }
-
     }
 }

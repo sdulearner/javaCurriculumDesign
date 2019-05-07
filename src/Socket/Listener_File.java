@@ -14,7 +14,7 @@ public class Listener_File extends Thread
             while (true)
             {
                 Socket socket = serverSocket.accept();
-                System.out.println("succeed!" + socket.getPort());
+                System.out.println("succeed!" + socket.getPort()+":"+"File");
                 new Socket_File(socket).start();
 
             }

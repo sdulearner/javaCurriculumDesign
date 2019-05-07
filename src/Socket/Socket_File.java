@@ -213,6 +213,7 @@ public class Socket_File extends Thread
                         String fileName = jdbc_documents.query(no).getName();
 
                         File file = new File("D:/课设专用/" + fileName); //要传输的文件路径
+                        System.out.println(fileName);
                         long l = file.length();
                         dos = new DataOutputStream(socket.getOutputStream());
                         fis = new FileInputStream(file);

@@ -75,7 +75,7 @@ public class JDBC_Documents
         return true;
     }
 
-    private boolean judge(String name)
+    public boolean judge(String name)
     {
         boolean b = true;
         Connection conn = getConn();

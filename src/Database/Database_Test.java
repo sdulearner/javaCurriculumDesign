@@ -2,6 +2,7 @@ package Database;
 
 
 import java.sql.SQLException;
+import java.util.Map;
 
 public class Database_Test
 {
@@ -40,7 +41,7 @@ public class Database_Test
 //        System.out.println(jdbc_vote.start("learner", "title", options));
 //        int[] array = {0, 1, 1};
 //        jdbc_vote.voting(new Voting(1, array, "Good！"));
-        System.out.println(jdbc_vote.calculate(1));
+//        System.out.println(jdbc_vote.calculate(1));
 
 //        jdbc_students.update(new Student(201800301165L, "孙振瑜", "javaAha", "请选择", "12345678", 0));
 //        System.out.println(jdbc_announcement.insert(new Announcement("孙振瑜", "这是题目",
@@ -48,7 +49,7 @@ public class Database_Test
 
 //        System.out.println(jdbc_announcement.judgeTitle("This is title  ".trim()));
 //        System.out.println(jdbc_announcement.query(2));
-        System.out.println(jdbc_documents.insert("test.txt",10241024) );
+//        System.out.println(jdbc_documents.insert("test.txt",10241024) );
 
 //        System.out.println(jdbc_documents.query(2));
 //        jdbc_documents.delete(1);
@@ -66,7 +67,13 @@ public class Database_Test
 //            System.out.print(rs.getString(3) + "\t");
 //            System.out.print(rs.getString(4) + "\t");
 //            System.out.println(rs.getTimestamp(5));
-//        }
+
+        Map<Integer,String > map = jdbc_vote.selectVotes();
+        for (Map.Entry<Integer,String> entry : map.entrySet())
+        {
+            System.out.print(entry.getKey()+": ");
+            System.out.println(entry.getValue());
+        }
 
     }
 

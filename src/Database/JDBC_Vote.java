@@ -5,6 +5,8 @@ import Entity.Voting;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class JDBC_Vote
 {
@@ -29,6 +31,23 @@ public class JDBC_Vote
         return conn;
     }
 
+    public static void setFlag(int no)
+    {
+        Connection conn = getConn();
+        PreparedStatement statement;
+        String sql = "update vote set Flag=1 where NO=" + no + ";";
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            statement.executeUpdate();
+            statement.close();
+            conn.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public boolean judgeTitle(String title)
     {
         boolean b = true;
@@ -42,7 +61,7 @@ public class JDBC_Vote
             long count = 0;
             while (rs.next())
             {
-                count = rs.getInt(1);
+                count++;
             }
             if (count == 0) b = false;
             rs.close();
@@ -56,6 +75,36 @@ public class JDBC_Vote
         return b;
     }
 
+    public Map<Integer, String> selectVotes()
+    {
+        Connection conn = getConn();
+        PreparedStatement statement;
+        String sql = "select*from vote where Flag=1;";
+        Map<Integer, String> map = new LinkedHashMap<>();
+        try
+        {
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+
+            int temp = 0;
+            String line = null;
+            while (rs.next())
+            {
+                temp = rs.getInt(1);
+                line = rs.getString(3);
+
+                map.put(temp, line);
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
     public boolean start(String name, String title, String[] options)
     {
         int a = options.length;
@@ -64,7 +113,7 @@ public class JDBC_Vote
         Connection conn = getConn();
 
         if (judgeTitle(title)) return false;
-        String sql1 = "insert into vote ( Name,Title) values(?,?);";
+        String sql1 = "insert into vote ( Name,Title,Time,Flag) values(?,?,now(),0);";
         for (int i = 0; i < a; i++)
         {
             builder.append("`" + options[i] + "`" + " tinyint(1),");
@@ -88,14 +137,15 @@ public class JDBC_Vote
         {
             e.printStackTrace();
         }
-        voting(new Voting(1, new int[options.length], null));
+        voting(new Voting(count(), new int[options.length], null));
+        System.out.println("投票数：" + count());
         return true;
     }
 
     public static int count()
     {
         Connection conn = getConn();
-        String sql = "select*from students;";
+        String sql = "select*from vote;";
         int count = 0;
         PreparedStatement statement;
         try

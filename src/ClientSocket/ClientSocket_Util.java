@@ -135,6 +135,7 @@ public class ClientSocket_Util extends Thread
                     studentsOnline[i].setId(Long.parseLong(reader.readLine()));
                     studentsOnline[i].setName(reader.readLine());
                     studentsOnline[i].setNickname(reader.readLine());
+                    studentsOnline[i].setSex(reader.readLine());
                     studentsOnline[i].setMessagesUnread(Integer.parseInt(reader.readLine())
                     );
 //                    System.out.println(reader.readLine());
@@ -152,6 +153,7 @@ public class ClientSocket_Util extends Thread
                     studentsOffline[i].setId(Long.parseLong(reader.readLine()));
                     studentsOffline[i].setName(reader.readLine());
                     studentsOffline[i].setNickname(reader.readLine());
+                    studentsOffline[i].setSex(reader.readLine());
                     studentsOffline[i].setMessagesUnread(Integer.parseInt(reader.readLine()));
                 }
                 //公告
@@ -707,37 +709,37 @@ public class ClientSocket_Util extends Thread
     }
 
     /**
-     * @Description: 20. 查询某用户的详细信息
-     * @Parameters: [id]
-     * @return: Entity.Student
-     * @date: 2019/5/4
-     * @time: 10:12
-     */
-    public Student selectStudet(long id)
-    {
-
-        Student student = null;
-
-        try
-        {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-            writer.println("j");
-
-            writer.println(id);
-
-            String name = reader.readLine();
-            String nickname = reader.readLine();
-            String sex = reader.readLine();
-            boolean isAdministrator = reader.readLine().equals("1");
-            student = new Student(id, name, nickname, sex, isAdministrator ? 1 : 0);
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return student;
-    }
+//     * @Description: 20. 查询某用户的详细信息(废弃)
+//     * @Parameters: [id]
+//     * @return: Entity.Student
+//     * @date: 2019/5/4
+//     * @time: 10:12
+//     */
+//    public Student selectStudet(long id)
+//    {
+//
+//        Student student = null;
+//
+//        try
+//        {
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+//            writer.println("j");
+//
+//            writer.println(id);
+//
+//            String name = reader.readLine();
+//            String nickname = reader.readLine();
+//            String sex = reader.readLine();
+//            boolean isAdministrator = reader.readLine().equals("1");
+//            student = new Student(id, name, nickname, sex, isAdministrator ? 1 : 0);
+//
+//        } catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
+//        return student;
+//    }
 
     /**
      * @Description: 21. 查询管理员的操作日志
@@ -746,6 +748,7 @@ public class ClientSocket_Util extends Thread
      * @date: 2019/5/4
      * @time: 10:13
      */
+
     public Map selectLog()
     {
         Map<String, String> map = new LinkedHashMap<>();
@@ -771,6 +774,63 @@ public class ClientSocket_Util extends Thread
         {
             e.printStackTrace();
         }
+        return map;
+    }
+
+    /**
+     * @Description: 22. 完成投票
+     * @Parameters: [no, votes, opinion]
+     * @return: void
+     * @date: 2019/5/6
+     * @time: 22:57
+     */
+    public void voting(int no, int vote, String opinion)
+    {
+        try
+        {
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            writer.println("l");
+
+            writer.println(no);
+            writer.println(vote);
+            writer.println(opinion);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @Description: 23. 查看已经完成的投票
+     * @Parameters: []
+     * @return: java.util.Map
+     * @date: 2019/5/7
+     * @time: 16:08
+     */
+    public Map selectVotes()
+    {
+        Map<Integer, String> map = new LinkedHashMap<>();
+        try
+        {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            writer.println("m");
+
+            int numOfVotes = Integer.parseInt(reader.readLine());
+            int no = 0;
+            String title = null;
+            for (int i = 0; i < numOfVotes; i++)
+            {
+                no = Integer.parseInt(reader.readLine());
+                title = reader.readLine();
+                map.put(no, title);
+            }
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
         return map;
     }
 
