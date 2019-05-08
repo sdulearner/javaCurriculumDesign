@@ -6,6 +6,16 @@ public class Photo extends Message
 {
     private String extension;
 
+    public Photo(String readLine)
+    {
+        super();
+    }
+
+    public Photo()
+    {
+
+    }
+
     public String getExtension()
     {
         return extension;

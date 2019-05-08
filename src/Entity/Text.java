@@ -7,6 +7,15 @@ public class Text extends Message
 
     private String Text;
 
+    public Text(String readLine)
+    {
+        this.Text = readLine;
+    }
+
+    public Text()
+    {
+    }
+
 
     public String getText()
     {
@@ -21,10 +30,8 @@ public class Text extends Message
     public void setTime(Timestamp time)
     {
         Time = time;
-        super.time =time.getTime();
+        super.time = time.getTime();
     }
-
-
 
 
 }

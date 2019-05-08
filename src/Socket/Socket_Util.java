@@ -93,7 +93,7 @@ public class Socket_Util extends Thread
     }
     //0上线提示
 
-    public void outOnline(long id, String name, String nickname)
+    synchronized public void outOnline(long id, String name, String nickname)
     {
         try
         {
@@ -109,7 +109,7 @@ public class Socket_Util extends Thread
         }
     }
 
-    public void outOffLine(long id, String name, String nickname)
+    synchronized public void outOffLine(long id, String name, String nickname)
     {
         try
         {
@@ -126,17 +126,19 @@ public class Socket_Util extends Thread
     }
 
     //1弹出公告
-    public void outAnnouncement(String Name, String Title, String Text, Timestamp Time)
+    synchronized public void outAnnouncement(int no)
     {
         try
         {
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             writer.println(2);
 
-            writer.println(Name);
-            writer.println(Title);
-            writer.println(Text);
-            writer.println(Time.getTime());
+            JDBC_Announcement jdbc_announcement = new JDBC_Announcement();
+            Announcement announcement = jdbc_announcement.query(no);
+            writer.println(announcement.getName());
+            writer.println(announcement.getTitle());
+            writer.println(announcement.getText());
+            writer.println(announcement.getTime().getTime());
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -144,7 +146,7 @@ public class Socket_Util extends Thread
     }
 
     //2弹出投票
-    public void outVoting(int no)
+    synchronized public void outVoting(int no)
     {
         try
         {
@@ -185,7 +187,6 @@ public class Socket_Util extends Thread
                     System.out.println(a);
                 }
             }
-
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -193,26 +194,27 @@ public class Socket_Util extends Thread
     }
 
     //3弹出投票结果
-    public void votingResult(int no)
+    synchronized public void votingResult(int no)
     {
         try
         {
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             writer.println(4);
 
-
             jdbc_vote = new JDBC_Vote();
             Result result = jdbc_vote.calculate(no);
             writer.println(no);
-            writer.println(result.getTitle());//标题
             writer.println(result.getName());//发起人
+            writer.println(result.getTitle());//标题
             writer.println(result.getTime().getTime());
+            System.out.println(result.getName() + "  " + result.getTitle() + "  " + result.getTime());
             //选项内容，以及现在的票数
             writer.println(result.getOptions().length);
             for (int i = 0; i < result.getOptions().length; i++)
             {
                 writer.println(result.getOptions()[i]);
                 writer.println(result.getVotes()[i]);
+                System.out.print(result.getOptions()[i] + "\t");
             }
             //所有的补充意见
             int counter = 0;
@@ -226,23 +228,25 @@ public class Socket_Util extends Thread
                     result.getOpinions())
             {
                 if (a != null) writer.println(a);
+                System.out.print(a + "\t");
             }
-            Manager_Voting.subtractManager(no);
         } catch (IOException e)
         {
             e.printStackTrace();
         }
+        System.out.println("弹出投票结果");
+//            Manager_Voting.subtractManager(no);
     }
 
 
     //3有人上传了新文件
 
-    public void outUpload(String name, long size)
+    synchronized public void outUpload(String name, long size)
     {
         try
         {
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-            writer.println(3);
+            writer.println(5);
 
             writer.println(name);
             writer.println(size);
@@ -250,16 +254,15 @@ public class Socket_Util extends Thread
         {
             e.printStackTrace();
         }
-
     }
 
     //4 有人删除了某文件
-    public void outDeleteFile(int no)//删除某文件时
+    synchronized public void outDeleteFile(int no)//删除某文件时
     {
         try
         {
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-            writer.println(4);
+            writer.println(6);
 
             writer.println(no);
         } catch (IOException e)
@@ -269,12 +272,12 @@ public class Socket_Util extends Thread
     }
     //5有人给你发消息
 
-    public void outSending(long sender, String text, boolean group)//发消息用
+    synchronized public void outSending(long sender, String text, boolean group)//发消息用
     {
         try
         {
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-            writer.println(5);
+            writer.println(7);
 
             writer.println(sender);
             writer.println(text);
@@ -286,12 +289,12 @@ public class Socket_Util extends Thread
     }
     //6有人给你发图片
 
-    public void outPhoto(long sender, int no, boolean group)//发图片
+    synchronized public void outPhoto(long sender, int no, boolean group)//发图片
     {
         try
         {
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            writer.println(6);
+            writer.println(8);
 
             writer.println(sender);
             writer.println(no);
@@ -486,20 +489,6 @@ public class Socket_Util extends Thread
                                     writer.println(jdbc_documents.query(i).getName());
                                     writer.println(jdbc_documents.query(i).getSize());
                                 }
-//                                //未读消息 的数目
-//
-//                                int numOfUsersUnread = map1.size();
-//                                writer.println(numOfUsersUnread);
-////                                System.out.println("未读消息用户数：" + numOfUsersUnread);
-//                                long[] id = jdbc_students.getId();
-//                                for (int i = 0; i < JDBC_Students.count(); i++)
-//                                {
-//                                    if (map1.containsKey(id[i]))
-//                                    {
-//                                        writer.println(id[i] + ":" + map1.get(id[i]));
-//                                        System.out.println(id[i] + ":" + map1.get(id[i]));
-//                                    }
-//                                }
                                 {
                                     ServerSocket serverSocket = new ServerSocket(6666);
 
@@ -542,9 +531,9 @@ public class Socket_Util extends Thread
 
                             JDBC_Log.insert(this.Id, this.Name, "发布了公告:" + Title);
                             int count = JDBC_Announcement.count();
-                            System.out.println("目前的公告数："+count);
+                            System.out.println("目前的公告数：" + count);
                             //告诉其他人我发公告了
-                            Manager_Announcement.addManager(count, this);
+                            Manager_Announcement.addManager(count);
                             Manager_Announcement.setAllSocketLists(Manager_Online.getManagerOnline().getSocketList());
                             new Thread(Manager_Announcement.getManagerAnnouncement(count)).start();
                         } else
@@ -605,7 +594,7 @@ public class Socket_Util extends Thread
                             writer.println("OK");
                             JDBC_Log.insert(this.Id, this.Name, "发起了投票:" + title);
                             //开启投票线程
-                            Manager_Voting.addManager(count, this);
+                            Manager_Voting.addManager(count, Manager_Online.getManagerOnline().getSocketList().get(this));
                             Manager_Voting.setAllSocketLists(Manager_Online.getManagerOnline().getSocketList());
                             new Thread(Manager_Voting.getManagerVoting(count)).start();
                         } else
@@ -618,8 +607,8 @@ public class Socket_Util extends Thread
                     case '7'://查询投票结果
                     {
                         jdbc_vote = new JDBC_Vote();
-
                         System.out.println("正在查询投票结果");
+
                         int a = Integer.parseInt(reader.readLine());//a:投票的序号
 
                         Result result = jdbc_vote.calculate(a);
@@ -689,7 +678,7 @@ public class Socket_Util extends Thread
                         {
                             writer.println(entry.getKey());
                             writer.println(entry.getValue());
-                            System.out.println(entry.getKey()+":"+entry.getValue());
+                            System.out.println(entry.getKey() + ":" + entry.getValue());
                         }
                     }
                     break;
@@ -759,11 +748,13 @@ public class Socket_Util extends Thread
                             if (a instanceof Text)
                             {
                                 Text b = (Text) a;
+                                writer.println("a");
                                 writer.println(b.getText());
                             } else
                             {
                                 Photo b = (Photo) a;
-                                writer.println("`" + b.getNO());
+                                writer.println("b");
+                                writer.println(b.getNO());
                             }
                         }
                     }
@@ -795,13 +786,15 @@ public class Socket_Util extends Thread
                             if (a instanceof Text)
                             {
                                 Text b = (Text) a;
+                                writer.println("a");
                                 writer.println(b.getSender());
                                 writer.println(b.getText());
                             } else
                             {
                                 Photo b = (Photo) a;
+                                writer.println("b");
                                 writer.println(b.getSender());
-                                writer.println("`" + b.getNO());//+":" + b.getExtension()
+                                writer.println(b.getNO());//+":" + b.getExtension()
                             }
                         }
                     }

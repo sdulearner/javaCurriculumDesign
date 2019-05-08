@@ -2,7 +2,6 @@ package Socket;
 
 import Database.JDBC_Students;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -13,15 +12,13 @@ public class Manager_Announcement implements Runnable
     private static final ArrayList<Manager_Announcement> manager_announcements = new ArrayList<>();
     private Map<Socket_Util, Socket_Util> socketList = new LinkedHashMap<>();
     private int NO;
-    private Socket_Util cs;
 
     //已经收到公告的用户
     private ArrayList<Long> usersRead = new ArrayList<>();
 
-    private Manager_Announcement(Socket_Util socket_util, int no)
+    private Manager_Announcement(int no)
     {
         this.NO = no;
-        this.cs = socket_util;
     }
 
     private int getNO()
@@ -35,9 +32,9 @@ public class Manager_Announcement implements Runnable
     }
 
 
-    public static void addManager(int no, Socket_Util socket_util)
+    public static void addManager(int no)
     {
-        manager_announcements.add(new Manager_Announcement(socket_util, no));
+        manager_announcements.add(new Manager_Announcement(no));
     }
 
     public static void subtractManager(int no)
@@ -121,7 +118,7 @@ public class Manager_Announcement implements Runnable
                     System.out.println("用户" + entry.getKey().getId() + "在线");
                     if (users.contains(entry.getKey().getId()))//如果在线的学生里有没收到公告的
                     {
-                        entry.getValue().outAnnouncement(cs.get_Name(), cs.getTitle(), cs.getText(), new Timestamp(System.currentTimeMillis()));
+                        entry.getValue().outAnnouncement(NO);
                         this.usersRead.add(entry.getKey().getId());
                         System.out.println("已经向" + entry.getKey().getId() + "发送公告");
                         System.out.println("已读用户：" + usersRead.toString());

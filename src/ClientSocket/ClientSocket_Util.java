@@ -1,13 +1,11 @@
 package ClientSocket;
 
-import Entity.Announcement;
-import Entity.Document;
-import Entity.Result;
-import Entity.Student;
+import Entity.*;
 
 import java.io.*;
 import java.net.Socket;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -379,6 +377,9 @@ public class ClientSocket_Util extends Thread
             {
                 opinions[i] = reader.readLine();
             }
+            result.setOpinions(opinions);
+
+
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -453,9 +454,9 @@ public class ClientSocket_Util extends Thread
      * @date: 2019/5/3
      * @time: 16:29
      */
-    public String[] openChattingWindow(long id)
+    public ArrayList<Message> openChattingWindow(long id)
     {
-        String[] result = null;
+        ArrayList<Message> result = new ArrayList<>();
         try
         {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -464,10 +465,16 @@ public class ClientSocket_Util extends Thread
 
             writer.println(id);
             int numOfMessagesUnread = Integer.parseInt(reader.readLine());
-            result = new String[numOfMessagesUnread];
+
             for (int i = 0; i < numOfMessagesUnread; i++)
             {
-                result[i] = reader.readLine();
+                if (reader.readLine().equals("a"))
+                {
+                    result.add(new Text(reader.readLine()));
+                }else{
+                    result.add(new Photo(reader.readLine()));
+                }
+
             }
         } catch (IOException e)
         {
@@ -709,12 +716,12 @@ public class ClientSocket_Util extends Thread
     }
 
     /**
-//     * @Description: 20. 查询某用户的详细信息(废弃)
-//     * @Parameters: [id]
-//     * @return: Entity.Student
-//     * @date: 2019/5/4
-//     * @time: 10:12
-//     */
+     //     * @Description: 20. 查询某用户的详细信息(废弃)
+     //     * @Parameters: [id]
+     //     * @return: Entity.Student
+     //     * @date: 2019/5/4
+     //     * @time: 10:12
+     //     */
 //    public Student selectStudet(long id)
 //    {
 //
@@ -859,7 +866,7 @@ public class ClientSocket_Util extends Thread
 //                        mainFrame.OnlineStudentsUpdate(student);
                     }
                     break;
-                    case '1':
+                    case '1'://下线
                     {
                         long id = Long.parseLong(reader.readLine());
                         String name = reader.readLine();
@@ -924,17 +931,49 @@ public class ClientSocket_Util extends Thread
                     }
                     break;
 
-                    case '4'://有人上传了新文件
+
+                    case '4'://弹出投票结果
                     {
-                        String fileName = reader.readLine();
+                        Result result = new Result();
+
+                        result.setNo(Integer.parseInt(reader.readLine()));
+                        result.setName(reader.readLine());
+                        result.setTitle(reader.readLine());
+                        result.setTime(new Timestamp(Long.parseLong(reader.readLine())));
+
+                        //numOfOptions:选项的个数
+                        int numOfOptions = Integer.parseInt(reader.readLine());
+                        String[] options = new String[numOfOptions];
+                        int[] votes = new int[numOfOptions];
+                        for (int i = 0; i < numOfOptions; i++)
+                        {
+                            options[i] = reader.readLine();
+                            votes[i] = Integer.parseInt(reader.readLine());
+                        }
+                        result.setOptions(options);
+                        result.setVotes(votes);
+
+                        int numOfOpinions = Integer.parseInt(reader.readLine());
+                        String[] opinions = new String[numOfOpinions];
+                        for (int i = 0; i < numOfOpinions; i++)
+                        {
+                            opinions[i] = reader.readLine();
+                        }
+                        result.setOpinions(opinions);
+
                     }
-                    break;
-                    case '5'://有人删除了某文件
-                    {
-                        //no:文件的序号
-                        int no = Integer.parseInt(reader.readLine());
-                    }
-                    break;
+
+//                    case '4'://有人上传了新文件
+//                    {
+//                        String fileName = reader.readLine();
+//                    }
+//                    break;
+//                    case '5'://有人删除了某文件
+//                    {
+//                        //no:文件的序号
+//                        int no = Integer.parseInt(reader.readLine());
+//                    }
+//                    break;
 //                    case '5'://有人给你发消息
 //                    {
 //                        long sender = Long.parseLong(reader.readLine());
