@@ -2,55 +2,39 @@ package Entity;
 
 import java.sql.Timestamp;
 
-public class Message implements Comparable
+public class Message
 {
-    protected long time;
     protected int NO;
-    long Sender;
-    long receiver;
-    boolean Photo;
-
-    boolean MyGroup;
+    private long Sender;
+    private long receiver;
+    private boolean Photo;//是否为图片
+    private boolean MyGroup;//是否为群聊消息
+    private String content;
     protected Timestamp Time;
-    boolean flag;
+
+    public String getContent()
+    {
+        return content;
+    }
+
+    public void setContent(String content)
+    {
+        this.content = content;
+    }
 
     @Override
-    public int compareTo(Object o)
+    public String toString()
     {
-        int i = 0;
-        if (o instanceof Message)
-        {
-            Message a = (Message) o;
-            i = Long.compare(this.time, a.time);
-        }
-        return i;
+        return "Message{" +
+                "NO=" + NO +
+                ", Sender=" + Sender +
+                ", receiver=" + receiver +
+                ", Photo=" + Photo +
+                ", MyGroup=" + MyGroup +
+                ", content='" + content + '\'' +
+                ", Time=" + Time +
+                '}';
     }
-//
-//    public String getText()
-//    {
-//        return "aha";
-//    }
-
-    public long getTime()
-    {
-        return time;
-    }
-
-    public void setTime(Timestamp time)
-    {
-        Time = time;
-    }
-
-    public boolean isFlag()
-    {
-        return flag;
-    }
-
-    public void setFlag(boolean flag)
-    {
-        this.flag = flag;
-    }
-
 
     public int getNO()
     {
@@ -100,5 +84,15 @@ public class Message implements Comparable
     public void setMyGroup(boolean myGroup)
     {
         MyGroup = myGroup;
+    }
+
+    public Timestamp getTime()
+    {
+        return Time;
+    }
+
+    public void setTime(Timestamp time)
+    {
+        Time = time;
     }
 }

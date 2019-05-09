@@ -7,6 +7,7 @@ public class Manager_File implements Runnable
 {
 
     private char flag;
+    private int NO;
 //
 //    public Manager_File(Socket_Util socket, ArrayList<Socket_Util> socketList, int flag)
 //    {
@@ -19,7 +20,7 @@ public class Manager_File implements Runnable
     {
     }
 
-    private  static final Manager_File MANAGER_FILE = new Manager_File();
+    private static final Manager_File MANAGER_FILE = new Manager_File();
 
     public static Manager_File getManagerFile()
     {
@@ -27,7 +28,6 @@ public class Manager_File implements Runnable
     }
 
     private Map<Socket_Util, Socket_Util> socketList = new HashMap<>();
-    private Socket_Util cs;
 
     public void add(Socket_Util socket_util1, Socket_Util socket_util)
     {
@@ -39,14 +39,15 @@ public class Manager_File implements Runnable
         socketList.remove(socket_util);
     }
 
-    public void setSocket(Socket_Util socket)
-    {
-        this.cs = socket;
-    }
 
     public void setFlag(char flag)
     {
         this.flag = flag;
+    }
+
+    public void setNO(int NO)
+    {
+        this.NO = NO;
     }
 
     @Override
@@ -57,21 +58,25 @@ public class Manager_File implements Runnable
 
             case '1'://传文件
             {
+                System.out.println("正在更新在线同学的文件列表：ADD");
                 for (Map.Entry<Socket_Util, Socket_Util> entry : socketList.entrySet())
                 {
-                    entry.getValue().outUpload(cs.getFileName(), cs.getFileSize());
+                    entry.getValue().outUpload(NO);
                 }
+
             }
             break;
             case '2'://删文件
             {
+                System.out.println("正在更新在线同学的文件列表：DELETE");
 
                 for (Map.Entry<Socket_Util, Socket_Util> entry : socketList.entrySet())
                 {
-                    entry.getValue().outDeleteFile(cs.getFileNo());
+                    entry.getValue().outDeleteFile(NO);
                 }
 
             }
         }
+        System.out.println("更新完毕");
     }
 }

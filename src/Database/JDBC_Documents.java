@@ -53,13 +53,11 @@ public class JDBC_Documents
     }
 
 
-    public boolean insert(String name, long size)
+    public void insert(String name, long size)
     {
         Connection conn = getConn();
         PreparedStatement statement;
         String sql = "insert into documents (Name,Size)values (?,?);";
-        if (judge(name)) return false;
-
         try
         {
             statement = conn.prepareStatement(sql);
@@ -72,7 +70,6 @@ public class JDBC_Documents
         {
             e.printStackTrace();
         }
-        return true;
     }
 
     public boolean judge(String name)
@@ -128,7 +125,6 @@ public class JDBC_Documents
 
     public void delete(int no)
     {
-
         Connection conn = getConn();
         String sql1 = "delete from  documents where NO=" + no + ";";
         String sql2 = " alter table `documents` drop `NO`;";

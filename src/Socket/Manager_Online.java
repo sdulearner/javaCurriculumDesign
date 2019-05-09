@@ -60,7 +60,7 @@ public class Manager_Online implements Runnable
                 {
                     if (!entry.getKey().equals(cs))
                     {
-                        entry.getValue().outOnline(cs.getId(),cs.get_Name(), cs.getNickname());
+                        entry.getValue().outOnline(cs.getId());
                     }
                 }
             }
@@ -71,7 +71,7 @@ public class Manager_Online implements Runnable
                 {
                     if (!entry.getKey().equals(cs))
                     {
-                        entry.getValue().outOffLine(cs.getId(), cs.get_Name(), cs.getNickname());
+                        entry.getValue().outOffLine(cs.getId());
                     }
                 }
 

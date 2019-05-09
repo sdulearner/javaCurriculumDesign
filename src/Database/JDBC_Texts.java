@@ -1,7 +1,6 @@
 package Database;
 
 import Entity.Message;
-import Entity.Text;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.Map;
 public class JDBC_Texts
 {
 
-    private static Text text = new Text();
+    private static Message text = new Message();
 
     public Connection getConn()
     {
@@ -31,11 +30,11 @@ public class JDBC_Texts
         return conn;
     }
 
-    public void insert(long sender, long receiver, String text, boolean group, boolean flag)
+    public void insert(long sender, long receiver, String text, boolean group, boolean flag, boolean photo)
     {
         Connection conn = getConn();
         PreparedStatement statement;
-        String sql = "insert into texts(Sender ,Receiver ,Text,MyGroup,Time,Flag) values(?,?,?,?,now(),?);";
+        String sql = "insert into texts(Sender ,Receiver ,Text,MyGroup,Time,Flag,Photo) values(?,?,?,?,now(),?,?);";
         try
         {
             statement = conn.prepareStatement(sql);
@@ -44,6 +43,7 @@ public class JDBC_Texts
             statement.setString(3, text);
             statement.setInt(4, group ? 1 : 0);
             statement.setInt(5, flag ? 1 : 0);
+            statement.setInt(6, photo ? 1 : 0);
             statement.execute();
             statement.close();
             conn.close();
@@ -60,22 +60,36 @@ public class JDBC_Texts
         Connection conn = getConn();
         PreparedStatement statement;
         String sql = "select*from texts where Receiver=" + receiver + "&&Flag=0;";
+        String sql1 = "select*from texts where Receiver=" + receiver + "&&MyGroup=1;";
         try
         {
-            statement = conn.prepareStatement(sql);
+            statement = conn.prepareStatement(sql1);
             ResultSet rs = statement.executeQuery();
+
+            while (rs.next())
+            {
+                if (map.containsKey(100000000000L))
+                {
+                    short temp = map.get(100000000000L);
+                    map.put(100000000000L, (short) (temp + 1));
+                } else
+                {
+                    map.put(100000000000L, (short) 1);
+                }
+            }
+            statement = conn.prepareStatement(sql);
+            rs = statement.executeQuery();
             while (rs.next())
             {
                 if (map.containsKey(rs.getLong(2)))
                 {
                     short temp = map.get(rs.getLong(2));
-                    map.put(rs.getLong(2), (short) (temp+1));
+                    map.put(rs.getLong(2), (short) (temp + 1));
                 } else
                 {
                     map.put(rs.getLong(2), (short) 1);
                 }
             }
-
 
         } catch (SQLException e)
         {
@@ -85,7 +99,6 @@ public class JDBC_Texts
     }
 
     //查询私聊的未读消息，这个方法在私聊面板打开的时候使用
-
     public ArrayList<Message> queryId(long sender, long receiver)
     {
         Connection conn = getConn();
@@ -98,11 +111,11 @@ public class JDBC_Texts
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                text.setText(rs.getString(4));
+                text.setContent(rs.getString(4));
                 text.setTime(rs.getTimestamp(6));
+                text.setPhoto(rs.getInt(8) == 1);
                 array.add(text);
             }
-
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -126,9 +139,13 @@ public class JDBC_Texts
             while (rs.next())
             {
                 text.setSender(rs.getLong(2));
-                text.setText(rs.getString(4));
+                text.setContent(rs.getString(4));
                 text.setTime(rs.getTimestamp(6));
+                text.setPhoto(rs.getInt(8) == 1);
+                arrayList.add(text);
             }
+            statement.close();
+            conn.close();
 
         } catch (SQLException e)
         {
@@ -139,70 +156,71 @@ public class JDBC_Texts
     }
 
 
-    //查询大群的聊天记录
-    public ArrayList<Message> query()
-    {
-        Connection conn = getConn();
-        PreparedStatement statement;
-        String sql = "select*from texts where MyGroup=1&&Receiver=100000000000;";
-        ArrayList<Message> texts = new ArrayList<>();
-        try
-        {
-            statement = conn.prepareStatement(sql);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next())
-            {
-
-                text.setSender(rs.getLong(2));
-                text.setText(rs.getString(4));
-                text.setTime(rs.getTimestamp(6));
-                texts.add(text);
-            }
-            rs.close();
-            statement.close();
-            conn.close();
-
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return texts;
-    }
-
-    //查询私聊记录
-    public ArrayList<Message> query(long sender, long receiver)
-    {
-        Connection conn = getConn();
-        PreparedStatement statement;
-        ArrayList<Message> texts = new ArrayList<>();
-        String sql = "select*from texts where (Sender=" + sender + "&&Receiver=" + receiver +
-                "&&MyGroup=0)||(Sender=" + receiver + "&&Receiver=" + sender + "&&MyGroup=0);";
-
-        try
-        {
-            statement = conn.prepareStatement(sql);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next())
-            {
-
-                text.setSender(rs.getLong(2));
-                text.setReceiver(rs.getLong(3));
-                text.setText(rs.getString(4));
-                text.setTime(rs.getTimestamp(6));
-                texts.add(text);
-            }
-
-            rs.close();
-            statement.close();
-            conn.close();
-
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        update(sender, receiver);
-        return texts;
-    }
+//    //查询大群的聊天记录
+//    public ArrayList<Message> query()
+//    {
+//        Connection conn = getConn();
+//        PreparedStatement statement;
+//        ArrayList<Message> texts = new ArrayList<>();
+//        try
+//        {
+//            statement = conn.prepareStatement(sql);
+//            ResultSet rs = statement.executeQuery();
+//            while (rs.next())
+//            {
+//
+//                text.setSender(rs.getLong(2));
+//                text.setText(rs.getString(4));
+//                text.setTime(rs.getTimestamp(6));
+//                text.setPhoto(rs.getInt(8) == 1);
+//                texts.add(text);
+//            }
+//            rs.close();
+//            statement.close();
+//            conn.close();
+//
+//        } catch (SQLException e)
+//        {
+//            e.printStackTrace();
+//        }
+//        return texts;
+//    }
+//
+//    //查询私聊记录
+//    public ArrayList<Message> query(long sender, long receiver)
+//    {
+//        Connection conn = getConn();
+//        PreparedStatement statement;
+//        ArrayList<Message> texts = new ArrayList<>();
+//        String sql = "select*from texts where (Sender=" + sender + "&&Receiver=" + receiver +
+//                "&&MyGroup=0)||(Sender=" + receiver + "&&Receiver=" + sender + "&&MyGroup=0);";
+//
+//        try
+//        {
+//            statement = conn.prepareStatement(sql);
+//            ResultSet rs = statement.executeQuery();
+//            while (rs.next())
+//            {
+//
+//                text.setSender(rs.getLong(2));
+//                text.setReceiver(rs.getLong(3));
+//                text.setText(rs.getString(4));
+//                text.setTime(rs.getTimestamp(6));
+//                text.setPhoto(rs.getInt(8) == 1);
+//                texts.add(text);
+//            }
+//
+//            rs.close();
+//            statement.close();
+//            conn.close();
+//
+//        } catch (SQLException e)
+//        {
+//            e.printStackTrace();
+//        }
+//        update(sender, receiver);
+//        return texts;
+//    }
 
     //更新一对一聊天为已读
     public void update(long sender, long receiver)

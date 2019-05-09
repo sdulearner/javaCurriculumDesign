@@ -13,7 +13,6 @@ public class Database_Test
         JDBC_Announcement jdbc_announcement = new JDBC_Announcement();
         JDBC_Vote jdbc_vote = new JDBC_Vote();
         JDBC_Documents jdbc_documents = new JDBC_Documents();
-        JDBC_Photos jdbc_photos = new JDBC_Photos();
         JDBC_Texts jdbc_texts = new JDBC_Texts();
 //
 //
@@ -49,8 +48,9 @@ public class Database_Test
 
 //        System.out.println(jdbc_announcement.judgeTitle("This is title  ".trim()));
 //        System.out.println(jdbc_announcement.query(2));
-//        System.out.println(jdbc_documents.insert("test.txt",10241024) );
+//        jdbc_documents.insert("啊哈.txt", 10241024);
 
+        jdbc_documents.delete(1);
 //        System.out.println(jdbc_documents.query(2));
 //        jdbc_documents.delete(1);
 //        jdbc_texts.insert(201800301185L,201800301165L,"ahaha",true,false);
@@ -68,10 +68,10 @@ public class Database_Test
 //            System.out.print(rs.getString(4) + "\t");
 //            System.out.println(rs.getTimestamp(5));
 
-        Map<Integer,String > map = jdbc_vote.selectVotes();
-        for (Map.Entry<Integer,String> entry : map.entrySet())
+        Map<Integer, String> map = jdbc_vote.selectVotes();
+        for (Map.Entry<Integer, String> entry : map.entrySet())
         {
-            System.out.print(entry.getKey()+": ");
+            System.out.print(entry.getKey() + ": ");
             System.out.println(entry.getValue());
         }
         //测试注释大是大非双方都 水电费地方

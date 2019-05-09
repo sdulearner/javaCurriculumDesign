@@ -6,7 +6,6 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -136,9 +135,7 @@ public class ClientSocket_Util extends Thread
                     studentsOnline[i].setSex(reader.readLine());
                     studentsOnline[i].setMessagesUnread(Integer.parseInt(reader.readLine())
                     );
-//                    System.out.println(reader.readLine());
-//                    System.out.println(reader.readLine());
-//                    System.out.println(reader.readLine());
+                    if (i == 0) System.out.println(studentsOnline[0]);
                 }
                 studentsOnline[numOfStudentsOnline - 1].setAdministrator(Administrator);
                 //不在线的学生
@@ -164,7 +161,7 @@ public class ClientSocket_Util extends Thread
                     announcements[i].setName(reader.readLine());
                     announcements[i].setTitle(reader.readLine());
                     announcements[i].setTime(new Timestamp(Long.parseLong(reader.readLine())));
-                    System.out.println(announcements[i]);
+//                    System.out.println(announcements[i]);
                 }
                 //所有文件
                 int numOfFiles = Integer.parseInt(reader.readLine());
@@ -175,7 +172,7 @@ public class ClientSocket_Util extends Thread
                     documents[i].setNo(Integer.parseInt(reader.readLine()));
                     documents[i].setName(reader.readLine());
                     documents[i].setSize(Long.parseLong(reader.readLine()));
-                    System.out.println(documents[i]);
+//                    System.out.println(documents[i]);
                 }
 
 //                //未读消息
@@ -394,36 +391,19 @@ public class ClientSocket_Util extends Thread
      * @date: 2019/5/3
      * @time: 16:01
      */
-    public boolean uploadFile(String name)
+    public void uploadFile(String name, long size)
     {
-        boolean result = false;
         try
         {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             writer.println(8);
 
             writer.println(name);
-            String line = reader.readLine();
-            switch (line)
-            {
-                case "NO":
-                {
-                    //文件重名
-                    result = false;
-                }
-                break;
-                case "OK":
-                {
-                    //上传成功
-                    result = true;
-                }
-            }
+            writer.println(size);
         } catch (IOException e)
         {
             e.printStackTrace();
         }
-        return result;
     }
 
     /**
@@ -465,16 +445,15 @@ public class ClientSocket_Util extends Thread
 
             writer.println(id);
             int numOfMessagesUnread = Integer.parseInt(reader.readLine());
+            System.out.println("私聊未读消息数：" + numOfMessagesUnread);
 
             for (int i = 0; i < numOfMessagesUnread; i++)
             {
-                if (reader.readLine().equals("a"))
-                {
-                    result.add(new Text(reader.readLine()));
-                }else{
-                    result.add(new Photo(reader.readLine()));
-                }
-
+                Message message = new Message();
+                message.setPhoto(reader.readLine().charAt(0) == '1');
+                message.setContent(reader.readLine());
+                message.setTime(new Timestamp(Long.parseLong(reader.readLine())));
+                result.add(message);
             }
         } catch (IOException e)
         {
@@ -490,9 +469,9 @@ public class ClientSocket_Util extends Thread
      * @date: 2019/5/3
      * @time: 16:37
      */
-    public Map openChattingWindow()
+    public ArrayList<Message> openChattingWindow()
     {
-        Map<Long, String> result = new HashMap<>();
+        ArrayList<Message> result = new ArrayList<>();
         try
         {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -500,14 +479,15 @@ public class ClientSocket_Util extends Thread
             writer.println("a");
 
             int numOfMessagesUnread = Integer.parseInt(reader.readLine());
-            long id;
-            String text;
-
+            System.out.println("大群未读消息数：" + numOfMessagesUnread);
             for (int i = 0; i < numOfMessagesUnread; i++)
             {
-                id = Long.parseLong(reader.readLine());
-                text = reader.readLine();
-                result.put(id, text);
+                Message message = new Message();
+                message.setPhoto(reader.readLine().charAt(0) == '1');
+                message.setSender(Long.parseLong(reader.readLine()));
+                message.setContent(reader.readLine());
+                message.setTime(new Timestamp(Long.parseLong(reader.readLine())));
+                result.add(message);
             }
         } catch (IOException e)
         {
@@ -557,45 +537,6 @@ public class ClientSocket_Util extends Thread
         }
     }
 
-    /**
-     * @Description: 14. 给某人发图片
-     * @Parameters: [id]
-     * @return: void
-     * @date: 2019/5/3
-     * @time: 17:38
-     */
-    public void sendPhoto(long id)
-    {
-        try
-        {
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-            writer.println("d");
-
-            writer.println(id);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * @Description: 15. 给大群发图片
-     * @Parameters: []
-     * @return: void
-     * @date: 2019/5/3
-     * @time: 21:34
-     */
-    public void sendPhoto()
-    {
-        try
-        {
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-            writer.println("e");
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * @Description: 16. 给某人发私聊消息
@@ -604,13 +545,14 @@ public class ClientSocket_Util extends Thread
      * @date: 2019/5/3
      * @time: 21:38
      */
-    public void sendText(long id, String text)
+    public void sendText(long id, String text, boolean isPhoto)
     {
         try
         {
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             writer.println("f");
 
+            writer.println(isPhoto ? "photo" : "not-photo");
             writer.println(id);
             writer.println(text);
         } catch (IOException e)
@@ -626,14 +568,14 @@ public class ClientSocket_Util extends Thread
      * @date: 2019/5/3
      * @time: 21:38
      */
-    public void sendText(String text)
+    public void sendText(String text, boolean isPhoto)
     {
-
         try
         {
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             writer.println("g");
 
+            writer.println(isPhoto ? "photo" : "not-photo");
             writer.println(text);
         } catch (IOException e)
         {
@@ -641,112 +583,6 @@ public class ClientSocket_Util extends Thread
         }
     }
 
-    /**
-     * @Description: 18. 查询与某人的聊天记录
-     * @Parameters: [id]
-     * @return: java.util.Map  Key:1~12位为发送者的Id，13~24位为接收者的Id，剩下的为Timestamp  Value:内容
-     * @date: 2019/5/4
-     * @time: 10:10
-     */
-    public Map selectMessages(long id)
-    {
-        Map<String, String> map = new HashMap<>();
-
-        try
-        {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-            writer.println("h");
-
-
-            writer.println(id);
-            int numOfMessages = Integer.parseInt(reader.readLine());
-            StringBuilder builder = new StringBuilder();
-            String text = null;
-            for (int i = 0; i < numOfMessages; i++)
-            {
-                builder.append(reader.readLine());
-                builder.append(reader.readLine());
-                builder.append(reader.readLine());
-                text = reader.readLine();
-                map.put(builder.toString(), text);
-            }
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return map;
-    }
-
-    /**
-     * @Description: 19. 查询大群的聊天记录
-     * @Parameters: []
-     * @return: java.util.Map  同上(Key:1~12位为发送者的Id，13~24位为接收者的Id，剩下的为Timestamp  Value:内容)
-     * @date: 2019/5/4
-     * @time: 10:11
-     */
-    public Map selectMessages()
-    {
-        Map<String, String> map = new HashMap<>();
-
-        try
-        {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-            writer.println("i");
-
-            int numOfMessages = Integer.parseInt(reader.readLine());
-            StringBuilder builder = new StringBuilder();
-            String text = null;
-            for (int i = 0; i < numOfMessages; i++)
-            {
-                builder.append(reader.readLine());
-                builder.append(reader.readLine());
-                builder.append(reader.readLine());
-                text = reader.readLine();
-                map.put(builder.toString(), text);
-            }
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return map;
-    }
-
-    /**
-     //     * @Description: 20. 查询某用户的详细信息(废弃)
-     //     * @Parameters: [id]
-     //     * @return: Entity.Student
-     //     * @date: 2019/5/4
-     //     * @time: 10:12
-     //     */
-//    public Student selectStudet(long id)
-//    {
-//
-//        Student student = null;
-//
-//        try
-//        {
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-//            writer.println("j");
-//
-//            writer.println(id);
-//
-//            String name = reader.readLine();
-//            String nickname = reader.readLine();
-//            String sex = reader.readLine();
-//            boolean isAdministrator = reader.readLine().equals("1");
-//            student = new Student(id, name, nickname, sex, isAdministrator ? 1 : 0);
-//
-//        } catch (IOException e)
-//        {
-//            e.printStackTrace();
-//        }
-//        return student;
-//    }
 
     /**
      * @Description: 21. 查询管理员的操作日志
@@ -854,30 +690,25 @@ public class ClientSocket_Util extends Thread
                 {
                     case '0'://上线提示
                     {
-                        long id = Long.parseLong(reader.readLine());
-                        String name = reader.readLine();
-                        String nickname = reader.readLine();
+
                         Student student = new Student();
-                        student.setId(id);
-                        student.setName(name);
-                        student.setNickname(nickname);
-                        System.out.println("有人上线了:" + name);
-                        System.out.println(student);
-//                        mainFrame.OnlineStudentsUpdate(student);
+                        student.setId(Long.parseLong(reader.readLine()));
+                        student.setName(reader.readLine());
+                        student.setNickname(reader.readLine());
+                        student.setSex(reader.readLine());
+                        System.out.println("有人上线了:" + student.getName());
+                        //                        mainFrame.OnlineStudentsUpdate(student);
                     }
                     break;
                     case '1'://下线
                     {
-                        long id = Long.parseLong(reader.readLine());
-                        String name = reader.readLine();
-                        String nickname = reader.readLine();
                         Student student = new Student();
-                        student.setId(id);
-                        student.setName(name);
-                        student.setNickname(nickname);
-                        System.out.println("有人下线了:" + name);
-                        System.out.println(student);
-//                        mainFrame.OffOnlineStudentUpdate(student);
+                        student.setId(Long.parseLong(reader.readLine()));
+                        student.setName(reader.readLine());
+                        student.setNickname(reader.readLine());
+                        student.setSex(reader.readLine());
+                        System.out.println("有人下线了:" + student.getName());
+                        //                        mainFrame.OffOnlineStudentUpdate(student);
                     }
                     break;
                     case '2'://弹出公告
@@ -974,22 +805,19 @@ public class ClientSocket_Util extends Thread
 //                        int no = Integer.parseInt(reader.readLine());
 //                    }
 //                    break;
-//                    case '5'://有人给你发消息
-//                    {
-//                        long sender = Long.parseLong(reader.readLine());
-//                        String text = reader.readLine();
-//
-//                        //group:是否为群发消息
-//                        boolean group = reader.readLine().equals("true");
-//                        if (//和sender的聊天面板开着)
-//                        {
-//                            //如果是私聊消息就调用
-//                            read(sender);
-//                            //如果是群发消息
-//                            read();
-//                        }
-//                    }
-//                    break;
+                    case '7'://有人给你发消息
+                    {
+                        Message message = new Message();
+                        message.setPhoto(reader.readLine().equals("1"));//是否为图片
+                        message.setSender(Long.parseLong(reader.readLine()));//发送人
+                        message.setContent(reader.readLine());//内容
+                        message.setMyGroup(reader.readLine().equals("1"));//是否为群聊
+                        message.setTime(new Timestamp(Long.parseLong(reader.readLine())));
+                        //这里更新
+                        System.out.println(message);
+                        //这里更新
+                    }
+                    break;
 //                    case '6'://有人给你发图片
 //                    {
 //                        long sender = Long.parseLong(reader.readLine());

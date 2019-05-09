@@ -1,17 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/Database/JDBC_Photos.java" line="206" />
     <bookmark url="file://$PROJECT_DIR$/src/Database/JDBC_Announcement.java" line="58" />
-    <bookmark url="file://$PROJECT_DIR$/src/Socket/Socket_Util.java" line="681" />
+    <bookmark url="file://$PROJECT_DIR$/src/Socket/Socket_Util.java" line="631" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b1a50d6-4077-403e-8c46-f2cf97dcf20e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/ClientSocket/ClientSocket_File.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/ClientSocket/ClientSocket_File.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/ClientSocket/ClientSocket_Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/ClientSocket/ClientSocket_Util.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/ClientSocket/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/ClientSocket/Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Database/Database_Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Database/Database_Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Documents.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Documents.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Photos.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Texts.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Database/JDBC_Texts.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Entity/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Entity/Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Entity/Photo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Entity/Text.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Listener_File.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Listener_File.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Manager_File.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Manager_File.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Manager_Online.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Manager_Online.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Socket_File.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Socket_File.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Socket_Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Socket_Util.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Socket/Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/curriculum dedign/Test/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/curriculum dedign/Test/Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClientSocket/ClientSocket_File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientSocket/ClientSocket_File.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ClientSocket/ClientSocket_Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientSocket/ClientSocket_Util.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Photo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Photo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClientSocket/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientSocket/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/Database_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/Database_Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/JDBC_Documents.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/JDBC_Documents.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/JDBC_Photos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/JDBC_Texts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/JDBC_Texts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Photo.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Text.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Text.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Socket/Manager_Announcement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Manager_Announcement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Socket/Listener_File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Listener_File.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Socket/Manager_File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Manager_File.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Socket/Manager_Online.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Manager_Online.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Socket/Socket_File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Socket_File.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Socket/Socket_Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Socket_Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Socket/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Socket/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/Test.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,6 +69,28 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/src/Socket/Test.java">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="504">
+                    <caret line="56" column="17" lean-forward="true" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="17" />
+                    <folding>
+                      <element signature="imports" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="ExecutionTargetDialog">
     <checked>
       <node key="7ebf4dac-8dfb-4dec-826b-10959964e422" />
@@ -51,24 +102,16 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Socket/Manager_Voting.java">
+        <entry file="file://$PROJECT_DIR$/src/Socket/Socket_Util.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="110" column="25" lean-forward="true" selection-start-line="110" selection-start-column="25" selection-end-line="110" selection-end-column="25" />
+            <state relative-caret-position="1963">
+              <caret line="835" column="41" lean-forward="true" selection-start-line="835" selection-start-column="41" selection-end-line="835" selection-end-column="41" />
               <folding>
-                <element signature="e#803#804#0" expanded="true" />
-                <element signature="e#847#848#0" expanded="true" />
-                <element signature="e#2265#2271#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#7207#7223#0" />
+                <element signature="e#28566#28618#0" />
+                <element signature="e#29747#29799#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Socket/Manager_Announcement.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="133" column="34" lean-forward="true" selection-start-line="133" selection-start-column="34" selection-end-line="133" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -76,67 +119,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ClientSocket/ClientSocket_Util.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-357">
-              <caret line="345" column="18" selection-start-line="345" selection-start-column="18" selection-end-line="345" selection-end-column="18" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#512#513#0" expanded="true" />
-                <element signature="e#548#549#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Socket/Socket_Util.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="596" column="119" selection-start-line="596" selection-start-column="119" selection-end-line="596" selection-end-column="119" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#939#940#0" expanded="true" />
-                <element signature="e#968#969#0" expanded="true" />
-                <element signature="e#1005#1006#0" expanded="true" />
-                <element signature="e#1036#1037#0" expanded="true" />
-                <element signature="e#1075#1076#0" expanded="true" />
-                <element signature="e#1106#1107#0" expanded="true" />
-                <element signature="e#1145#1146#0" expanded="true" />
-                <element signature="e#1176#1177#0" expanded="true" />
-                <element signature="e#1213#1214#0" expanded="true" />
-                <element signature="e#1242#1243#0" expanded="true" />
-                <element signature="e#1273#1274#0" expanded="true" />
-                <element signature="e#1298#1299#0" expanded="true" />
-                <element signature="e#1334#1335#0" expanded="true" />
-                <element signature="e#1361#1362#0" expanded="true" />
-                <element signature="e#1397#1398#0" expanded="true" />
-                <element signature="e#1425#1426#0" expanded="true" />
-                <element signature="e#1460#1461#0" expanded="true" />
-                <element signature="e#1487#1488#0" expanded="true" />
-                <element signature="e#1525#1526#0" expanded="true" />
-                <element signature="e#1552#1553#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/Photo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
-              <folding>
-                <element signature="e#151#152#0" expanded="true" />
-                <element signature="e#174#175#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Socket/MyTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="16" />
+            <state relative-caret-position="88">
+              <caret line="131" column="31" selection-start-line="131" selection-start-column="31" selection-end-line="131" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -147,41 +131,36 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Texts.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="13" column="40" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/Message.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="31" column="7" lean-forward="true" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/Text.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+            <state relative-caret-position="160">
+              <caret line="163" column="55" lean-forward="true" selection-start-line="163" selection-start-column="55" selection-end-line="163" selection-end-column="55" />
               <folding>
-                <element signature="e#145#146#0" expanded="true" />
-                <element signature="e#181#182#0" expanded="true" />
-                <element signature="e#212#213#0" expanded="true" />
-                <element signature="e#239#240#0" expanded="true" />
+                <element signature="method#getConn#0;class#JDBC_Texts#0" />
+                <element signature="e#572#687#0" />
+                <element signature="e#744#788#0" />
+                <element signature="method#insert#0;class#JDBC_Texts#0" />
+                <element signature="method#update#0;class#JDBC_Texts#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Photos.java">
+        <entry file="file://$PROJECT_DIR$/src/Socket/MyTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+            <state relative-caret-position="180">
+              <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Database/Test.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -197,12 +176,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>课设专用</find>
-      <find>messages</find>
-      <find>texts</find>
-      <find>text</find>
-      <find>get</find>
-      <find>ResultSet</find>
       <find>Iterator</find>
       <find>count</find>
       <find>f</find>
@@ -224,9 +197,15 @@
       <find>calculate</find>
       <find>fileSize</find>
       <find>Manager_Voting</find>
+      <find>`</find>
+      <find>extension</find>
+      <find>getInputStream</find>
+      <find>case</find>
+      <find>text.setPhoto(rs.getInt(8) == 1);</find>
       <find>writer</find>
       <find>reader</find>
-      <find>`</find>
+      <find>100000000000</find>
+      <find>10</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -239,10 +218,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Database/JDBC_Messages.java" />
-        <option value="$PROJECT_DIR$/src/Entity/Message.java" />
-        <option value="$PROJECT_DIR$/src/Database/Aha.java" />
-        <option value="$PROJECT_DIR$/src/Database/Test.java" />
         <option value="$PROJECT_DIR$/src/Test/EchoThread.java" />
         <option value="$PROJECT_DIR$/src/Socket/Manager.java" />
         <option value="$PROJECT_DIR$/src/Socket/Main.java" />
@@ -256,7 +231,6 @@
         <option value="$PROJECT_DIR$/src/ClientSocket/Test/SignIn.java" />
         <option value="$PROJECT_DIR$/src/ClientSocket/Test/ClientSocket_Util.java" />
         <option value="$PROJECT_DIR$/src/Socket/Manager_Id.java" />
-        <option value="$PROJECT_DIR$/src/Test/Test.java" />
         <option value="$PROJECT_DIR$/src/Test/Client.java" />
         <option value="$PROJECT_DIR$/src/Test/Listener.java" />
         <option value="$PROJECT_DIR$/src/Test/Manager.java" />
@@ -264,32 +238,37 @@
         <option value="$PROJECT_DIR$/src/Test/Client1.java" />
         <option value="$PROJECT_DIR$/src/Entity/Document.java" />
         <option value="$PROJECT_DIR$/src/Test/Main.java" />
-        <option value="$PROJECT_DIR$/src/Socket/Manager_File.java" />
-        <option value="$PROJECT_DIR$/src/Socket/Manager_Online.java" />
         <option value="$PROJECT_DIR$/src/Database/JDBC_Students.java" />
-        <option value="$PROJECT_DIR$/src/ClientSocket/ClientSocket_File.java" />
         <option value="$PROJECT_DIR$/src/ClientSocket/SignIn.java" />
         <option value="$PROJECT_DIR$/src/Database/JDBC_Log.java" />
         <option value="$PROJECT_DIR$/src/Entity/Student.java" />
-        <option value="$PROJECT_DIR$/src/Database/JDBC_Texts.java" />
-        <option value="$PROJECT_DIR$/src/Database/JDBC_Photos.java" />
-        <option value="$PROJECT_DIR$/src/Socket/Listener_File.java" />
         <option value="$PROJECT_DIR$/src/Socket/Listener_Server.java" />
-        <option value="$PROJECT_DIR$/src/Database/JDBC_Documents.java" />
-        <option value="$PROJECT_DIR$/src/Socket/Socket_File.java" />
         <option value="$PROJECT_DIR$/src/Database/JDBC_Vote.java" />
-        <option value="$PROJECT_DIR$/src/Database/Database_Test.java" />
         <option value="$PROJECT_DIR$/src/Entity/Voting.java" />
         <option value="$PROJECT_DIR$/src/Database/JDBC_Announcement.java" />
         <option value="$PROJECT_DIR$/src/UI/ChatFrame.java" />
         <option value="$PROJECT_DIR$/src/Socket/Manager_Voting.java" />
         <option value="$PROJECT_DIR$/src/Socket/Manager_Announcement.java" />
         <option value="$PROJECT_DIR$/src/Socket/MyTest.java" />
-        <option value="$PROJECT_DIR$/src/Socket/Test.java" />
-        <option value="$PROJECT_DIR$/src/Entity/Text.java" />
+        <option value="$PROJECT_DIR$/src/Test/Test.java" />
+        <option value="$PROJECT_DIR$/src/Socket/Manager_Online.java" />
+        <option value="$PROJECT_DIR$/src/Database/JDBC_Photos.java" />
+        <option value="$PROJECT_DIR$/src/ClientSocket/Test.java" />
+        <option value="$PROJECT_DIR$/src/Socket/Listener_File.java" />
         <option value="$PROJECT_DIR$/src/Entity/Photo.java" />
-        <option value="$PROJECT_DIR$/src/ClientSocket/ClientSocket_Util.java" />
+        <option value="$PROJECT_DIR$/src/Socket/Manager_File.java" />
+        <option value="$PROJECT_DIR$/src/Test/FileUp.java" />
+        <option value="$PROJECT_DIR$/src/Test/FileDown.java" />
+        <option value="$PROJECT_DIR$/src/Socket/Socket_File.java" />
+        <option value="$PROJECT_DIR$/src/ClientSocket/ClientSocket_File.java" />
+        <option value="$PROJECT_DIR$/src/Entity/Message.java" />
+        <option value="$PROJECT_DIR$/src/Database/JDBC_Documents.java" />
+        <option value="$PROJECT_DIR$/src/Database/Database_Test.java" />
+        <option value="$PROJECT_DIR$/src/Entity/Text.java" />
+        <option value="$PROJECT_DIR$/src/Socket/Test.java" />
+        <option value="$PROJECT_DIR$/src/Database/JDBC_Texts.java" />
         <option value="$PROJECT_DIR$/src/Socket/Socket_Util.java" />
+        <option value="$PROJECT_DIR$/src/ClientSocket/ClientSocket_Util.java" />
       </list>
     </option>
   </component>
@@ -300,9 +279,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-8" />
-    <option name="width" value="977" />
-    <option name="height" value="1088" />
+    <option name="x" value="731" />
+    <option name="y" value="17" />
+    <option name="width" value="980" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -313,6 +293,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -335,6 +316,12 @@
               <item name="curriculum dedign" type="b2602c69:ProjectViewProjectNode" />
               <item name="curriculum dedign" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="curriculum dedign" type="b2602c69:ProjectViewProjectNode" />
+              <item name="curriculum dedign" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Entity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -347,7 +334,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -357,7 +343,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554301598315" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JQL" />
-    <property name="last_opened_file_path" value="D:/我的/下载/Firefox/SocketTest-master" />
+    <property name="last_opened_file_path" value="D:/临时/Client" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -366,7 +352,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.uml" />
   </component>
   <component name="RecentsManager">
     <key name="OPEN_URL_DIALOG">
@@ -392,13 +378,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Database_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Database.Database_Test" />
+  <component name="RunManager" selected="Application.客户端Socket3">
+    <configuration name="测试客户端1" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Socket.Test" />
       <module name="curriculum dedign" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Database.*" />
+          <option name="PATTERN" value="Socket.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -406,12 +392,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="UI.Login" />
+    <configuration name="测试客户端2" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Socket.Test" />
       <module name="curriculum dedign" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="UI.*" />
+          <option name="PATTERN" value="Socket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="测试客户端3" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Socket.Test" />
+      <module name="curriculum dedign" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Socket.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -432,7 +431,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MyTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="客户端Socket1" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="Socket.MyTest" />
       <module name="curriculum dedign" />
       <extension name="coverage">
@@ -445,8 +444,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Socket.Test" />
+    <configuration name="客户端Socket2" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Socket.MyTest" />
       <module name="curriculum dedign" />
       <extension name="coverage">
         <pattern>
@@ -458,12 +457,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="Socket.Main" />
+    <configuration name="客户端Socket3" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Socket.MyTest" />
       <module name="curriculum dedign" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Test.*" />
+          <option name="PATTERN" value="Socket.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -471,13 +470,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.测试客户端1" />
+      <item itemvalue="Application.测试客户端2" />
+      <item itemvalue="Application.测试客户端3" />
+      <item itemvalue="Application.客户端Socket2" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.客户端Socket1" />
+      <item itemvalue="Application.客户端Socket3" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.客户端Socket1" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Login" />
-        <item itemvalue="Application.Database_Test" />
-        <item itemvalue="Application.Test" />
-        <item itemvalue="Application.MyTest" />
       </list>
     </recent_temporary>
   </component>
@@ -536,7 +541,8 @@
       <workItem from="1557012798322" duration="57066000" />
       <workItem from="1557142441936" duration="20570000" />
       <workItem from="1557193173642" duration="11886000" />
-      <workItem from="1557228788718" duration="19891000" />
+      <workItem from="1557228788718" duration="51615000" />
+      <workItem from="1557362261164" duration="8406000" />
     </task>
     <task id="LOCAL-00001" summary="java课设">
       <created>1552651621872</created>
@@ -731,7 +737,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="317888000" />
+    <option name="totallyTimeSpent" value="358018000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -743,9 +749,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="878" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49360147" visible="true" weight="0.17560321" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49360147" visible="true" weight="0.17761394" />
       <window_info id="Structure" order="1" sideWeight="0.50402147" side_tool="true" weight="0.18766756" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -755,7 +761,7 @@
       <window_info id="Favorites" order="7" sideWeight="0.50639856" weight="0.16957104" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32841823" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49731904" visible="true" weight="0.2600536" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49731904" visible="true" weight="0.28686327" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3994638" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -834,12 +840,6 @@
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Database/JDBC_Texts.java</url>
-          <line>66</line>
-          <properties />
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -857,58 +857,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Entity/MyGroup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Groups.java" />
-    <entry file="file://$PROJECT_DIR$/src/Database/Dalao_De_Daima.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="33" column="34" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Test/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Test/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Test/Manager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-96">
-          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
-          <folding>
-            <element signature="e#277#278#0" expanded="true" />
-            <element signature="e#310#311#0" expanded="true" />
-            <element signature="e#405#406#0" expanded="true" />
-            <element signature="e#434#435#0" expanded="true" />
-            <element signature="e#492#493#0" expanded="true" />
-            <element signature="e#525#526#0" expanded="true" />
-            <element signature="e#586#587#0" expanded="true" />
-            <element signature="e#609#610#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Test/MySocket.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="354">
@@ -1003,24 +951,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Socket/Manager_Id.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
-          <folding>
-            <element signature="e#433#434#0" expanded="true" />
-            <element signature="e#462#463#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientSocket/ClientSocket_File.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientSocket/SignIn.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="321">
@@ -1058,68 +988,10 @@
     <entry file="https://github.com/akshath/SocketTest.git">
       <provider selected="true" editor-type-id="httpFileEditor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Socket/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Socket/Listener_File.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="16" column="72" selection-start-line="16" selection-start-column="72" selection-end-line="16" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Socket/Listener_Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-          <folding>
-            <element signature="e#509#569#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/lang/Thread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="123">
           <caret line="142" column="6" selection-start-line="142" selection-start-column="6" selection-end-line="142" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Students.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="70" selection-start-line="70" selection-end-line="70" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Socket/Manager_File.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="70" column="57" lean-forward="true" selection-start-line="70" selection-start-column="57" selection-end-line="70" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Socket/Socket_File.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="248" column="63" selection-start-line="248" selection-start-column="63" selection-end-line="248" selection-end-column="63" />
-          <folding>
-            <element signature="e#6274#6303#0" />
-            <element signature="e#6546#6609#0" />
-            <element signature="e#7189#7228#0" />
-            <element signature="e#8189#8218#0" />
-            <element signature="e#9301#9340#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1135,72 +1007,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Database/Database_Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Documents.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="28" column="24" lean-forward="true" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UI/MainFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="10" lean-forward="true" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UI/ChatFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="61" column="37" lean-forward="true" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Socket/Manager_Online.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="23" column="27" lean-forward="true" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#650#651#0" expanded="true" />
-            <element signature="e#696#697#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Announcement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Vote.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="77" column="32" selection-start-line="77" selection-start-column="32" selection-end-line="77" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UI/MainFrame.java" />
+    <entry file="file://$PROJECT_DIR$/src/UI/ChatFrame.java" />
     <entry file="file://$PROJECT_DIR$/src/Entity/Voting.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
@@ -1212,128 +1020,303 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/Message.java">
+    <entry file="file://$PROJECT_DIR$/src/Test/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="31" column="7" lean-forward="true" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
+        <state relative-caret-position="281">
+          <caret line="17" column="23" lean-forward="true" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Socket/MyTest.java">
+    <entry file="file://$PROJECT_DIR$/src/Socket/Manager_Voting.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="16" />
+        <state relative-caret-position="105">
+          <caret line="112" column="50" selection-start-line="112" selection-start-column="50" selection-end-line="112" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Photos.java" />
+    <entry file="file://$PROJECT_DIR$/src/Socket/Manager_Announcement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1854">
+          <caret line="120" column="50" selection-start-line="120" selection-start-column="50" selection-end-line="120" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Photo.java" />
+    <entry file="file://$PROJECT_DIR$/src/ClientSocket/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/net/Socket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="902" column="23" selection-start-line="902" selection-start-column="23" selection-end-line="902" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Socket/Manager_File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="70" column="36" lean-forward="true" selection-start-line="70" selection-start-column="36" selection-end-line="70" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#704#705#0" expanded="true" />
+            <element signature="e#761#762#0" expanded="true" />
+            <element signature="e#976#977#0" expanded="true" />
+            <element signature="e#1004#1005#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Socket/Listener_Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-145">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding>
+            <element signature="e#509#569#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Socket/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="20" lean-forward="true" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Test/FileDown.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="92" column="39" selection-start-line="92" selection-start-column="39" selection-end-line="92" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#422#423#0" expanded="true" />
+            <element signature="e#452#453#0" expanded="true" />
+            <element signature="e#498#499#0" expanded="true" />
+            <element signature="e#536#537#0" expanded="true" />
+            <element signature="e#564#565#0" expanded="true" />
+            <element signature="e#591#592#0" expanded="true" />
+            <element signature="e#628#629#0" expanded="true" />
+            <element signature="e#660#661#0" expanded="true" />
+            <element signature="e#691#692#0" expanded="true" />
+            <element signature="e#718#719#0" expanded="true" />
+            <element signature="e#759#760#0" expanded="true" />
+            <element signature="e#791#792#0" expanded="true" />
+            <element signature="e#1197#1229#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Socket/Listener_File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="17" column="27" lean-forward="true" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Test/FileUp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="80" column="14" selection-start-line="80" selection-start-column="14" selection-end-line="80" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#447#448#0" expanded="true" />
+            <element signature="e#478#479#0" expanded="true" />
+            <element signature="e#530#531#0" expanded="true" />
+            <element signature="e#570#571#0" expanded="true" />
+            <element signature="e#602#603#0" expanded="true" />
+            <element signature="e#629#630#0" expanded="true" />
+            <element signature="e#670#671#0" expanded="true" />
+            <element signature="e#702#703#0" expanded="true" />
+            <element signature="e#737#738#0" expanded="true" />
+            <element signature="e#764#765#0" expanded="true" />
+            <element signature="e#808#809#0" expanded="true" />
+            <element signature="e#840#841#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Socket/Manager_Online.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="25" column="18" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#536#537#0" expanded="true" />
+            <element signature="e#593#594#0" expanded="true" />
+            <element signature="e#650#651#0" expanded="true" />
+            <element signature="e#696#697#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientSocket/ClientSocket_File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="179" column="17" lean-forward="true" selection-start-line="179" selection-start-column="17" selection-end-line="179" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Documents.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="126" column="5" selection-start-line="126" selection-start-column="5" selection-end-line="126" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Socket/Test.java">
+    <entry file="file://$PROJECT_DIR$/src/Socket/Socket_File.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="23" />
+        <state relative-caret-position="3150">
+          <caret line="181" column="25" selection-start-line="181" selection-start-column="25" selection-end-line="181" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/Database_Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="15" column="47" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-36">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding>
+            <element signature="e#308#309#0" expanded="true" />
+            <element signature="e#338#339#0" expanded="true" />
+            <element signature="e#1627#1628#0" expanded="true" />
+            <element signature="e#1654#1655#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Socket/Manager_Id.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="23" column="20" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
+          <folding>
+            <element signature="e#433#434#0" expanded="true" />
+            <element signature="e#462#463#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Announcement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1729">
+          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Students.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2970">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Vote.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="130" column="18" selection-start-line="130" selection-start-column="18" selection-end-line="130" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Text.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+          <folding>
+            <element signature="e#145#146#0" expanded="true" />
+            <element signature="e#181#182#0" expanded="true" />
+            <element signature="e#319#320#0" expanded="true" />
+            <element signature="e#346#347#0" expanded="true" />
+            <element signature="e#393#394#0" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Texts.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="13" column="40" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/Text.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        <state relative-caret-position="160">
+          <caret line="163" column="55" lean-forward="true" selection-start-line="163" selection-start-column="55" selection-end-line="163" selection-end-column="55" />
           <folding>
-            <element signature="e#145#146#0" expanded="true" />
-            <element signature="e#181#182#0" expanded="true" />
-            <element signature="e#212#213#0" expanded="true" />
-            <element signature="e#239#240#0" expanded="true" />
+            <element signature="method#getConn#0;class#JDBC_Texts#0" />
+            <element signature="e#572#687#0" />
+            <element signature="e#744#788#0" />
+            <element signature="method#insert#0;class#JDBC_Texts#0" />
+            <element signature="method#update#0;class#JDBC_Texts#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Database/JDBC_Photos.java">
+    <entry file="file://$PROJECT_DIR$/src/Socket/MyTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+        <state relative-caret-position="180">
+          <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/Photo.java">
+    <entry file="file://$PROJECT_DIR$/src/Database/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="72">
+          <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Socket/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="56" column="17" lean-forward="true" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="17" />
           <folding>
-            <element signature="e#151#152#0" expanded="true" />
-            <element signature="e#174#175#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientSocket/ClientSocket_Util.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-357">
-          <caret line="345" column="18" selection-start-line="345" selection-start-column="18" selection-end-line="345" selection-end-column="18" />
+        <state relative-caret-position="88">
+          <caret line="131" column="31" selection-start-line="131" selection-start-column="31" selection-end-line="131" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#512#513#0" expanded="true" />
-            <element signature="e#548#549#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Socket/Manager_Announcement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="133" column="34" lean-forward="true" selection-start-line="133" selection-start-column="34" selection-end-line="133" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Socket/Socket_Util.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="596" column="119" selection-start-line="596" selection-start-column="119" selection-end-line="596" selection-end-column="119" />
+        <state relative-caret-position="1963">
+          <caret line="835" column="41" lean-forward="true" selection-start-line="835" selection-start-column="41" selection-end-line="835" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#939#940#0" expanded="true" />
-            <element signature="e#968#969#0" expanded="true" />
-            <element signature="e#1005#1006#0" expanded="true" />
-            <element signature="e#1036#1037#0" expanded="true" />
-            <element signature="e#1075#1076#0" expanded="true" />
-            <element signature="e#1106#1107#0" expanded="true" />
-            <element signature="e#1145#1146#0" expanded="true" />
-            <element signature="e#1176#1177#0" expanded="true" />
-            <element signature="e#1213#1214#0" expanded="true" />
-            <element signature="e#1242#1243#0" expanded="true" />
-            <element signature="e#1273#1274#0" expanded="true" />
-            <element signature="e#1298#1299#0" expanded="true" />
-            <element signature="e#1334#1335#0" expanded="true" />
-            <element signature="e#1361#1362#0" expanded="true" />
-            <element signature="e#1397#1398#0" expanded="true" />
-            <element signature="e#1425#1426#0" expanded="true" />
-            <element signature="e#1460#1461#0" expanded="true" />
-            <element signature="e#1487#1488#0" expanded="true" />
-            <element signature="e#1525#1526#0" expanded="true" />
-            <element signature="e#1552#1553#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Socket/Manager_Voting.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="110" column="25" lean-forward="true" selection-start-line="110" selection-start-column="25" selection-end-line="110" selection-end-column="25" />
-          <folding>
-            <element signature="e#803#804#0" expanded="true" />
-            <element signature="e#847#848#0" expanded="true" />
-            <element signature="e#2265#2271#0" expanded="true" />
+            <element signature="e#7207#7223#0" />
+            <element signature="e#28566#28618#0" />
+            <element signature="e#29747#29799#0" />
           </folding>
         </state>
       </provider>

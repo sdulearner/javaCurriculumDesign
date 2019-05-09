@@ -30,7 +30,6 @@ public class Text extends Message
     public void setTime(Timestamp time)
     {
         Time = time;
-        super.time = time.getTime();
     }
 
 

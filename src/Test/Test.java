@@ -1,6 +1,6 @@
 package Test;
 
-import java.util.Scanner;
+import java.text.DecimalFormat;
 
 /**
  * @description:
@@ -13,17 +13,10 @@ public class Test
 
     public static void main(String[] args)
     {
-        Scanner scanner = new Scanner(System.in);
-        String line = null;
-        while (scanner.hasNext())
-        {
-            line=scanner.nextLine();
-
-            if (line.equals("start")){
-
-            }
-        }
-
-
+        DecimalFormat fmt=new DecimalFormat("#.##");
+        double a=10000;
+        double b=34238;
+        double c=b/a;
+        System.out.println(fmt.format(a/b));
     }
 }

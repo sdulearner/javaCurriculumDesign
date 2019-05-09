@@ -16,7 +16,6 @@ public class Listener_File extends Thread
                 Socket socket = serverSocket.accept();
                 System.out.println("succeed!" + socket.getPort()+":"+"File");
                 new Socket_File(socket).start();
-
             }
         } catch (IOException e)
         {
