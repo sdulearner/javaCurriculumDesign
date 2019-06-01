@@ -821,7 +821,7 @@ public class Socket_Util extends Thread
                         System.out.println("已发送");
                     }
                     break;
-                    case 'g'://向大群发送消息
+                    case 'g'://向大群发送消息 
                     {
                         jdbc_texts = new JDBC_Texts();
                         jdbc_students = new JDBC_Students();
